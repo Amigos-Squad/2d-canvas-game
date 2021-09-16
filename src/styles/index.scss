@@ -1,0 +1,14 @@
+@import url(variables.scss);
+@import url(normalize.css);
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
