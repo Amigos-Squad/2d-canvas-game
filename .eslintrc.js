@@ -1,0 +1,52 @@
+module.exports = {
+  extends: ['airbnb', 'plugin:react/recommended', 'plugin:jest/recommended', 'airbnb/hooks', 'prettier'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint', 'jest'],
+  env: {
+    'jest/globals': true,
+    browser: true,
+    node: true,
+    es6: true,
+    commonjs: true,
+  },
+  rules: {
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
+    'react/jsx-one-expression-per-line': 'off',
+    'no-param-reassign': 'off',
+    'no-nested-ternary': 'off',
+    'no-shadow': 'off',
+    'no-restricted-syntax': 'off',
+    'object-curly-newline': 'off',
+    '@typescript-eslint/no-shadow': ['error'],
+    'import/prefer-default-export': 'off',
+    'no-console': ['error', { allow: ['warn', 'error'] }],
+    'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx', '.js'] }],
+    'react/jsx-wrap-multilines': 'off',
+    'react/no-unused-state': 'off',
+    'react/destructuring-assignment': 'off',
+    'react/prop-types': 'off',
+    'react/sort-comp': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'react/state-in-constructor': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'import/extensions': 'off',
+    'import/no-unresolved': 'off',
+    'react/display-name': 'off',
+  },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
+  settings: {
+    jest: {
+      version: 26,
+    },
+  },
+};

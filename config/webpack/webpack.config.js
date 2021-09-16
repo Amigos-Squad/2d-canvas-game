@@ -24,8 +24,6 @@ module.exports = () => ({
     extensions: ['.ts', '.tsx', '.js'],
     alias: {
       '@': SOURCE_DIRECTORY,
-      '@utils': `${SOURCE_DIRECTORY}/utils`,
-      '@components': `${SOURCE_DIRECTORY}/components`,
     },
   },
   module: {
