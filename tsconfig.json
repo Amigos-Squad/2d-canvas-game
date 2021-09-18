@@ -17,7 +17,8 @@
     "outDir": "./dist",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "scss/*": ["src/styles/*"]
     },
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
   },
