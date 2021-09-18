@@ -2,6 +2,7 @@ import React, { memo, ReactElement } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import loadable from '@loadable/component';
 import { ErrorBoundaryWithRouter, Loader } from '@/components';
+import { ROUTES } from '.';
 
 const Login = loadable(() => import('./Auth'), {
   resolveComponent: (components) => components.Login,
@@ -47,31 +48,31 @@ export const App = memo(
   (): ReactElement => (
     <ErrorBoundaryWithRouter>
       <Switch>
-        <Route exact path="/">
+        <Route exact path={ROUTES.HOME}>
           <Main />
         </Route>
 
-        <Route exact path="/login">
+        <Route exact path={ROUTES.LOGIN}>
           <Login />
         </Route>
 
-        <Route exact path="/registration">
+        <Route exact path={ROUTES.REGISTRATION}>
           <Registration />
         </Route>
 
-        <Route exact path="/forum">
+        <Route exact path={ROUTES.FORUM}>
           <Forum />
         </Route>
 
-        <Route exact path="/leaderboard">
+        <Route exact path={ROUTES.LEADERBOARD}>
           <Leaderboard />
         </Route>
 
-        <Route exact path="/profile">
+        <Route exact path={ROUTES.PROFILE}>
           <Profile />
         </Route>
 
-        <Route exact path="/500">
+        <Route exact path={ROUTES.SERVER_ERROR}>
           <ServerError />
         </Route>
 
