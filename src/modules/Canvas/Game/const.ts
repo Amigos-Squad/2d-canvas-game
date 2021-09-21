@@ -1,0 +1,4 @@
+export enum GAME_CONST {
+  CELL_IN_PAGE = 32,
+  START_CITIZEN_COUNT = 2,
+}

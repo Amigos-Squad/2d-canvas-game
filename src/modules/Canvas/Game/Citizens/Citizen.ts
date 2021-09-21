@@ -1,13 +1,13 @@
 export class Citizen {
-  x: number;
+  x: number = 0;
 
-  y: number;
+  y: number = 0;
 
-  width: number;
+  width: number = 0;
 
-  height: number;
+  height: number = 0;
 
-  constructor(x: number, y: number, blockSize: number) {
+  update(x: number, y: number, blockSize: number) {
     this.x = x;
     this.y = y;
     this.width = blockSize;
@@ -16,7 +16,7 @@ export class Citizen {
 
   draw(ctx: CanvasRenderingContext2D) {
     ctx.strokeStyle = 'black';
-    ctx.fillStyle = '#444';
+    ctx.fillStyle = '#c0f';
     ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 }

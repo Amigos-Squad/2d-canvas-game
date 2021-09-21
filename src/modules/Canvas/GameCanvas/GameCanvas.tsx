@@ -6,31 +6,33 @@ import React, {
   useRef,
 } from 'react';
 import { GameContext } from '../const';
-import { Game } from './Game/Game';
-import { draw } from './Game/GameLoop';
+import { draw } from '../Game';
 import './GameCanvas.scss';
 
 export const GameCanvas = React.memo((): ReactElement => {
-  const { isStarted } = useContext(GameContext);
+  const { isStarted, game } = useContext(GameContext);
   const canvasRef: MutableRefObject<null | HTMLCanvasElement> = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     let animationFrameId: number | null = null;
-
-    if (isStarted && canvas) {
+    let frame = 0;
+    game.init();
+    if (canvas) {
       const context = canvas.getContext('2d');
-      const game = new Game();
-
       if (context) {
-        const render = () => {
+        const animate = () => {
+          if (frame === 60) {
+            frame = 0;
+          } else {
+            frame += 1;
+          }
+
           draw(context, canvas, game);
-          animationFrameId = requestAnimationFrame(render);
+          animationFrameId = requestAnimationFrame(animate);
         };
-        render();
+        animate();
       }
-    } else if (!isStarted && animationFrameId) {
-      cancelAnimationFrame(animationFrameId);
     }
 
     return () => {
@@ -38,7 +40,7 @@ export const GameCanvas = React.memo((): ReactElement => {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  }, [isStarted]);
+  }, [isStarted, game]);
 
   return <canvas ref={canvasRef} className="game__canvas" />;
 });

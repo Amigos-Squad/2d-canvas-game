@@ -1,5 +1,6 @@
+import { GAME_CONST } from './const';
 import { Game } from './Game';
-import { drawMap } from './Map/Map';
+import { drawMap } from './Map';
 
 const resizeCanvasToDisplaySize = (canvas: HTMLCanvasElement) => {
   const { width, height } = canvas.getBoundingClientRect();
@@ -13,10 +14,15 @@ const resizeCanvasToDisplaySize = (canvas: HTMLCanvasElement) => {
   return false;
 };
 
-const predraw = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => {
+const predraw = (
+  ctx: CanvasRenderingContext2D,
+  canvas: HTMLCanvasElement,
+  game: Game
+) => {
   ctx.save();
   resizeCanvasToDisplaySize(canvas);
   const { width, height } = ctx.canvas;
+  game.cellSize = Math.round(width / GAME_CONST.CELL_IN_PAGE);
   ctx.clearRect(0, 0, width, height);
 };
 
@@ -29,9 +35,9 @@ export const draw = (
   canvas: HTMLCanvasElement,
   game: Game
 ) => {
-  predraw(ctx, canvas);
+  predraw(ctx, canvas, game);
 
-  drawMap(ctx, game.map);
+  drawMap(ctx, game);
 
   postdraw(ctx);
 };

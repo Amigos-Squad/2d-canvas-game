@@ -1,8 +1,4 @@
-import { CellMap, Cells } from './Map.types';
-
-export enum GAME_CONST {
-  CELL_IN_PAGE = 32,
-}
+import { CellMap, Cells } from './map.types';
 
 export const CELLS: Cells = {
   blocked: { background: '#444' },

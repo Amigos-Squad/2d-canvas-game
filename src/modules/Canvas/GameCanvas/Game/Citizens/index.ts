@@ -1,1 +1,0 @@
-export { Citizen } from './Citizen';
