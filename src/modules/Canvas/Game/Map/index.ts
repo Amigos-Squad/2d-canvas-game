@@ -1,5 +1,3 @@
-export { drawMap } from './map';
-
 export { BASE_GAME_MAP, CELLS_MAP, CELLS } from './const';
 
 export { Cell } from './Cell';

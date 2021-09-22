@@ -2,6 +2,8 @@ import { CELLS } from './const';
 import { CellType } from './map.types';
 
 export class Cell {
+  context: CanvasRenderingContext2D;
+
   private x: number = 0;
 
   private y: number = 0;
@@ -12,7 +14,11 @@ export class Cell {
 
   private block: CellType;
 
-  constructor(cellType: CellType = CELLS.blocked) {
+  constructor(
+    context: CanvasRenderingContext2D,
+    cellType: CellType = CELLS.blocked
+  ) {
+    this.context = context;
     this.block = cellType;
   }
 
@@ -23,9 +29,9 @@ export class Cell {
     this.height = cellSize;
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    ctx.strokeStyle = 'black';
-    ctx.fillStyle = this.block.background;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+  draw() {
+    this.context.strokeStyle = 'black';
+    this.context.fillStyle = this.block.background;
+    this.context.fillRect(this.x, this.y, this.width, this.height);
   }
 }

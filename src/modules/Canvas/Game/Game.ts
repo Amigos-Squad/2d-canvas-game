@@ -1,34 +1,71 @@
-import { BASE_CITIZEN, Citizen } from './Citizens';
-import { GameConfig } from './Game.types';
-import { BASE_GAME_MAP, Cell, CELLS_MAP, GameMap, RawGameMap } from './Map';
+import { GameHandler } from './Game.types';
+import { Den, Scene, Scenes } from './Scenes';
+import { Screen } from './Screen';
+import { Statuses } from './Statuses';
 
 export class Game {
-  private isItiated: boolean = false;
+  isLoaded: boolean = false;
 
-  private rawGameMap: RawGameMap = BASE_GAME_MAP;
+  screen: Screen;
 
-  cellSize: number = 0;
+  frameCount: number = 0;
 
-  gameMap: GameMap = [];
+  animationFrameId: number | null = null;
 
-  citizens: Citizen[] = BASE_CITIZEN;
+  private scenes: Scenes;
 
-  constructor(gameConfig?: GameConfig) {
-    if (gameConfig) {
-      const { gameMap, citizens } = gameConfig;
+  private currentScene: Scene;
 
-      this.rawGameMap = gameMap;
-      this.citizens = citizens;
+  statuses: Statuses;
+
+  constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
+    this.screen = new Screen(canvas, context);
+    this.statuses = new Statuses(this);
+
+    this.scenes = {
+      den: new Den(this),
+    };
+
+    this.currentScene = this.scenes.den;
+  }
+
+  load(handlers: GameHandler) {
+    this.currentScene.init();
+    this.statuses.setHandlers(handlers);
+    this.isLoaded = true;
+  }
+
+  private predraw() {
+    if (this.frameCount === 60) {
+      this.frameCount = 0;
+    } else {
+      this.frameCount += 1;
+    }
+
+    this.screen.screenSize();
+  }
+
+  private postdraw() {
+    this.screen.restore();
+  }
+
+  private animate = () => {
+    this.predraw();
+    this.statuses.update();
+    this.currentScene.render();
+    this.postdraw();
+    this.animationFrameId = requestAnimationFrame(this.animate);
+  };
+
+  run() {
+    if (!this.animationFrameId) {
+      this.animate();
     }
   }
 
-  init() {
-    if (!this.isItiated) {
-      this.gameMap = this.rawGameMap.map((y) =>
-        y.map((x) => new Cell(CELLS_MAP[x]))
-      );
-
-      this.isItiated = true;
+  cancelAnimation() {
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
     }
   }
 }

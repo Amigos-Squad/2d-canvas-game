@@ -5,3 +5,8 @@ export type GameConfig = {
   gameMap: RawGameMap;
   citizens: Citizen[];
 };
+
+export type GameHandler = {
+  setCitizens: (citizens: number) => void;
+  setCurrentDay: (day: number) => void;
+};

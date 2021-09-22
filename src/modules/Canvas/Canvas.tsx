@@ -1,29 +1,34 @@
-import React, { ReactElement, useMemo } from 'react';
-import { useBoolean } from '@/utils';
+import React, {
+  MutableRefObject,
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { GameCanvas } from './GameCanvas';
 import { GameInterface } from './GameInterface';
-import { GameContext } from './const';
-import './Canvas.scss';
 import { Game } from './Game';
-
-const game = new Game();
+import './Canvas.scss';
 
 export const Canvas = React.memo((): ReactElement => {
-  const [isStarted] = useBoolean(true);
+  const [game, setGame] = useState<Game | null>(null);
+  const canvasRef: MutableRefObject<null | HTMLCanvasElement> = useRef(null);
 
-  const usedContext = useMemo(() => {
-    const ctx = { game, isStarted };
-    return ctx;
-  }, [isStarted]);
+  useEffect(() => {
+    if (canvasRef && canvasRef.current && !game) {
+      const context = canvasRef.current.getContext('2d');
+      if (context) {
+        setGame(new Game(canvasRef.current, context));
+      }
+    }
+  }, [canvasRef, game]);
 
   return (
     <div className="canvas__container">
-      <GameContext.Provider value={usedContext}>
-        <div className="game__wrapper">
-          <GameInterface />
-          <GameCanvas />
-        </div>
-      </GameContext.Provider>
+      <div className="game__wrapper">
+        <GameInterface game={game} />
+        <GameCanvas canvasRef={canvasRef} />
+      </div>
     </div>
   );
 });
