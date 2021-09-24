@@ -1,26 +1,31 @@
-
 .topics {
   width: 97%;
   margin: 0 auto;
+
   &-header {
     height: 50px;
     display: flex;
     line-height: 50px;
+
     &__item {
       text-transform: uppercase;
       text-align: right;
     }
+
     .title {
       width: 50%;
       text-align: left;
       margin-left: 40px;
     }
+
     .posts {
       width: 10%;
     }
+
     .starter {
       width: 20%;
     }
+
     .last-message {
       width: 20%;
     }
@@ -31,20 +36,25 @@
   height: 50px;
   display: flex;
   text-align: right;
+
   &__statusIcon {
     width: 40px;
   }
+
   &__title {
     width: 50%;
     text-align: left;
     padding-left: 20px;
   }
+
   &__posts {
     width: 10%;
   }
+
   &__starter {
     width: 20%;
   }
+
   &__lastMessage {
     width: 20%;
   }

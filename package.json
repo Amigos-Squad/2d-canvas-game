@@ -4,20 +4,14 @@
   "description": "2d-canvas-game",
   "main": "./server/index.js",
   "engine": "14.17.1",
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "**/*.{ts, tsx, js}": [
-      "npm run prettier",
+    "**/*.{ts,tsx,js}": [
       "npm run lint:fix",
-      "npm run test"
+      "npm run prettier"
     ],
-    "**/*.{scss, css}": [
-      "npm run prettier",
-      "npm run stylelint:fix"
+    "**/*.{scss,css}": [
+      "npm run stylelint:fix",
+      "npm run prettier"
     ]
   },
   "scripts": {
@@ -28,9 +22,9 @@
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
     "stylelint": "stylelint \"**/*.{css,scss}\"",
     "stylelint:fix": "stylelint \"**/*.{css,scss}\" --fix",
-    "prettier": "prettier \"src/**/*.{ts, tsx, js, scss, css}\" --w",
+    "prettier": "prettier \"src/**/*.{ts,tsx,js,scss,css}\" --w",
     "test": "jest",
-    "prepare": "husky install .config/husky"
+    "prepare": "husky install config/.husky"
   },
   "repository": {
     "type": "git",
@@ -58,6 +52,9 @@
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.3.2",
     "husky": "^7.0.2",
     "jest": "^27.2.0",
