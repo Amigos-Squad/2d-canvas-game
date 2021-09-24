@@ -1,0 +1,21 @@
+@import 'scss/var';
+
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  &__label {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: $font-color;
+  }
+
+  &__field {
+    border: none;
+    outline: none;
+    color: $font-color;
+    height: 40px;
+    background-color: $bg-light-color;
+  }
+}
