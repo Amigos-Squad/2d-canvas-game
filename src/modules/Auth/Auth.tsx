@@ -24,8 +24,8 @@ export const Auth = memo(
           {/* <img className="authorization__img" src="./src/assets/temp.png"></img> */}
           <div className="authorization__form">
             <div className="authorization__tabs">
-              <div className={"authorization__tabs__tab " + (isLogin ? "authorization__tabs--active" : null)} onClick={toggleIsLogin}>Login</div>/
-              <div className={"authorization__tabs__tab " + (!isLogin ? "authorization__tabs--active" : null)} onClick={toggleIsLogin}>Registration</div>
+              <div className={`authorization__tabs__tab ${  isLogin ? "authorization__tabs--active" : null}`} onClick={toggleIsLogin}>Login</div>/
+              <div className={`authorization__tabs__tab ${  !isLogin ? "authorization__tabs--active" : null}`} onClick={toggleIsLogin}>Registration</div>
             </div>
             {children}
             {/* {form} */}

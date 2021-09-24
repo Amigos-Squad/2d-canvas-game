@@ -3,8 +3,8 @@ import { Props } from './GameInterface.types';
 import { useBoolean } from '@/utils';
 import { PauseBar } from './PauseBar';
 import { Status } from './Status';
-import './GameInterface.scss';
 import { GameOver } from './GameOver/GameOver';
+import './GameInterface.scss';
 
 export const GameInterface = React.memo(({ game }: Props): ReactElement => {
   const [isPaused, togglePause] = useBoolean(true);
@@ -32,7 +32,7 @@ export const GameInterface = React.memo(({ game }: Props): ReactElement => {
       game.cancelAnimation();
       toggleGameOver();
     }
-  }, [citizensCount, game, toggleGameOver]);
+  }, [isGameOver, citizensCount, game, toggleGameOver]);
 
   const restartHandler = () => ({});
 

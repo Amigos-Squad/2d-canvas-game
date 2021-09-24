@@ -1,7 +1,7 @@
-import { Component } from 'react';
+import { PureComponent, ErrorInfo } from 'react';
 import { Props, State } from './ErrorBoundary.types';
 
-export default class ErrorBoundary extends Component<Props, State> {
+export default class ErrorBoundary extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = { hasError: false };
@@ -11,12 +11,20 @@ export default class ErrorBoundary extends Component<Props, State> {
     return { hasError: true };
   }
 
-  componentDidCatch() {
-    const { history } = this.props;
-    history.replace('/500');
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    const { history, errorComponent, handler } = this.props;
+    if (handler) {
+      handler(error, errorInfo);
+    }
+
+    if (!errorComponent) {
+      history.replace('/500');
+    }
   }
 
   render() {
-    return this.props.children;
+    const { errorComponent, children } = this.props;
+    const { hasError } = this.state;
+    return hasError && errorComponent ? errorComponent : children;
   }
 }
