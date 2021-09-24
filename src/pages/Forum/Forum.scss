@@ -1,0 +1,10 @@
+@import 'scss/var';
+
+.forum-page {
+  width: 75%;
+  margin: 5% auto;
+  height: 75vh;
+  overflow-y: scroll;
+  background-color: $bg-dark-color;
+  color: $font-color;
+}
