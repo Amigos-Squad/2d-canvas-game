@@ -1,3 +1,19 @@
 .component__svg-icon-link {
   cursor: pointer;
 }
+
+.component__svg-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.component__svg-icon_medal-value {
+  position: absolute;
+  top: 16px;
+  font-size: 13px;
+  font-weight: 900;
+  transform: translateX(-1px);
+  color: #222;
+}
