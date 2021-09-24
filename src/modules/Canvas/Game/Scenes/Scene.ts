@@ -6,7 +6,7 @@ export abstract class Scene {
   constructor(game: Game) {
     this.game = game;
   }
-
+  /* eslint-disable */
   init() {}
 
   render() {}

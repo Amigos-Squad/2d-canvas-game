@@ -44,14 +44,9 @@ const PageNotFound = loadable(() => import('./Errors'), {
   fallback: <Loader />,
 });
 
-const errorHandler = () => {};
-
 export const App = memo(
   (): ReactElement => (
-    <ErrorBoundaryWithRouter
-      handler={errorHandler}
-      errorComponent={<div>1</div>}
-    >
+    <ErrorBoundaryWithRouter>
       <Switch>
         <Route exact path={ROUTES.HOME}>
           <Main />

@@ -1,5 +1,11 @@
 module.exports = {
-  extends: ['airbnb', 'plugin:react/recommended', 'plugin:jest/recommended', 'airbnb/hooks', 'prettier'],
+  extends: [
+    'airbnb',
+    'plugin:react/recommended',
+    'plugin:jest/recommended',
+    'airbnb/hooks',
+    'prettier',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint', 'jest'],
   env: {
@@ -23,7 +29,10 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     'import/prefer-default-export': 'off',
     'no-console': ['error', { allow: ['warn', 'error'] }],
-    'react/jsx-filename-extension': ['error', { extensions: ['.ts', '.tsx', '.js'] }],
+    'react/jsx-filename-extension': [
+      'error',
+      { extensions: ['.ts', '.tsx', '.js'] },
+    ],
     'react/jsx-wrap-multilines': 'off',
     'react/no-unused-state': 'off',
     'react/destructuring-assignment': 'off',
@@ -35,6 +44,9 @@ module.exports = {
     'import/extensions': 'off',
     'import/no-unresolved': 'off',
     'react/display-name': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/label-has-associated-control': 'warn',
   },
   overrides: [
     {
