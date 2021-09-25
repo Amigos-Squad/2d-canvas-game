@@ -1,0 +1,6 @@
+export enum STATES {
+  SEARCH = 'SEARCH',
+  MOVING = 'MOVING',
+  WAITING = 'WAITING',
+  INTERACT = 'INTERACT',
+}

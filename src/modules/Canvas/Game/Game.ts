@@ -1,3 +1,4 @@
+import { GAME_CONST } from './const';
 import { GameHandler } from './Game.types';
 import { Den, Scene, Scenes } from './Scenes';
 import { Screen } from './Screen';
@@ -8,7 +9,7 @@ export class Game {
 
   screen: Screen;
 
-  frameCount: number = 0;
+  frameCount: number = GAME_CONST.START_FRAME;
 
   animationFrameId: number | null = null;
 
@@ -36,10 +37,10 @@ export class Game {
   }
 
   private predraw() {
-    if (this.frameCount === 60) {
-      this.frameCount = 0;
+    if (this.frameCount === GAME_CONST.END_FRAME) {
+      this.frameCount = GAME_CONST.START_FRAME;
     } else {
-      this.frameCount += 1;
+      this.frameCount += GAME_CONST.FRAME_INCREASE;
     }
 
     this.screen.screenSize();
