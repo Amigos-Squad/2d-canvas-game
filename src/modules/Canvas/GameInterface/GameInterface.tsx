@@ -5,6 +5,7 @@ import { PauseBar } from './PauseBar';
 import { Status } from './Status';
 import { GameOver } from './GameOver/GameOver';
 import './GameInterface.scss';
+import { ActionsMenu } from './ActionsMenu/ActionsMenu';
 
 export const GameInterface = React.memo(({ game }: Props): ReactElement => {
   const [isPaused, togglePause] = useBoolean(false);
@@ -38,8 +39,9 @@ export const GameInterface = React.memo(({ game }: Props): ReactElement => {
 
   return (
     <>
-      {!isPaused && game && <Status citizensCount={citizensCount} day={day} />}
+      {!isPaused && <Status citizensCount={citizensCount} day={day} />}
       <PauseBar isPaused={isPaused} togglePause={togglePause} />
+      {!isPaused && game && <ActionsMenu game={game} />}
       {isGameOver && <GameOver restart={restartHandler} />}
     </>
   );
