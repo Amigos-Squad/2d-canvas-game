@@ -1,8 +1,20 @@
-.profile-page {
-  width: 90%;
-}
-
 @import 'scss/var';
+
+.profile-page {
+  width: 75%;
+  margin: 5% auto;
+  height: 75vh;
+  background-color: $bg-dark-color;
+  color: $font-color;
+  box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.25), 0px 0px 20px rgba(48, 54, 123, 0.15);
+
+  &-overview {
+    width: 96%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+  }
+}
 
 .profile-nav {
   width: 97%;
@@ -13,7 +25,7 @@
   border-bottom: 2px solid $accent-color;
 
   &-tabs {
-    width: 25%;
+    width: 46%;
     display: inherit;
     justify-content: space-around;
 
