@@ -25,8 +25,8 @@
 
 .game-interface__active-menu {
   background: $bg-color;
-  width: 50%;
-  height: 50%;
+  min-width: 30%;
+  max-width: 50%;
 }
 
 .game-interface__menu-header {

@@ -5,7 +5,7 @@
   "main": "./server/index.js",
   "engine": "14.17.1",
   "lint-staged": {
-    "**/*.{ts,tsx,js}": [
+    "**/*.{ts,tsx}": [
       "npm run lint:fix",
       "npm run prettier"
     ],

@@ -1,5 +1,7 @@
 import { Game } from '.';
+import { GAME_CONST } from './const';
 import { GameHandler } from './Game.types';
+import { Room } from './Constructing';
 
 export class Statuses {
   static CONST = {
@@ -16,6 +18,8 @@ export class Statuses {
   dayTimer: number = 0;
 
   citizens: number = 2;
+
+  building: Record<string, Room> = GAME_CONST.BASE_BUILDINGS;
 
   constructor(game: Game) {
     this.game = game;

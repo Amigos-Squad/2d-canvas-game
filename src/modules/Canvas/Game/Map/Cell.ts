@@ -1,9 +1,9 @@
+import { Game } from '..';
+import { Sprite } from '../Images/Sprite';
 import { CELLS } from './const';
 import { CellType } from './map.types';
 
 export class Cell {
-  context: CanvasRenderingContext2D;
-
   private x: number = 0;
 
   private y: number = 0;
@@ -12,14 +12,13 @@ export class Cell {
 
   private height: number = 0;
 
-  private block: CellType;
+  block: CellType;
 
-  constructor(
-    context: CanvasRenderingContext2D,
-    cellType: CellType = CELLS.blocked
-  ) {
-    this.context = context;
+  baseBlockType: CellType;
+
+  constructor(cellType: CellType = CELLS.blocked) {
     this.block = cellType;
+    this.baseBlockType = cellType;
   }
 
   update(x: number, y: number, cellSize: number) {
@@ -29,9 +28,29 @@ export class Cell {
     this.height = cellSize;
   }
 
-  draw() {
-    this.context.strokeStyle = 'black';
-    this.context.fillStyle = this.block.background;
-    this.context.fillRect(this.x, this.y, this.width, this.height);
+  updateCellType(cellType: CellType) {
+    if (cellType) {
+      this.block = cellType;
+    } else {
+      this.block = this.baseBlockType;
+    }
   }
+
+  draw = (game: Game, sprite: Sprite) => {
+    const { context, images } = game.screen;
+    context.drawImage(
+      images[sprite.imageName],
+      sprite.sourceX,
+      sprite.sourceY,
+      128,
+      128,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
+    /*   context.strokeStyle = 'black';
+    context.fillStyle = this.block.background;
+    context.fillRect(this.x, this.y, this.width, this.height); */
+  };
 }

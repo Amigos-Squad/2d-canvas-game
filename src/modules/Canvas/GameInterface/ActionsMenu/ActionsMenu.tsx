@@ -2,17 +2,19 @@ import React, { ReactElement, useMemo, useState } from 'react';
 import { MENU_OPTIONS } from './const';
 import { MenuItem } from './MenuItem';
 import { Props } from './ActionsMenu.types';
-import './ActionsMenu.scss';
 import { Building } from './Building';
 import { ActiveMenu } from './ActiveMenu';
+import './ActionsMenu.scss';
 
 export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
   const [selectedMenu, selectMenu] = useState<MENU_OPTIONS | null>(null);
 
-  const selectHandler = (event: any) => {
-    const { name } = event.target.dataset;
-    selectMenu(name);
-    console.warn(game);
+  const selectHandler = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    const target = event.target as HTMLDivElement;
+    const { name } = target.dataset;
+    selectMenu(name as MENU_OPTIONS);
   };
 
   const closeHandler = () => selectMenu(null);
@@ -20,11 +22,11 @@ export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
   const openMenu = useMemo(() => {
     switch (selectedMenu) {
       case MENU_OPTIONS.BUILDING:
-        return <Building />;
+        return <Building game={game} closeHandler={closeHandler} />;
       default:
         return null;
     }
-  }, [selectedMenu]);
+  }, [selectedMenu, game]);
 
   return (
     <>

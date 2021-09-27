@@ -1,10 +1,15 @@
 import { GAME_CONST } from './const';
 import { GameHandler } from './Game.types';
-import { Den, Scene, Scenes } from './Scenes';
+import { Den, Scenes } from './Scenes';
 import { Screen } from './Screen';
 import { Statuses } from './Statuses';
+import TILES from '@/assets/blocks.png';
 
 export class Game {
+  static IMAGES = {
+    TILES,
+  };
+
   isLoaded: boolean = false;
 
   screen: Screen;
@@ -15,7 +20,7 @@ export class Game {
 
   private scenes: Scenes;
 
-  private currentScene: Scene;
+  currentScene: Den;
 
   statuses: Statuses;
 
@@ -30,11 +35,12 @@ export class Game {
     this.currentScene = this.scenes.den;
   }
 
-  load(handlers: GameHandler) {
+  load = async (handlers: GameHandler) => {
+    await this.screen.loadImages(Game.IMAGES);
     this.currentScene.init();
     this.statuses.setHandlers(handlers);
     this.isLoaded = true;
-  }
+  };
 
   private predraw() {
     if (this.frameCount === GAME_CONST.END_FRAME) {

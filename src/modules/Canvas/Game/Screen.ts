@@ -1,7 +1,11 @@
 import { GAME_CONST } from './const';
+import { Images } from './Game.types';
+import { ImageLoader } from './Images/ImageLoader';
 
 export class Screen {
   cellSize: number = 0;
+
+  images: Record<string, HTMLImageElement> = {};
 
   private canvas: HTMLCanvasElement;
 
@@ -11,6 +15,12 @@ export class Screen {
     this.canvas = canvas;
     this.context = context;
   }
+
+  loadImages = async (images: Images) => {
+    const loader = new ImageLoader(images);
+    await loader.load();
+    this.images = Object.assign(this.images, loader.images);
+  };
 
   private resizeCanvasToDisplaySize() {
     const { width, height } = this.canvas.getBoundingClientRect();

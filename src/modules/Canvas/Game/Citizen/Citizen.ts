@@ -3,7 +3,7 @@ import { StackFSM } from '@/utils';
 export class Citizen {
   static CONST = {
     LOSE_FOOD_SPEED: 1,
-    HUNGER_DEATH_SPEED: 0.5,
+    HUNGER_DEATH_SPEED: 1,
     BASE_FOOD: 100,
     BASE_HEALTH: 100,
   };
@@ -62,7 +62,7 @@ export class Citizen {
     this.blockSize = blockSize;
     this.prevBlockSize = blockSize;
     this.width = blockSize;
-    this.height = blockSize / 2;
+    this.height = blockSize;
 
     this.behavior = new StackFSM(this.waiting);
   }
