@@ -1,29 +1,50 @@
 import { Button } from '@/components/Button/button';
 import { Input } from '@/components/Input';
 import './../Auth.scss'
-import useInput from '@/utils/hooks/useInput';
-import React, { memo, ReactElement } from 'react';
+import React, { FormEvent, memo, ReactElement } from 'react';
+import useForm from '@/utils/hooks/useForm';
+import { authAPI } from '@/api/http/auth.api';
+import { IRegistrationForm } from '@/modules';
+import handleError from '@/utils/handlers/errorHandler';
+import { useHistory } from 'react-router';
+import { ROUTES } from '@/utils';
+import { logout } from '@/store/userReducer';
+import { store } from '@/store';
 
 export const RegistrationForm = memo((): ReactElement => {
-    const email = useInput('')
-    const login = useInput('')
-    const password = useInput('')
-    const passwordRepeat = useInput('')
 
-    const onLogin = () => {
-        console.log(password.value, login.value)
+    const form = useForm({
+        first_name: '',
+        second_name: '',
+        email: '',
+        login: '',
+        password: '',
+        phone: '',
+    })
+
+    const history = useHistory();
+    const redirect = () => {
+        history.push(ROUTES.HOME)
+    }
+
+    const onSubmit = (e: FormEvent) => {
+        e.preventDefault()
+        store.dispatch(logout())
+        authAPI.register(form.value as IRegistrationForm).then(redirect).catch(handleError)
     }
 
     return (
-        <>
-            <Input {...email} label="Email"></Input>
-            <Input {...login} label="Login"></Input>
-            <Input {...password} label="Password"></Input>
-            <Input {...passwordRepeat} label="Password"></Input>
+        <form onSubmit={onSubmit}>
+            <Input value={form.value.first_name} onChange={form.onChange('first_name')} label="First name" required></Input>
+            <Input value={form.value.second_name} onChange={form.onChange('second_name')} label="Second name" required></Input>
+            <Input value={form.value.email} onChange={form.onChange('email')} label="Email" required></Input>
+            <Input value={form.value.login} onChange={form.onChange('login')} label="Login" required></Input>
+            <Input value={form.value.password} onChange={form.onChange('password')} label="Password" required></Input>
+            <Input value={form.value.phone} onChange={form.onChange('phone')} label="Phone" required></Input>
             
             <div className="btn-block">
-                <Button onClick={onLogin}>REGISTER</Button>
+                <Button type="submit">REGISTER</Button>
             </div>
-        </>
+        </form>
     )
 });

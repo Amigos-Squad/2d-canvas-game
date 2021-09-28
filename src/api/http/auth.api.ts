@@ -21,4 +21,4 @@ class AuthAPI extends BaseAPI {
   }
 }
 
-export const authAPI = new AuthAPI(`${YANDEX_API}/auth'`);
+export const authAPI = new AuthAPI(`${YANDEX_API}/auth`);
