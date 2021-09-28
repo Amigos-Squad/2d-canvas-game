@@ -1,4 +1,4 @@
-import { Citizen } from './Citizens';
+import { Citizen } from './Citizen';
 import { RawGameMap } from './Map';
 
 export type GameConfig = {

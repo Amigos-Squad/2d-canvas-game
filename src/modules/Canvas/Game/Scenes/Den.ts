@@ -1,4 +1,4 @@
-import { Citizen } from '../Citizens';
+import { Citizen } from '../Citizen';
 import { GAME_CONST } from '../const';
 import { BASE_GAME_MAP, Cell, CELLS_MAP, GameMap, RawGameMap } from '../Map';
 import { Scene } from './Scene';

@@ -4,4 +4,5 @@ export enum ICONS {
   MedalSecond = 'MedalSecond',
   MedalThird = 'MedalThird',
   MedalOther = 'MedalOther',
+  Close = 'Close',
 }
