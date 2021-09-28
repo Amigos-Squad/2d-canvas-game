@@ -6,4 +6,5 @@ export enum ROUTES {
   LEADERBOARD = '/leaderboard',
   PROFILE = '/profile',
   SERVER_ERROR = '/500',
+  TOPIC = '/topic',
 }

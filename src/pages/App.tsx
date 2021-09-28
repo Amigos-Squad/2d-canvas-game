@@ -34,6 +34,11 @@ const Profile = loadable(() => import('./Profile'), {
   fallback: <Loader />,
 });
 
+const InsideTopic = loadable(() => import('./Forum'), {
+  resolveComponent: (components) => components.Forum,
+  fallback: <Loader />,
+});
+
 const ServerError = loadable(() => import('./Errors'), {
   resolveComponent: (components) => components.ServerError,
   fallback: <Loader />,
@@ -70,6 +75,10 @@ export const App = memo(
 
         <Route exact path={ROUTES.PROFILE}>
           <Profile />
+        </Route>
+
+        <Route exact path={ROUTES.TOPIC}>
+          <InsideTopic />
         </Route>
 
         <Route exact path={ROUTES.SERVER_ERROR}>
