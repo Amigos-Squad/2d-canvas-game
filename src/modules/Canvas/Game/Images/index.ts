@@ -1,2 +1,3 @@
 export { ImageLoader } from './ImageLoader';
-export { SpriteSheet } from './SpriteSheet';
+export * from './Sprites';
+export type { IAnimation, ISprite, SpriteSheetGroup } from './Sprites';

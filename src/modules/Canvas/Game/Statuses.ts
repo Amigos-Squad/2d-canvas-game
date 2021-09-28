@@ -1,7 +1,7 @@
 import { Game } from '.';
 import { GAME_CONST } from './const';
 import { GameHandler } from './Game.types';
-import { Room } from './Constructing';
+import { Room } from './Tiles';
 
 export class Statuses {
   static CONST = {

@@ -1,4 +1,5 @@
 import { StackFSM } from '@/utils';
+import { Animation, SpriteSheetGroup, SPRITE_SHEETS } from '../Images';
 
 export class Citizen {
   static CONST = {
@@ -34,6 +35,8 @@ export class Citizen {
 
   target: number[] = [];
 
+  animation: null | Animation = null;
+
   actionDelays = {
     food: 0,
     work: 0,
@@ -62,7 +65,7 @@ export class Citizen {
     this.blockSize = blockSize;
     this.prevBlockSize = blockSize;
     this.width = blockSize;
-    this.height = blockSize;
+    this.height = blockSize * 1.2;
 
     this.behavior = new StackFSM(this.waiting);
   }
@@ -144,11 +147,32 @@ export class Citizen {
 
     this.handleStatus(frame);
     this.behavior.update();
+
+    if (this.animation) {
+      this.animation.update(frame);
+    }
   }
 
-  draw() {
-    this.context.strokeStyle = 'black';
-    this.context.fillStyle = '#c0f';
-    this.context.fillRect(this.x, this.y, this.width, this.height);
+  draw(sprites: SpriteSheetGroup) {
+    if (!this.animation) {
+      this.animation = sprites[SPRITE_SHEETS.CITIZEN].getAnimation(
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        100
+      );
+    }
+
+    const { image, imageX, imageY, width, height } = this.animation!;
+
+    this.context.drawImage(
+      image,
+      imageX,
+      imageY,
+      width,
+      height,
+      this.x,
+      this.y,
+      this.width,
+      this.height
+    );
   }
 }

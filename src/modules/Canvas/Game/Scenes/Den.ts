@@ -1,10 +1,17 @@
 import React from 'react';
 import { Citizen } from '../Citizen';
 import { GAME_CONST } from '../const';
-import { BASE_GAME_MAP, Cell, CELLS_MAP, GameMap, RawGameMap } from '../Map';
-import { Constructing } from '../Constructing';
+import {
+  BASE_GAME_MAP,
+  GameMap,
+  RawGameMap,
+  Constructing,
+  Tile,
+  TILES,
+} from '../Tiles';
 import { Scene } from './Scene';
-import { SpriteSheet } from '../Images';
+import { SpriteSheets } from '../Images/Sprites/SpriteSheets';
+import { SPRITE_SHEETS } from '../Images';
 
 export class Den extends Scene {
   static CONST = {
@@ -19,7 +26,16 @@ export class Den extends Scene {
 
   protected constructing: Constructing = new Constructing();
 
-  protected tiles = new SpriteSheet('TILES', 296, 148);
+  protected sprites: SpriteSheets = new SpriteSheets(
+    [
+      SPRITE_SHEETS.GROUND,
+      SPRITE_SHEETS.ENVIRONMENT,
+      SPRITE_SHEETS.ROOM,
+      SPRITE_SHEETS.CITIZEN,
+      SPRITE_SHEETS.BUILD_PLACE,
+    ],
+    this.game.screen
+  );
 
   click = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     const { cellSize } = this.game.screen;
@@ -31,7 +47,7 @@ export class Den extends Scene {
 
   loadMap() {
     this.gameMap = this.rawGameMap.map((y) =>
-      y.map((x) => new Cell(CELLS_MAP[x]))
+      y.map((x) => new Tile(TILES.get(x)))
     );
   }
 
@@ -65,7 +81,7 @@ export class Den extends Scene {
     for (let y = 0; y < this.gameMap.length; y += 1) {
       for (let x = 0; x < this.gameMap[y].length; x += 1) {
         this.gameMap[y][x].update(x, y, this.game.screen.cellSize);
-        this.gameMap[y][x].draw(this.game, this.tiles.getSprite(2));
+        this.gameMap[y][x].draw(this.game, this.sprites.groups);
       }
     }
   };
@@ -80,7 +96,7 @@ export class Den extends Scene {
           this.game.frameCount,
           this.game.screen.cellSize
         );
-        this.citizens[i].draw();
+        this.citizens[i].draw(this.sprites.groups);
       }
     }
   }

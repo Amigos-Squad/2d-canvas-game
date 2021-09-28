@@ -1,4 +1,4 @@
-import { Kitchen, Ladder } from './Constructing';
+import { Kitchen, Ladder } from './Tiles';
 
 export const GAME_CONST = {
   CELL_IN_PAGE: 32,

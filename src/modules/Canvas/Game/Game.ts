@@ -3,11 +3,20 @@ import { GameHandler } from './Game.types';
 import { Den, Scenes } from './Scenes';
 import { Screen } from './Screen';
 import { Statuses } from './Statuses';
-import TILES from '@/assets/blocks.png';
+import ImageRoom from '@/assets/sprites/Room.png';
+import ImageGround from '@/assets/sprites/Ground.png';
+import ImageEnvironment from '@/assets/sprites/Environment.png';
+import ImageCitizen from '@/assets/sprites/Citizen.png';
+import ImageBuildArea from '@/assets/sprites/BuildArea.png';
+import { SPRITE_SHEETS } from './Images';
 
 export class Game {
   static IMAGES = {
-    TILES,
+    [SPRITE_SHEETS.ENVIRONMENT]: ImageEnvironment,
+    [SPRITE_SHEETS.GROUND]: ImageGround,
+    [SPRITE_SHEETS.ROOM]: ImageRoom,
+    [SPRITE_SHEETS.CITIZEN]: ImageCitizen,
+    [SPRITE_SHEETS.BUILD_PLACE]: ImageBuildArea,
   };
 
   isLoaded: boolean = false;
