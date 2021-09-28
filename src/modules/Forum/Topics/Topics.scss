@@ -1,5 +1,8 @@
+@import 'scss/var';
+
 .topics {
   width: 97%;
+  height: 90%;
   margin: 0 auto;
 
   &-header {
@@ -30,12 +33,22 @@
       width: 20%;
     }
   }
+
+  &-container {
+    height: 90%;
+    overflow-y: scroll;
+  }
 }
 
 .topic-item {
   height: 50px;
+  margin-bottom: 10px;
   display: flex;
   text-align: right;
+  background-color: $bg-light-color;
+  align-items: center;
+  color: $font-color;
+  text-decoration: none;
 
   &__statusIcon {
     width: 40px;
@@ -57,5 +70,6 @@
 
   &__lastMessage {
     width: 20%;
+    padding-right: 5px;
   }
 }
