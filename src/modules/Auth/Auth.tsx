@@ -2,6 +2,8 @@ import React, { memo, ReactElement, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import type { Props } from './Auth.types';
 import { ROUTES, useBoolean } from '@/utils';
+import { useHistory } from 'react-router';
+import logo from '../../assets/temp.png'
 import './Auth.scss';
 
 export const Auth = memo(({ children }: Props): ReactElement => {
@@ -18,29 +20,15 @@ export const Auth = memo(({ children }: Props): ReactElement => {
     }
   }, [isLogin, history]);
 
-  return (
-    <section className="authorization">
-      <div className="authorization__container">
-        <div className="authorization__img">nope</div>
-        {/* <img className="authorization__img" src="./src/assets/temp.png"></img> */}
-        <div className="authorization__form">
-          <div className="authorization__tabs">
-            <div
-              className={`authorization__tabs__tab ${
-                isLogin ? 'authorization__tabs--active' : null
-              }`}
-              onClick={toggleIsLogin}
-            >
-              Login
-            </div>
-            /
-            <div
-              className={`authorization__tabs__tab ${
-                !isLogin ? 'authorization__tabs--active' : null
-              }`}
-              onClick={toggleIsLogin}
-            >
-              Registration
+    return (
+      <section className="authorization">
+        <div className="authorization__container">
+          <img className="authorization__img" src={logo}></img>
+          {/* <div/> */}
+          <div className="authorization__form">
+            <div className="authorization__tabs">
+              <div className={"authorization__tabs__tab " + (isLogin ? "authorization__tabs--active" : null)} onClick={toggleIsLogin}>Login</div>/
+              <div className={"authorization__tabs__tab " + (!isLogin ? "authorization__tabs--active" : null)} onClick={toggleIsLogin}>Registration</div>
             </div>
           </div>
           {children}

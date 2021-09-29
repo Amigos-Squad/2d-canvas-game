@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "scss/*": ["src/styles/*"]
+      "scss/*": ["src/styles/*"],
+      "assets/*": ["src/assets/*"]
     },
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
   },

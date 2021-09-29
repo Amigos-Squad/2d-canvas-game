@@ -14,10 +14,5 @@ export interface IRegistrationForm {
 
 export interface ILoginForm {
   login: string;
-  email: string;
-  firstName: string;
-  secondName: string;
-  phoneNumber: string;
   password: string;
-  passwordRepeat: string;
 }

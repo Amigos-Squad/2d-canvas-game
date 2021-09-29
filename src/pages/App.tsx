@@ -1,8 +1,9 @@
-import React, { memo, ReactElement } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React, { createContext, memo, ReactElement, useContext } from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import loadable from '@loadable/component';
 import { ErrorBoundaryWithRouter, Loader } from '@/components';
 import { ROUTES } from '.';
+import { store } from '@/store';
 
 const Login = loadable(() => import('./Auth'), {
   resolveComponent: (components) => components.Login,
@@ -52,43 +53,83 @@ const PageNotFound = loadable(() => import('./Errors'), {
 export const App = memo(
   (): ReactElement => (
     <ErrorBoundaryWithRouter>
-      <Switch>
-        <Route exact path={ROUTES.HOME}>
-          <Main />
-        </Route>
+      <ProvideAuth>
+        <Switch>
+          <PrivateRoute exact path={ROUTES.HOME}>
+            <Main />
+          </PrivateRoute>
 
-        <Route exact path={ROUTES.LOGIN}>
-          <Login />
-        </Route>
+          <Route exact path={ROUTES.LOGIN}>
+            <Login />
+          </Route>
 
-        <Route exact path={ROUTES.REGISTRATION}>
-          <Registration />
-        </Route>
+          <Route exact path={ROUTES.REGISTRATION}>
+            <Registration />
+          </Route>
 
-        <Route exact path={ROUTES.FORUM}>
-          <Forum />
-        </Route>
+          <PrivateRoute exact path={ROUTES.FORUM}>
+            <Forum />
+          </PrivateRoute>
 
-        <Route exact path={ROUTES.LEADERBOARD}>
-          <Leaderboard />
-        </Route>
+          <PrivateRoute exact path={ROUTES.LEADERBOARD}>
+            <Leaderboard />
+          </PrivateRoute>
 
-        <Route exact path={ROUTES.PROFILE}>
-          <Profile />
-        </Route>
+          <PrivateRoute exact path={ROUTES.PROFILE}>
+            <Profile />
+          </PrivateRoute>
 
-        <Route exact path={ROUTES.TOPIC}>
-          <InsideTopic />
-        </Route>
+          <Route exact path={ROUTES.SERVER_ERROR}>
+            <ServerError />
+          </Route>
 
-        <Route exact path={ROUTES.SERVER_ERROR}>
-          <ServerError />
-        </Route>
-
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
+          <Route path="*">
+            <PageNotFound />
+          </Route>
+        </Switch>
+      </ProvideAuth>
     </ErrorBoundaryWithRouter>
   )
 );
+
+const authContext = createContext(false);
+
+function ProvideAuth({ children }: {children: any}) {
+  const auth = useProvideAuth();
+  console.log(auth)
+  return (
+    <authContext.Provider value={auth}>
+      {children}
+    </authContext.Provider>
+  );
+}
+
+function useAuth() {
+  return useContext(authContext);
+}
+
+function useProvideAuth() {
+  return store.getState().user.isLoggedIn
+}
+
+function PrivateRoute({ children, ...rest }: {children: React.ReactNode, exact: boolean, path: string}) {
+  let auth = useAuth();
+  console.log(auth)
+  return (
+    <Route
+      {...rest}
+      render={({ location }) =>
+      auth ? (
+          children
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: location }
+            }}
+          />
+        )
+      }
+    />
+  );
+}
