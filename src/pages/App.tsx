@@ -91,6 +91,7 @@ const authContext = createContext(false);
 
 function ProvideAuth({ children }: {children: any}) {
   const auth = useProvideAuth();
+  console.log(auth)
   return (
     <authContext.Provider value={auth}>
       {children}
@@ -108,6 +109,7 @@ function useProvideAuth() {
 
 function PrivateRoute({ children, ...rest }: {children: React.ReactNode, exact: boolean, path: string}) {
   let auth = useAuth();
+  console.log(auth)
   return (
     <Route
       {...rest}

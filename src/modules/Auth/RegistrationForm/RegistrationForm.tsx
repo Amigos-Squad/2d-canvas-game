@@ -4,12 +4,12 @@ import './../Auth.scss'
 import React, { FormEvent, memo, ReactElement } from 'react';
 import useForm from '@/utils/hooks/useForm';
 import { authAPI } from '@/api/http/auth.api';
-import { IRegistrationForm } from '@/modules';
-import handleError from '@/utils/handlers/errorHandler';
+import { login } from '@/store/userReducer';
+import { store } from '@/store';
 import { useHistory } from 'react-router';
 import { ROUTES } from '@/utils';
-import { logout } from '@/store/userReducer';
-import { store } from '@/store';
+import handleError from '@/utils/handlers/errorHandler';
+import { IRegistrationForm } from '@/modules';
 
 export const RegistrationForm = memo((): ReactElement => {
 
@@ -29,8 +29,13 @@ export const RegistrationForm = memo((): ReactElement => {
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault()
-        store.dispatch(logout())
-        authAPI.register(form.value as IRegistrationForm).then(redirect).catch(handleError)
+        // authAPI.logout().then(() => {
+        //     store.dispatch(logout())
+        // })
+        authAPI.register(form.value as IRegistrationForm).then(() => {
+            store.dispatch(login())
+            redirect()
+        }).catch(handleError)
     }
 
     return (

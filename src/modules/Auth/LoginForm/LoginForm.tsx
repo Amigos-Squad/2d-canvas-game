@@ -24,6 +24,7 @@ export const LoginForm = memo((): ReactElement => {
 
     const onSubmit = (e: FormEvent) => {
         e.preventDefault()
+
         authAPI.login(form.value as ILoginForm).then(() => {
             store.dispatch(login())
             redirect()
