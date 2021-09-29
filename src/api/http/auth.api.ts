@@ -4,21 +4,22 @@ import { BaseAPI } from './base-api';
 import { YANDEX_API } from './const';
 
 class AuthAPI extends BaseAPI {
-  getUserData(): Promise<IUser> {
-    return this.http.get('/user');
-  }
+  loadUser = async (): Promise<IUser> => {
+    const data: IUser = await this.http.get('/user');
+    return data;
+  };
 
-  register(data: IRegistrationForm) {
-    return this.http.post('/signup', { data });
-  }
+  register = async (data: IRegistrationForm) => {
+    await this.http.post('/signup', { data });
+  };
 
-  login(data: ILoginForm) {
-    return this.http.post('/signin', { data });
-  }
+  login = async (data: ILoginForm) => {
+    await this.http.post('/signin', { data });
+  };
 
-  logout() {
-    return this.http.post('/logout');
-  }
+  logout = async () => {
+    await this.http.post('/logout');
+  };
 }
 
-export const authAPI = new AuthAPI(`${YANDEX_API}/auth'`);
+export const authAPI = new AuthAPI(`${YANDEX_API}/auth`);

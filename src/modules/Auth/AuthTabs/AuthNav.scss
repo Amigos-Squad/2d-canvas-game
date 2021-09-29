@@ -1,0 +1,32 @@
+@import 'scss/var';
+
+.authorization__navigation {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #fff;
+  font-size: 20px;
+  height: 40px;
+
+  &__separator {
+    padding: 0 8px;
+  }
+}
+
+.authorization__navigation-item {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: $disabled-color;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  padding: 0;
+
+  &_active,
+  &:hover {
+    color: #fff;
+    text-shadow: 0 0 1px #fff;
+  }
+}

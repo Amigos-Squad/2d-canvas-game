@@ -19,7 +19,7 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }],
     'react/jsx-one-expression-per-line': 'off',
     'no-param-reassign': 'off',
     'no-nested-ternary': 'off',
@@ -47,6 +47,7 @@ module.exports = {
     'jsx-a11y/no-static-element-interactions': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/label-has-associated-control': 'warn',
+    'react/button-has-type': 'warn',
   },
   overrides: [
     {

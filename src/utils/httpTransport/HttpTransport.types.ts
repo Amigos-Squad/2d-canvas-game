@@ -15,13 +15,6 @@ export interface IRequestConfig {
   body?: string;
 }
 
-export interface ICommonResponse<T> {
-  data: T;
-  success: boolean;
-  total: number;
-  message: string;
-}
-
 export interface IFetchRequestOptions extends IRequestOptions {
   method: METHODS;
 }

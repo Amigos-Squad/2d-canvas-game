@@ -1,28 +1,81 @@
-import React, { memo, ReactElement } from 'react';
+import React, { FormEvent, memo, ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
+
 import { Button, Input } from '@/components';
-import { useInput } from '@/utils';
+import { IRegistrationForm } from '@/modules';
+import { converter, useForm } from '@/utils';
 import '../Auth.scss';
+import { signUp } from '@/redux';
 
 export const RegistrationForm = memo((): ReactElement => {
-  const email = useInput('');
-  const login = useInput('');
-  const password = useInput('');
-  const passwordRepeat = useInput('');
+  const dispatch = useDispatch();
+  const [form, onChange] = useForm<IRegistrationForm>({
+    firstName: 'Kuart',
+    secondName: 'Kuart',
+    email: 'Kuart@mail.com',
+    login: 'Kuart',
+    password: '1221',
+    phone: '+79214444444',
+  });
 
-  const onLogin = () => {
-    console.warn(password.value, login.value);
+  const onSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    dispatch(signUp(converter.convertCamelToSnakeCase(form)));
   };
 
   return (
-    <>
-      <Input {...email} label="Email" />
-      <Input {...login} label="Login" />
-      <Input {...password} label="Password" />
-      <Input {...passwordRepeat} label="Password" />
-
-      <div className="btn-block">
-        <Button onClick={onLogin}>REGISTER</Button>
+    <form onSubmit={onSubmit} className="authorization__form">
+      <div className="authorization__form-body">
+        <Input
+          value={form.firstName}
+          onChange={onChange}
+          label="First name"
+          name="firstName"
+          required
+        />
+        <Input
+          value={form.secondName}
+          onChange={onChange}
+          label="Second name"
+          name="secondName"
+          required
+        />
+        <Input
+          value={form.email}
+          onChange={onChange}
+          label="Email"
+          name="email"
+          type="email"
+          required
+        />
+        <Input
+          value={form.login}
+          onChange={onChange}
+          label="Login"
+          name="login"
+          required
+        />
+        <Input
+          value={form.password}
+          onChange={onChange}
+          label="Password"
+          name="password"
+          type="password"
+          required
+        />
+        <Input
+          value={form.phone}
+          onChange={onChange}
+          label="Phone"
+          name="phone"
+          type="tel"
+          required
+        />
       </div>
-    </>
+
+      <footer className="btn-block">
+        <Button type="submit">REGISTER</Button>
+      </footer>
+    </form>
   );
 });

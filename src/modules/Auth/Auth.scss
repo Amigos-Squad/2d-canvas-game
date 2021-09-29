@@ -8,45 +8,31 @@
   justify-content: center;
 
   &__container {
-    width: 730px;
-    height: 590px;
     background-color: $bg-color;
     display: grid;
-    grid-template-columns: 410px auto;
+    grid-template-columns: auto 320px;
     filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
     border-radius: 4px;
   }
 
-  &__form {
-    padding: 50px 30px;
+  &__content {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    gap: 20px;
+    padding: 20px;
   }
 
-  &__tabs {
-    text-transform: capitalize;
-    font-weight: 500;
-    font-size: 18px;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 0 0 40px;
+  &__form {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 
-    &__tab {
-      cursor: pointer;
+    &-body {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      height: 100%;
     }
-
-    &--active {
-      color: $font-color;
-    }
-  }
-
-  &__login__input {
-    margin-bottom: 10px;
-  }
-
-  &__btn-block {
-    margin-top: auto;
-    width: 100%;
   }
 }

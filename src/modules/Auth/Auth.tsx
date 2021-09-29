@@ -1,52 +1,19 @@
-import React, { memo, ReactElement, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import React, { memo, ReactElement } from 'react';
 import type { Props } from './Auth.types';
-import { ROUTES, useBoolean } from '@/utils';
+import logo from '@/assets/temp.png';
+import { AuthNav } from './AuthTabs';
 import './Auth.scss';
 
-export const Auth = memo(({ children }: Props): ReactElement => {
-  const history = useHistory();
-  const [isLogin, toggleIsLogin] = useBoolean(
-    history.location.pathname === ROUTES.LOGIN
-  );
-  // let form = <LoginForm/>;
-  useEffect(() => {
-    if (isLogin) {
-      history.push(ROUTES.LOGIN);
-    } else {
-      history.push(ROUTES.REGISTRATION);
-    }
-  }, [isLogin, history]);
-
-  return (
-    <section className="authorization">
+export const Auth = memo(
+  ({ children }: Props): ReactElement => (
+    <article className="authorization">
       <div className="authorization__container">
-        <div className="authorization__img">nope</div>
-        {/* <img className="authorization__img" src="./src/assets/temp.png"></img> */}
-        <div className="authorization__form">
-          <div className="authorization__tabs">
-            <div
-              className={`authorization__tabs__tab ${
-                isLogin ? 'authorization__tabs--active' : null
-              }`}
-              onClick={toggleIsLogin}
-            >
-              Login
-            </div>
-            /
-            <div
-              className={`authorization__tabs__tab ${
-                !isLogin ? 'authorization__tabs--active' : null
-              }`}
-              onClick={toggleIsLogin}
-            >
-              Registration
-            </div>
-          </div>
+        <img className="authorization__img" src={logo} alt="game-logo" />
+        <section className="authorization__content">
+          <AuthNav />
           {children}
-          {/* {form} */}
-        </div>
+        </section>
       </div>
-    </section>
-  );
-});
+    </article>
+  )
+);

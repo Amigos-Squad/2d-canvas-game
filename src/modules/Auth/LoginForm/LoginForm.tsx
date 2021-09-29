@@ -1,23 +1,48 @@
-import React, { memo, ReactElement } from 'react';
-import { Input, Button } from '@/components';
-import { useInput } from '@/utils';
+import React, { FormEvent, memo, ReactElement } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { Button, Input } from '@/components';
+import { useForm } from '@/utils';
+import type { ILoginForm } from '@/modules';
+import { signIn } from '@/redux';
 import '../Auth.scss';
 
 export const LoginForm = memo((): ReactElement => {
-  const password = useInput('');
-  const login = useInput('');
+  const dispatch = useDispatch();
+  const [form, onChange] = useForm<ILoginForm>({
+    password: '',
+    login: '',
+  });
 
-  const onLogin = () => {
-    console.warn(password.value, login.value);
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(signIn(form));
   };
 
   return (
-    <>
-      <Input {...password} label="Password" />
-      <Input {...login} label="Login" />
-      <div className="btn-block">
-        <Button onClick={onLogin}>LOGIN</Button>
+    <form onSubmit={onSubmit} className="authorization__form">
+      <div className="authorization__form-body">
+        <Input
+          value={form.login}
+          onChange={onChange}
+          label="Login"
+          name="login"
+          required
+        />
+
+        <Input
+          value={form.password}
+          onChange={onChange}
+          label="Password"
+          name="password"
+          type="password"
+          required
+        />
       </div>
-    </>
+
+      <footer className="btn-block">
+        <Button type="submit">LOGIN</Button>
+      </footer>
+    </form>
   );
 });
