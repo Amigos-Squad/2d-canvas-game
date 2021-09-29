@@ -1,6 +1,8 @@
 import { useMemo, useState } from 'react';
 
-export function useBoolean(defaultValue = false): [boolean, () => void, () => void, () => void] {
+export function useBoolean(
+  defaultValue = false
+): [boolean, () => void, () => void, () => void] {
   const [state, changeState] = useState(defaultValue);
 
   const actions = useMemo(() => {

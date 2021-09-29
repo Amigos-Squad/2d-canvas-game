@@ -1,6 +1,6 @@
 FROM node:14
 
-WORKDIR /user/2d-canvas-game
+WORKDIR /user/game
 
 COPY package*.json ./
 

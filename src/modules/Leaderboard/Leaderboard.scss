@@ -1,0 +1,40 @@
+@import 'scss/var';
+
+.leaderboard__header th {
+  height: 60px;
+  text-align: center;
+  font-size: 1.1vw;
+  position: sticky;
+  top: 0;
+  background: $bg-dark-color;
+  z-index: 100;
+  padding: 0;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: $accent-color;
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.leaderboard__header_position {
+  width: 150px;
+}
+
+.leaderboard__header,
+.leaderboard__list {
+  color: #fff;
+  font-size: 1vw;
+  font-weight: 600;
+}
+
+.leaderboard__list td {
+  height: 60px;
+  text-align: center;
+  padding: 10px;
+  background: $bg-light-color;
+}

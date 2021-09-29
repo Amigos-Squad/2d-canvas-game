@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ErrorInfo, ReactNode } from 'react';
 import { RouteComponentProps } from 'react-router';
 
 export type State = {
@@ -7,4 +7,6 @@ export type State = {
 
 export type Props = {
   children: ReactNode;
+  errorComponent?: ReactNode;
+  handler?: (error: Error, errorInfo: ErrorInfo) => void;
 } & RouteComponentProps;

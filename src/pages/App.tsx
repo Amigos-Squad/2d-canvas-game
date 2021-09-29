@@ -35,6 +35,11 @@ const Profile = loadable(() => import('./Profile'), {
   fallback: <Loader />,
 });
 
+const InsideTopic = loadable(() => import('./Forum'), {
+  resolveComponent: (components) => components.Forum,
+  fallback: <Loader />,
+});
+
 const ServerError = loadable(() => import('./Errors'), {
   resolveComponent: (components) => components.ServerError,
   fallback: <Loader />,

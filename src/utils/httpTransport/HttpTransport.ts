@@ -1,18 +1,26 @@
 import { METHODS } from './const';
-import { IRequestOptions, IFetchRequestOptions, IRequestConfig, ICommonResponse } from './HttpTransport.types';
+import {
+  IRequestOptions,
+  IFetchRequestOptions,
+  IRequestConfig,
+  ICommonResponse,
+} from './HttpTransport.types';
 
 function parseObject(obj: Record<string, any>) {
-  return Object.entries(obj).reduce((acc: string, [key, value]: [string, any]) => {
-    if (typeof value !== 'object') {
-      acc += `&${key}=${value}`;
-    } else if (Array.isArray(value)) {
-      acc += `&${key}=${value.join(',')}`;
-    } else if (typeof value === 'object' && value !== null) {
-      acc += `${parseObject(value)}`;
-    }
+  return Object.entries(obj).reduce(
+    (acc: string, [key, value]: [string, any]) => {
+      if (typeof value !== 'object') {
+        acc += `&${key}=${value}`;
+      } else if (Array.isArray(value)) {
+        acc += `&${key}=${value.join(',')}`;
+      } else if (typeof value === 'object' && value !== null) {
+        acc += `${parseObject(value)}`;
+      }
 
-    return acc;
-  }, '');
+      return acc;
+    },
+    ''
+  );
 }
 
 function queryStringify(data: string | Record<string, any>) {
@@ -61,7 +69,10 @@ export class HttpTransport {
     return this.request(url, { ...options, method: METHODS.DELETE });
   }
 
-  request = async <T>(url: string, options: IFetchRequestOptions): Promise<T> => {
+  request = async <T>(
+    url: string,
+    options: IFetchRequestOptions
+  ): Promise<T> => {
     let fullUrl = this.baseURL + url;
     const { isFormData, headers, data } = options;
 
