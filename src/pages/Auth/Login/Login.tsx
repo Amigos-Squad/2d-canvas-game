@@ -3,7 +3,7 @@ import { Auth, LoginForm, Page } from '@/modules';
 
 export const Login = memo(
   (): ReactElement => (
-    <Page>
+    <Page isHeader={false}>
       <Auth>
         <LoginForm />
       </Auth>

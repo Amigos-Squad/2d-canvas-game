@@ -1,4 +1,4 @@
 export type Props = {
-  withHeader?: boolean;
+  isHeader?: boolean;
   children: JSX.Element | JSX.Element[];
 };

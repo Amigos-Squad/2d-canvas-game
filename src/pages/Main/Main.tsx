@@ -4,7 +4,7 @@ import { Canvas } from '@/modules';
 
 export const Main = memo(
   (): ReactElement => (
-    <Page withHeader>
+    <Page>
       <Canvas />
     </Page>
   )

@@ -1,4 +1,6 @@
+import { BUTTON_TYPES } from './const';
+
 export type Props = {
-  primary?: boolean;
+  buttonType?: BUTTON_TYPES;
   text?: string;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;

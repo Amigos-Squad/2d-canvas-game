@@ -1,4 +1,10 @@
-const { ROOT_FILE, BUILD_DIRECTORY, FILENAME, IS_PROD, SOURCE_DIRECTORY } = require('./const');
+const {
+  ROOT_FILE,
+  BUILD_DIRECTORY,
+  FILENAME,
+  IS_PROD,
+  SOURCE_DIRECTORY,
+} = require('./const');
 
 const { LOADERS } = require('./loaders');
 const { OPTIMIZATION } = require('./optimization');
@@ -9,6 +15,7 @@ module.exports = () => ({
   output: {
     path: BUILD_DIRECTORY,
     filename: `js/${FILENAME('.js', IS_PROD)}`,
+    publicPath: '/',
   },
   devServer: {
     historyApiFallback: true,

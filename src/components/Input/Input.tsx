@@ -4,14 +4,14 @@ import { Props } from './Input.types';
 
 export const Input = memo(
   ({ onChange, value, label, ...rest }: Props): ReactElement => (
-    <div className="input">
-      <label className="input__label">{label}</label>
+    <label className="input">
+      <div className="input__label">{label}</div>
       <input
         className="input__field"
         onChange={onChange}
         value={value}
         {...rest}
       />
-    </div>
+    </label>
   )
 );

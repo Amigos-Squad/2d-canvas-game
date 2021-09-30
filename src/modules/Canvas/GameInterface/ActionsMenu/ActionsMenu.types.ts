@@ -1,4 +1,4 @@
-import { MouseEvent, ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { Game } from '../../Game';
 
 export type Props = {
@@ -6,7 +6,7 @@ export type Props = {
 };
 
 export type MenuItemProps = {
-  select: (event: MouseEvent<Element, MouseEvent>) => void;
+  select: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   name: string;
   title: string;
 };

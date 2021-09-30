@@ -1,6 +1,21 @@
 @import './normalize';
 @import './var';
 
+@font-face {
+  font-family: alegreya sans;
+  src: url(../assets/fonts/AlegreyaSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: alegreya sans;
+  src: url(../assets/fonts/AlegreyaSans-Medium.ttf);
+}
+
+@font-face {
+  font-family: alegreya sans;
+  src: url(../assets/fonts/AlegreyaSans-Bold.ttf);
+}
+
 * {
   box-sizing: border-box;
 }

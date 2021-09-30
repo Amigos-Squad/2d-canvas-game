@@ -3,7 +3,7 @@ import './GameCanvas.scss';
 import { Props } from './GameCanvas.types';
 
 export const GameCanvas = React.memo(
-  ({ canvasRef }: Props): ReactElement => (
-    <canvas ref={canvasRef} className="game__canvas" />
+  ({ canvasRef, onClick }: Props): ReactElement => (
+    <canvas ref={canvasRef} className="game__canvas" onClick={onClick} />
   )
 );

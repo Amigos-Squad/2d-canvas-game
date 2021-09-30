@@ -3,7 +3,6 @@ import {
   IRequestOptions,
   IFetchRequestOptions,
   IRequestConfig,
-  ICommonResponse,
 } from './HttpTransport.types';
 
 function parseObject(obj: Record<string, any>) {
@@ -99,13 +98,15 @@ export class HttpTransport {
     }
 
     const request = await fetch(fullUrl, requestConfig);
-    // console.log(request.json())
-    // if (!request.bodyUsed) {
-    //   return {auth: true}
-    // }
-    const response: ICommonResponse<T> = await request.json();
-    if (!response.success) throw Error(response.message);
 
-    return response.data;
+    if (request.ok) {
+      try {
+        return await request.json();
+      } catch (error) {
+        return (await Promise.resolve()) as any;
+      }
+    }
+
+    throw Error(request.statusText);
   };
 }

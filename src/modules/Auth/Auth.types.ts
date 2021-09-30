@@ -7,9 +7,9 @@ export interface IRegistrationForm {
   email: string;
   firstName: string;
   secondName: string;
-  phoneNumber: string;
+  phone: string;
   password: string;
-  passwordRepeat: string;
+  passwordRepeat?: string;
 }
 
 export interface ILoginForm {

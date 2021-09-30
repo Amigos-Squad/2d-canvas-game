@@ -1,11 +1,11 @@
 /* eslint camelcase: "off" */
 export interface IUser {
-  avatar: null;
-  display_name: null | string;
+  avatar?: null;
+  displayName: null | string;
   email: string;
-  first_name: string;
-  id: number;
+  firstName: string;
+  id?: number;
   login: string;
   phone: string;
-  second_name: string;
+  secondName: string;
 }

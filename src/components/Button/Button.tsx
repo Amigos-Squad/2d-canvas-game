@@ -1,13 +1,23 @@
-import React, { ReactElement, memo } from 'react';
-import './Button.scss';
+import React, { ReactElement, memo, useMemo } from 'react';
 import { Props } from './Button.types';
+import { BUTTON_TYPES } from './const';
+import './Button.scss';
 
-export const Button = memo(({ text }: Props): ReactElement => {
-  const classes = 'button button--primary';
-  // TODO стилизация по пропсам (<Button primary outline ... />)
-  return (
-    <button type="button" className={classes}>
-      {text}
-    </button>
-  );
-});
+export const Button = memo(
+  ({
+    children,
+    type,
+    buttonType = BUTTON_TYPES.PRIMARY,
+  }: Props): ReactElement => {
+    const className = useMemo(
+      () => `button button_${buttonType}`,
+      [buttonType]
+    );
+
+    return (
+      <button type={type} className={className}>
+        {children}
+      </button>
+    );
+  }
+);

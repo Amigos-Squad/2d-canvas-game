@@ -1,1 +1,2 @@
-export { ProfileNav } from './ProfileNav';
+export { ProfileHeader } from './ProfileHeader';
+export { ProfileContent } from './ProfileContent';
