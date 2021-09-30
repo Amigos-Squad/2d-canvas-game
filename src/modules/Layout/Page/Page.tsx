@@ -1,12 +1,12 @@
 import React, { memo, ReactElement } from 'react';
 import { Props } from './Page.types';
-import './Page.scss';
 import { Header } from '..';
+import './Page.scss';
 
 export const Page = memo(
-  ({ children, withHeader = false }: Props): ReactElement => (
+  ({ children, isHeader = true }: Props): ReactElement => (
     <div className="page">
-      {withHeader && <Header />}
+      {isHeader && <Header />}
       <main className="page__content">{children}</main>
     </div>
   )

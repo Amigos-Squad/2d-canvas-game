@@ -1,5 +1,5 @@
 import { ErrorInfo, ReactNode } from 'react';
-import { RouteComponentProps } from 'react-router';
+import { RouteComponentProps } from 'react-router-dom';
 
 export type State = {
   hasError: boolean;

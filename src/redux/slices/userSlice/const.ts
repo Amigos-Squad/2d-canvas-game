@@ -9,7 +9,7 @@ export const enum LOAD_STATUS {
 
 export const initialState: UserSliceState = {
   user: undefined,
-  isLoggedIn: false,
+  isLoaded: false,
   status: LOAD_STATUS.IDLE,
   errorMessage: '',
 };

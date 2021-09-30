@@ -18,7 +18,7 @@ export default class ErrorBoundary extends PureComponent<Props, State> {
     }
 
     if (!errorComponent) {
-      history.replace('/500');
+      history.push('/500');
     }
   }
 

@@ -3,7 +3,7 @@ import { LOAD_STATUS } from './const';
 
 export type UserSliceState = {
   user?: IUser;
-  isLoggedIn: boolean;
+  isLoaded: boolean;
   status: LOAD_STATUS;
   errorMessage: string;
 };

@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILoginForm, IRegistrationForm } from '@/modules';
 import { initialState } from './const';
 
-/* tslint:disable-next-line */
 const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -12,6 +11,9 @@ const userSlice = createSlice({
     loadUser: () => {},
     signOut: () => {},
     setUser: (state, action) => {
+      if (!state.isLoaded) {
+        state.isLoaded = true;
+      }
       state.user = action.payload;
     },
   },

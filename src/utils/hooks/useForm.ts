@@ -2,7 +2,11 @@ import { useState } from 'react';
 
 export function useForm<T>(
   init: T
-): [T, (event: React.FormEvent<HTMLInputElement>) => void] {
+): [
+  T,
+  (event: React.FormEvent<HTMLInputElement>) => void,
+  (fields: T) => void
+] {
   const [form, changeFormField] = useState(init);
 
   function onChange(event: React.FormEvent<HTMLInputElement>) {
@@ -11,5 +15,9 @@ export function useForm<T>(
     changeFormField({ ...form, [name]: value });
   }
 
-  return [form, onChange];
+  function changeSeveral(fields: T) {
+    changeFormField({ ...form, ...fields });
+  }
+
+  return [form, onChange, changeSeveral];
 }

@@ -13,7 +13,7 @@ const Registration = loadable(() => import('./Auth'), {
   fallback: <Loader />,
 });
 
-const Main = loadable(() => import('./Main'), {
+export const Main = loadable(() => import('./Main'), {
   resolveComponent: (components) => components.Main,
   fallback: <Loader />,
 });
@@ -28,7 +28,7 @@ const Leaderboard = loadable(() => import('./Leaderboard'), {
   fallback: <Loader />,
 });
 
-const Profile = loadable(() => import('./Profile'), {
+export const Profile = loadable(() => import('./Profile'), {
   resolveComponent: (components) => components.Profile,
   fallback: <Loader />,
 });
@@ -49,7 +49,6 @@ const PageNotFound = loadable(() => import('./Errors'), {
 });
 
 export type RouteItem = {
-  key: string;
   path: ROUTES;
   exact: boolean;
   component: JSX.Element;
@@ -57,25 +56,21 @@ export type RouteItem = {
 
 export const PRIVATE_ROUTES_MAP: Record<string, RouteItem> = {
   [ROUTES.HOME]: {
-    key: '7d76ffa3',
     path: ROUTES.HOME,
     exact: true,
     component: <Main />,
   },
   [ROUTES.FORUM]: {
-    key: '6d760fa3',
     path: ROUTES.FORUM,
     exact: true,
     component: <Forum />,
   },
   [ROUTES.LEADERBOARD]: {
-    key: 'c51c4f1c',
     path: ROUTES.LEADERBOARD,
     exact: true,
     component: <Leaderboard />,
   },
   [ROUTES.PROFILE]: {
-    key: '166a5f56',
     path: ROUTES.PROFILE,
     exact: true,
     component: <Profile />,
@@ -84,14 +79,11 @@ export const PRIVATE_ROUTES_MAP: Record<string, RouteItem> = {
 
 export const USED_ROUTES = [
   {
-    key: '76decc39',
     path: ROUTES.LOGIN,
     exact: true,
     component: <Login />,
   },
-
   {
-    key: 'a4df7ba9',
     path: ROUTES.REGISTRATION,
     exact: true,
     component: <Registration />,
@@ -101,15 +93,13 @@ export const USED_ROUTES = [
   PRIVATE_ROUTES_MAP[ROUTES.LEADERBOARD],
   PRIVATE_ROUTES_MAP[ROUTES.PROFILE],
   {
-    key: 'db483dc2',
+    path: ROUTES.SERVER_ERROR,
+    exact: true,
+    component: <ServerError />,
+  },
+  {
     path: ROUTES.NOT_FOUND,
     exact: false,
     component: <PageNotFound />,
-  },
-  {
-    key: '9a625e90',
-    path: ROUTES.SERVER_ERROR,
-    exact: false,
-    component: <ServerError />,
   },
 ];

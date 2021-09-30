@@ -3,7 +3,7 @@ import { Auth, Page, RegistrationForm } from '@/modules';
 
 export const Registration = memo(
   (): ReactElement => (
-    <Page>
+    <Page isHeader={false}>
       <Auth>
         <RegistrationForm />
       </Auth>
