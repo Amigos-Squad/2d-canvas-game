@@ -1,0 +1,9 @@
+@import 'scss/var';
+
+.leaderboard {
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+}

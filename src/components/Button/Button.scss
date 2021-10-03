@@ -1,0 +1,28 @@
+@import 'scss/var';
+
+.button {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: none;
+  outline: none;
+  font-weight: 800;
+  font-size: 20px;
+  padding-top: 5px;
+  cursor: pointer;
+  background: $bg-light-color;
+  color: $font-color;
+  transition: background 0.2s linear, color 0.2s linear;
+
+  &_primary {
+    background: $accent-color;
+
+    &:hover {
+      background: $accent-dark-color;
+    }
+
+    &:focus {
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.7) inset;
+    }
+  }
+}

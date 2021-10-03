@@ -1,0 +1,48 @@
+@import './normalize';
+@import './var';
+
+@font-face {
+  font-family: alegreya sans;
+  src: url(../assets/fonts/AlegreyaSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: alegreya sans;
+  src: url(../assets/fonts/AlegreyaSans-Medium.ttf);
+}
+
+@font-face {
+  font-family: alegreya sans;
+  src: url(../assets/fonts/AlegreyaSans-Bold.ttf);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: $main-font;
+  font-size: $main-font-size;
+  background-color: $bg-color;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  box-shadow: inset 0 0 12px $accent-color;
+}

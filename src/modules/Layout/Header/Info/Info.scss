@@ -1,0 +1,16 @@
+@import 'scss/var';
+
+.page-header__info {
+  min-width: 100px;
+  max-width: 100px;
+  height: 100%;
+  color: $font-color;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-header__sign-out {
+  cursor: pointer;
+}

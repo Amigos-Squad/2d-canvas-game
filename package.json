@@ -1,0 +1,91 @@
+{
+  "name": "2d-canvas-game",
+  "version": "0.0.1",
+  "description": "2d-canvas-game",
+  "main": "./server/index.js",
+  "engine": "14.17.1",
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "npm run lint:fix",
+      "npm run prettier"
+    ],
+    "**/*.{scss,css}": [
+      "npm run stylelint:fix",
+      "npm run prettier"
+    ]
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development webpack serve --config=./config/webpack/webpack.config.js --mode development",
+    "build": "cross-env NODE_ENV=production webpack --config=./config/webpack/webpack.config.js --mode production",
+    "serve": "node ./server/index.js",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",
+    "stylelint": "stylelint \"**/*.{css,scss}\"",
+    "stylelint:fix": "stylelint \"**/*.{css,scss}\" --fix",
+    "prettier": "prettier \"src/**/*.{ts,tsx,js,scss,css}\" --w",
+    "test": "jest",
+    "prepare": "husky install config/.husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amigos-Squad/2d-canvas-game.git"
+  },
+  "author": "Amigos-Squad",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Amigos-Squad/2d-canvas-game/issues"
+  },
+  "homepage": "https://github.com/Amigos-Squad/2d-canvas-game#readme",
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "@types/loadable__component": "^5.13.4",
+    "@types/react": "^17.0.21",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-router-dom": "^5.1.9",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "clean-webpack-plugin": "^4.0.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
+    "css-minimizer-webpack-plugin": "^3.0.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.0",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "html-webpack-plugin": "^5.3.2",
+    "husky": "^7.0.2",
+    "jest": "^27.2.0",
+    "lint-staged": "^11.1.2",
+    "mini-css-extract-plugin": "^2.3.0",
+    "node-sass": "^6.0.1",
+    "prettier": "^2.4.0",
+    "progress-bar-webpack-plugin": "^2.1.0",
+    "sass": "^1.41.0",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-standard": "^22.0.0",
+    "terser-webpack-plugin": "^5.2.4",
+    "ts-loader": "^9.2.5",
+    "typescript": "^4.4.3",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.2.1"
+  },
+  "dependencies": {
+    "@loadable/component": "^5.15.0",
+    "@redux-saga/core": "^1.1.3",
+    "@reduxjs/toolkit": "^1.6.1",
+    "express": "^4.17.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
+    "redux-saga": "^1.1.3"
+  }
+}

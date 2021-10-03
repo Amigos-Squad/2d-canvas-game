@@ -1,0 +1,23 @@
+@import 'scss/var';
+
+.new-topic {
+  width: 100%;
+
+  &-form {
+    display: flex;
+    flex-direction: column;
+    background-color: $bg-light-color;
+
+    &__title {
+      height: 35px;
+    }
+
+    &__title,
+    &__message {
+      width: 99%;
+      margin: 0 auto;
+      background-color: $bg-dark-color;
+      border: none;
+    }
+  }
+}

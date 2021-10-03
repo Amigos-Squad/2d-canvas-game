@@ -1,0 +1,13 @@
+@import 'scss/var';
+
+.page {
+  width: 100%;
+  height: 100%;
+  background-color: $bg-color;
+}
+
+.page__content {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow: hidden;
+}

@@ -1,0 +1,40 @@
+@import 'scss/var';
+
+.page-header__navigation {
+  display: flex;
+  align-items: center;
+  gap: $main-gap;
+  height: 100%;
+}
+
+.navigation__item {
+  color: $disabled-color;
+  text-transform: uppercase;
+  font-size: $main-font-title;
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  border: none;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.navigation__item_active::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  background: #fff;
+  bottom: 0;
+  width: calc(100% + 10px);
+  left: -5px;
+}
+
+.navigation__item_active,
+.navigation__item:hover {
+  color: $font-color;
+  text-shadow: $glow-effect;
+}

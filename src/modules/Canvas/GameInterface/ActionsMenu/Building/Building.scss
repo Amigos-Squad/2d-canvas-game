@@ -1,0 +1,19 @@
+@import 'scss/var';
+
+.game-interface__building {
+  display: flex;
+  height: calc(100% - 50px);
+  gap: 15px;
+  padding: 15px;
+}
+
+.game-interface__building-option {
+  width: 180px;
+  min-height: 100px;
+  background: $bg-dark-color;
+  cursor: pointer;
+  border-radius: 3px;
+  text-align: center;
+  padding: 5px;
+  color: #fff;
+}
