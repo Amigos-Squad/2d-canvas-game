@@ -3,7 +3,7 @@ import { GameHandler } from './Game.types';
 import { Den, Scenes } from './Scenes';
 import { Screen } from './Screen';
 import { Statuses } from './Statuses';
-import { Controll } from './Controll';
+import { Control } from './Control';
 import ImageRoom from '@/assets/sprites/Room.png';
 import ImageGround from '@/assets/sprites/Ground.png';
 import ImageEnvironment from '@/assets/sprites/Environment.png';
@@ -24,7 +24,7 @@ export class Game {
 
   screen: Screen;
 
-  controll: Controll;
+  control: Control;
 
   frameCount: number = GAME_CONST.START_FRAME;
 
@@ -38,7 +38,7 @@ export class Game {
 
   constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     this.screen = new Screen(canvas, context);
-    this.controll = new Controll();
+    this.control = new Control();
     this.statuses = new Statuses(this);
 
     this.scenes = {
@@ -48,9 +48,9 @@ export class Game {
     this.currentScene = this.scenes.den;
   }
 
-  load = async (handlers: GameHandler) => {
+  load = async (handlers: GameHandler, gameState?: unknown) => {
     await this.screen.loadImages(Game.IMAGES);
-    this.currentScene.init();
+    this.currentScene.init(gameState);
     this.statuses.setHandlers(handlers);
     this.isLoaded = true;
   };

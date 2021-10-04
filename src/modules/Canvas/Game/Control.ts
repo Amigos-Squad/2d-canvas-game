@@ -1,20 +1,27 @@
-export class Controll {
-  state: Record<string, boolean> = {
-    up: false,
-    down: false,
-    left: false,
-    right: false,
+export const enum DIRECTIONS {
+  LEFT = 'left',
+  RIGHT = 'right',
+  UP = 'up',
+  DOWN = 'down',
+}
+
+export class Control {
+  state: Record<DIRECTIONS, boolean> = {
+    [DIRECTIONS.UP]: false,
+    [DIRECTIONS.DOWN]: false,
+    [DIRECTIONS.LEFT]: false,
+    [DIRECTIONS.RIGHT]: false,
   };
 
   keyMap = new Map([
-    ['arrowleft', 'left'],
-    ['arrowup', 'up'],
-    ['arrowright', 'right'],
-    ['arrowdown', 'down'],
-    ['a', 'left'],
-    ['w', 'up'],
-    ['d', 'right'],
-    ['s', 'down'],
+    ['arrowleft', DIRECTIONS.LEFT],
+    ['arrowup', DIRECTIONS.UP],
+    ['arrowright', DIRECTIONS.RIGHT],
+    ['arrowdown', DIRECTIONS.DOWN],
+    ['a', DIRECTIONS.LEFT],
+    ['w', DIRECTIONS.UP],
+    ['d', DIRECTIONS.RIGHT],
+    ['s', DIRECTIONS.DOWN],
   ]);
 
   constructor() {

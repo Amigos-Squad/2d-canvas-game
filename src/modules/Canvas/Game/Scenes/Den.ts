@@ -1,5 +1,5 @@
 import React from 'react';
-import { Сharacter } from '../Сharacter';
+import { Character } from '../Character';
 import { GAME_CONST } from '../const';
 import {
   BASE_GAME_MAP,
@@ -10,8 +10,8 @@ import {
   TILES,
 } from '../Tiles';
 import { Scene } from './Scene';
-import { SpriteSheets } from '../Images/Sprites/SpriteSheets';
-import { SPRITE_SHEETS } from '../Images';
+import { SPRITE_SHEETS, SpriteSheets } from '../Images';
+import { Game } from '..';
 
 export class Den extends Scene {
   static CONST = {
@@ -20,9 +20,9 @@ export class Den extends Scene {
 
   private rawGameMap: RawGameMap = BASE_GAME_MAP;
 
-  protected gameMap: GameMap = [];
+  gameMap: GameMap = [];
 
-  protected character: Сharacter = new Сharacter();
+  protected character: Character;
 
   protected constructing: Constructing = new Constructing();
 
@@ -37,12 +37,26 @@ export class Den extends Scene {
     this.game.screen
   );
 
-  click = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-    const { cellSize } = this.game.screen;
-    const x = Math.floor(event.pageX / cellSize);
-    const y = Math.floor((event.pageY - Den.CONST.HEADER_HEIGHT) / cellSize);
+  constructor(game: Game) {
+    super(game);
+    this.character = new Character(
+      GAME_CONST.START_CHARACTER.X,
+      GAME_CONST.START_CHARACTER.Y,
+      game
+    );
+  }
 
+  click = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+    const { x, y } = this.findCell(event.pageX, event.pageY);
     this.constructing.handleClick(x, y, this.gameMap);
+  };
+
+  findCell = (pageX: number, pageY: number) => {
+    const { cellSize } = this.game.screen;
+    const x = Math.floor(pageX / cellSize);
+    const y = Math.floor((pageY - Den.CONST.HEADER_HEIGHT) / cellSize);
+
+    return { x, y };
   };
 
   loadMap() {
@@ -51,23 +65,23 @@ export class Den extends Scene {
     );
   }
 
-  loadCitizens() {
-    this.character = new Сharacter(
-      GAME_CONST.START_CITIZEN.X,
-      GAME_CONST.START_CITIZEN.Y,
-      this.game.screen.cellSize
-    );
-  }
+  /* load saved char */
+  loadCharacter = () => {
+    console.warn('load saved char');
+  };
 
-  init() {
-    this.loadMap();
-    this.loadCitizens();
+  init(gameState?: unknown) {
+    if (gameState) {
+      this.loadCharacter();
+    } else {
+      this.loadMap();
+    }
   }
 
   render() {
     this.constructing.update(this.gameMap);
     this.drawMap();
-    this.drawCitizens();
+    this.drawCharacter();
   }
 
   drawMap = () => {
@@ -79,7 +93,7 @@ export class Den extends Scene {
     }
   };
 
-  drawCitizens() {
+  drawCharacter() {
     const { frameCount, screen } = this.game;
     this.character.update(frameCount, screen.cellSize);
     this.character.draw(screen.context, this.sprites.groups);

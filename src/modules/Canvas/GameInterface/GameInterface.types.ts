@@ -7,5 +7,4 @@ export type Props = {
 
 export type GameInfo = {
   day: number;
-  citizensCount: number;
 };

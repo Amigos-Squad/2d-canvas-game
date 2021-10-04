@@ -1,13 +1,12 @@
-import { Сharacter } from './Сharacter';
+import { Character } from './Character';
 import { RawGameMap } from './Tiles';
 
 export type GameConfig = {
   gameMap: RawGameMap;
-  сharacter: Сharacter;
+  сharacter: Character;
 };
 
 export type GameHandler = {
-  setCitizens: (citizens: number) => void;
   setCurrentDay: (day: number) => void;
 };
 

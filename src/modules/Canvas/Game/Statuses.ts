@@ -29,11 +29,6 @@ export class Statuses {
     this.handlers = handlers;
   }
 
-  changeCitizens(citizensCount: number) {
-    this.citizens = citizensCount;
-    this.handlers?.setCitizens(citizensCount);
-  }
-
   update() {
     this.dayHandler(this.game.frameCount);
   }

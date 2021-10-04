@@ -5,8 +5,7 @@ export const GAME_CONST = {
   START_FRAME: 0,
   END_FRAME: 60,
   FRAME_INCREASE: 1,
-  START_CITIZEN: {
-    COUNT: 2,
+  START_CHARACTER: {
     X: 16,
     Y: 8,
   },
