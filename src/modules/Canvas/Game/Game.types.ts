@@ -1,9 +1,9 @@
-import { Citizen } from './Citizen';
+import { Сharacter } from './Сharacter';
 import { RawGameMap } from './Tiles';
 
 export type GameConfig = {
   gameMap: RawGameMap;
-  citizens: Citizen[];
+  сharacter: Сharacter;
 };
 
 export type GameHandler = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Citizen } from '../Citizen';
+import { Сharacter } from '../Сharacter';
 import { GAME_CONST } from '../const';
 import {
   BASE_GAME_MAP,
@@ -22,7 +22,7 @@ export class Den extends Scene {
 
   protected gameMap: GameMap = [];
 
-  protected citizens: Citizen[] = [];
+  protected character: Сharacter = new Сharacter();
 
   protected constructing: Constructing = new Constructing();
 
@@ -52,18 +52,11 @@ export class Den extends Scene {
   }
 
   loadCitizens() {
-    const { context, cellSize } = this.game.screen;
-    this.citizens = new Array(GAME_CONST.START_CITIZEN.COUNT)
-      .fill(0)
-      .map(
-        (_, i) =>
-          new Citizen(
-            context,
-            GAME_CONST.START_CITIZEN.X + i * 2,
-            GAME_CONST.START_CITIZEN.Y,
-            cellSize
-          )
-      );
+    this.character = new Сharacter(
+      GAME_CONST.START_CITIZEN.X,
+      GAME_CONST.START_CITIZEN.Y,
+      this.game.screen.cellSize
+    );
   }
 
   init() {
@@ -87,18 +80,9 @@ export class Den extends Scene {
   };
 
   drawCitizens() {
-    for (let i = 0; i < this.citizens.length; i += 1) {
-      if (this.citizens[i].health === 0) {
-        this.citizens.splice(i, 1);
-        this.game.statuses.changeCitizens(this.citizens.length);
-      } else {
-        this.citizens[i].update(
-          this.game.frameCount,
-          this.game.screen.cellSize
-        );
-        this.citizens[i].draw(this.sprites.groups);
-      }
-    }
+    const { frameCount, screen } = this.game;
+    this.character.update(frameCount, screen.cellSize);
+    this.character.draw(screen.context, this.sprites.groups);
   }
 
   setBuilding(roomName?: string) {

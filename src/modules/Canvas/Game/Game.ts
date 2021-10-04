@@ -3,6 +3,7 @@ import { GameHandler } from './Game.types';
 import { Den, Scenes } from './Scenes';
 import { Screen } from './Screen';
 import { Statuses } from './Statuses';
+import { Controll } from './Controll';
 import ImageRoom from '@/assets/sprites/Room.png';
 import ImageGround from '@/assets/sprites/Ground.png';
 import ImageEnvironment from '@/assets/sprites/Environment.png';
@@ -23,6 +24,8 @@ export class Game {
 
   screen: Screen;
 
+  controll: Controll;
+
   frameCount: number = GAME_CONST.START_FRAME;
 
   animationFrameId: number | null = null;
@@ -35,6 +38,7 @@ export class Game {
 
   constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     this.screen = new Screen(canvas, context);
+    this.controll = new Controll();
     this.statuses = new Statuses(this);
 
     this.scenes = {
@@ -68,7 +72,11 @@ export class Game {
   private animate = () => {
     this.predraw();
     this.statuses.update();
-    this.currentScene.render();
+
+    if (this.isLoaded) {
+      this.currentScene.render();
+    }
+
     this.postdraw();
     this.animationFrameId = requestAnimationFrame(this.animate);
   };
