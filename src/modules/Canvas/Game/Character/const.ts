@@ -1,6 +1,4 @@
-export enum STATES {
-  SEARCH = 'SEARCH',
-  MOVING = 'MOVING',
-  WAITING = 'WAITING',
-  INTERACT = 'INTERACT',
-}
+export const BASE_CHARACTER = {
+  tileX: 16,
+  tileY: 8,
+};

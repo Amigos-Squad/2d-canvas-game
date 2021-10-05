@@ -1,7 +1,7 @@
-import { Den } from './Den';
+import { HomeBase } from './HomeBase';
 
-export interface Scenes {
-  den: Den;
-}
+export type Scenes = {
+  homeBase: HomeBase;
+};
 
-export type CurrentScene = Den;
+export type CurrentScene = HomeBase;

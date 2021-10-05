@@ -1,4 +1,3 @@
-import { Game } from '..';
 import { SpriteSheetGroup } from '../Images';
 import { ENVIRONMENT } from './const';
 import { TileData } from './tiles.types';
@@ -36,8 +35,7 @@ export class Tile {
     }
   }
 
-  draw = (game: Game, sprites: SpriteSheetGroup) => {
-    const { context } = game.screen;
+  draw = (context: CanvasRenderingContext2D, sprites: SpriteSheetGroup) => {
     const { spriteSheet, spriteIndex } = this.data;
     const { image, imageX, imageY, width, height } =
       sprites[spriteSheet].getSprite(spriteIndex);

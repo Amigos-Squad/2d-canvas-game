@@ -19,7 +19,10 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { args: 'none', varsIgnorePattern: '^_' },
+    ],
     'react/jsx-one-expression-per-line': 'off',
     'no-param-reassign': 'off',
     'no-nested-ternary': 'off',

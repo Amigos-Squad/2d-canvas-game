@@ -1,4 +1,5 @@
-import { GameMap, Tile, TILES, Tiles } from '.';
+import { Tile, TILES, Tiles } from '.';
+import { GameTileMap } from '../GameMap';
 import { BUILD_PLACE, TILE_TYPE } from './const';
 import { Room } from './Room';
 
@@ -7,13 +8,13 @@ export class Constructing {
 
   isBuildPlaceFound: boolean = false;
 
-  handleClick(x: number, y: number, gameMap: GameMap) {
+  handleClick(x: number, y: number, gameMap: GameTileMap) {
     if (this.room && gameMap[y][x].data.type === TILE_TYPE.BUILD_PLACE) {
       this.handleBuildClick(x, y, gameMap);
     }
   }
 
-  update(gameMap: GameMap) {
+  update(gameMap: GameTileMap) {
     if (this.room && !this.isBuildPlaceFound) {
       this.highlightPlaces(gameMap);
       this.isBuildPlaceFound = true;
@@ -27,7 +28,7 @@ export class Constructing {
     }
   }
 
-  highlightPlaces = (gameMap: GameMap) => {
+  highlightPlaces = (gameMap: GameTileMap) => {
     const widthCell = this.room?.widthCell || 3;
 
     for (let y = 0; y < gameMap.length; y += 1) {
@@ -118,7 +119,7 @@ export class Constructing {
     }
   };
 
-  handleBuildClick(x: number, y: number, gameMap: GameMap) {
+  handleBuildClick(x: number, y: number, gameMap: GameTileMap) {
     let topRow: number = 0;
 
     /* этаж = 2 блокам, четный нижний */

@@ -1,4 +1,4 @@
 export const initialState = {
-  savedState: null,
+  savedState: undefined,
   isLoaded: false,
 };

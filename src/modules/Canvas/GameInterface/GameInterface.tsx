@@ -7,7 +7,7 @@ import { ActionsMenu } from './ActionsMenu';
 import './GameInterface.scss';
 
 export const GameInterface = React.memo(
-  ({ game, gameInfo }: Props): ReactElement => {
+  ({ game, info }: Props): ReactElement => {
     const [isPaused, togglePause] = useBoolean(false);
 
     useEffect(() => {
@@ -20,7 +20,7 @@ export const GameInterface = React.memo(
 
     return (
       <>
-        {!isPaused && <Status day={gameInfo.day} />}
+        {!isPaused && <Status day={info.day} />}
         <PauseBar isPaused={isPaused} togglePause={togglePause} />
         {!isPaused && game && <ActionsMenu game={game} />}
       </>

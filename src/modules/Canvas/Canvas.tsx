@@ -3,16 +3,16 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GameCanvas } from './GameCanvas';
 import { GameInterface } from './GameInterface';
-import { Game } from './Game';
+import { Game, UpdateInfo } from './Game';
 import type { Store } from '@/redux/store.type';
 import { setSavedGame } from '@/redux';
+import { useForm } from '@/utils';
 import './Canvas.scss';
 
 export const Canvas = React.memo((): ReactElement => {
@@ -23,32 +23,30 @@ export const Canvas = React.memo((): ReactElement => {
 
   const canvasRef: MutableRefObject<null | HTMLCanvasElement> = useRef(null);
   const [game, setGame] = useState<Game | null>(null);
-  const [day, setCurrentDay] = useState(1);
+  const [info, _, updateInfo] = useForm({
+    day: 1,
+  });
 
   useEffect(() => {
-    if (canvasRef && canvasRef.current && !game) {
+    /* temp request */
+    dispatch(setSavedGame(undefined));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoaded && canvasRef && canvasRef.current && !game) {
       const context = canvasRef.current.getContext('2d');
 
       if (context) {
-        setGame(new Game(canvasRef.current, context));
-        /* temp request */
-        dispatch(setSavedGame(null));
+        const localGame = new Game(
+          canvasRef.current,
+          context,
+          savedState,
+          updateInfo as UpdateInfo
+        );
+        setGame(localGame);
       }
     }
-  }, [canvasRef, game, dispatch]);
-
-  useEffect(() => {
-    if (isLoaded && game && !game.isLoaded) {
-      game.load({ setCurrentDay }, savedState);
-    }
-  }, [game, savedState, isLoaded]);
-
-  const gameInfo = useMemo(
-    () => ({
-      day,
-    }),
-    [day]
-  );
+  }, [canvasRef, savedState, updateInfo, isLoaded, game]);
 
   const clickHandler = useCallback(
     (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
@@ -62,7 +60,7 @@ export const Canvas = React.memo((): ReactElement => {
   return (
     <div className="canvas__container">
       <div className="game__wrapper">
-        <GameInterface game={game} gameInfo={gameInfo} />
+        <GameInterface game={game} info={info} />
         <GameCanvas canvasRef={canvasRef} onClick={clickHandler} />
       </div>
     </div>
