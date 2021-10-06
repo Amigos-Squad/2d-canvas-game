@@ -1,6 +1,6 @@
 import { Room } from '../Room';
 
-export class Ladder extends Room {
+export class Lift extends Room {
   key = '27829c7b-d86b-4c64-a09a-1181b8fff3bd';
 
   scheme = [
@@ -8,5 +8,9 @@ export class Ladder extends Room {
     [4.3, 4.4],
   ];
 
-  widthCell = 2;
+  horizontalCellCount = 2;
+
+  data = {
+    isAllowVertical: true,
+  };
 }

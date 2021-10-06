@@ -7,7 +7,7 @@ import { Control } from './Control';
 import ImageRoom from '@/assets/sprites/Room.png';
 import ImageGround from '@/assets/sprites/Ground.png';
 import ImageEnvironment from '@/assets/sprites/Environment.png';
-import ImageCharacter from '@/assets/sprites/Citizen.png';
+import ImageCharacter from '@/assets/sprites/Char.png';
 import ImageBuildArea from '@/assets/sprites/BuildArea.png';
 import { SPRITE_SHEETS } from './Images';
 
@@ -46,12 +46,12 @@ export class Game {
     this.control = new Control();
     this.statuses = new Statuses(this, updateHandler);
 
+    this.load();
     this.scenes = {
       homeBase: new HomeBase(this, savedState),
     };
 
     this.currentScene = this.scenes[savedState.scene];
-    this.load();
   }
 
   load = async () => {

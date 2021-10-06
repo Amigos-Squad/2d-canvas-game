@@ -1,7 +1,7 @@
 import { BASE_CHARACTER } from './Character';
 import { SavedState } from './Game.types';
 import { BASE_GAME_MAP } from './GameMap';
-import { Kitchen, Ladder } from './Tiles';
+import { Kitchen, Lift } from './Tiles';
 
 export const GAME_CONST = {
   CELL_IN_PAGE: 32,
@@ -9,7 +9,7 @@ export const GAME_CONST = {
   END_FRAME: 60,
   FRAME_INCREASE: 1,
   BASE_BUILDINGS: {
-    LADDER: new Ladder(),
+    LADDER: new Lift(),
     KITCHEN: new Kitchen(),
   },
 };

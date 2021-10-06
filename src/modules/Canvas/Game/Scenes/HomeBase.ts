@@ -11,12 +11,13 @@ export class HomeBase extends Scene {
 
   protected character: Character;
 
-  protected constructing: Constructing = new Constructing();
+  protected constructing: Constructing;
 
   constructor(game: Game, savedGame: SavedState) {
     super(game);
     const { gameMap, сharacter } = savedGame;
 
+    this.constructing = new Constructing(this);
     this.character = new Character(this, сharacter);
     this.gameMap = new GameMap(this, gameMap);
   }
@@ -27,8 +28,8 @@ export class HomeBase extends Scene {
     ).getBoundingClientRect();
     const canvasY = event.pageY - offsetTop;
 
-    const { x, y } = this.gameMap.findTile(event.pageX, canvasY);
-    this.constructing.handleClick(x, y, this.gameMap.mapArray);
+    const { indexX, indexY } = this.gameMap.findTile(event.pageX, canvasY);
+    this.constructing.handleClick(indexX, indexY);
   };
 
   render() {

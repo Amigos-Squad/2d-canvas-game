@@ -1,22 +1,31 @@
-import { Tile, TILES, Tiles } from '.';
+import { Tile, TILES } from '.';
 import { GameTileMap } from '../GameMap';
+import { HomeBase } from '../Scenes';
 import { BUILD_PLACE, TILE_TYPE } from './const';
 import { Room } from './Room';
 
+/* TODO Rewrite/refactoring */
 export class Constructing {
+  scene: HomeBase;
+
   room: Room | null = null;
 
   isBuildPlaceFound: boolean = false;
 
-  handleClick(x: number, y: number, gameMap: GameTileMap) {
-    if (this.room && gameMap[y][x].data.type === TILE_TYPE.BUILD_PLACE) {
-      this.handleBuildClick(x, y, gameMap);
+  constructor(scene: HomeBase) {
+    this.scene = scene;
+  }
+
+  handleClick(x: number, y: number) {
+    const { mapArray } = this.scene.gameMap;
+    if (this.room && mapArray[y][x].data.type === TILE_TYPE.BUILD_PLACE) {
+      this.handleBuildClick(x, y);
     }
   }
 
   update(gameMap: GameTileMap) {
     if (this.room && !this.isBuildPlaceFound) {
-      this.highlightPlaces(gameMap);
+      this.highlightPlaces();
       this.isBuildPlaceFound = true;
     } else if (this.isBuildPlaceFound && !this.room) {
       for (let y = 0; y < gameMap.length; y += 1) {
@@ -28,27 +37,39 @@ export class Constructing {
     }
   }
 
-  highlightPlaces = (gameMap: GameTileMap) => {
-    const widthCell = this.room?.widthCell || 3;
+  highlightPlaces = () => {
+    const { mapArray } = this.scene.gameMap;
+    const cellCount = this.room?.horizontalCellCount || 3;
 
-    for (let y = 0; y < gameMap.length; y += 1) {
-      for (let x = 0; x < gameMap[y].length; x += 1) {
-        const { type } = gameMap[y][x].data;
+    for (let y = 0; y < mapArray.length; y += 1) {
+      for (let x = 0; x < mapArray[y].length; x += 1) {
+        const { data } = mapArray[y][x];
         const isOdd = y % 2 !== 0;
-        if (
-          type === TILE_TYPE.ROOM &&
-          gameMap[y][x - widthCell] &&
-          this.checkBuildPlace(gameMap[y], x - widthCell, x)
-        ) {
-          this.replaceBlockType(x - widthCell, x, gameMap[y], isOdd);
-        }
+        const leftOffset = x - cellCount;
+        const rightOffset = x + cellCount;
 
-        if (
-          type === TILE_TYPE.ROOM &&
-          gameMap[y][x + widthCell] &&
-          this.checkBuildPlace(gameMap[y], x + 1, x + widthCell)
-        ) {
-          this.replaceBlockType(x + 1, x + widthCell + 1, gameMap[y], isOdd);
+        if (data.type === TILE_TYPE.ROOM) {
+          if (
+            data.isAllowVerticalMove &&
+            !isOdd &&
+            this.checkVertical(mapArray, y, x, rightOffset)
+          ) {
+            this.highlightVerticalPlaces(mapArray, y, x);
+          }
+
+          if (
+            mapArray[y][leftOffset] &&
+            this.checkBuildPlace(mapArray[y], leftOffset, x)
+          ) {
+            this.replaceBlockType(leftOffset, x, mapArray[y], isOdd);
+          }
+
+          if (
+            mapArray[y][rightOffset] &&
+            this.checkBuildPlace(mapArray[y], x + 1, rightOffset)
+          ) {
+            this.replaceBlockType(x + 1, rightOffset + 1, mapArray[y], isOdd);
+          }
         }
       }
     }
@@ -58,6 +79,19 @@ export class Constructing {
     mapRow
       .slice(start, end)
       .every((cell) => cell.data.type === TILE_TYPE.GROUND);
+
+  checkVertical = (
+    gameMap: GameTileMap,
+    row: number,
+    start: number,
+    end: number
+  ) =>
+    gameMap[row]
+      .slice(start, end)
+      .every(
+        (cell) =>
+          cell.data.isAllowVerticalMove && cell.data.type !== TILE_TYPE.GROUND
+      );
 
   replaceBlockType = (
     start: number,
@@ -102,37 +136,29 @@ export class Constructing {
     }
   };
 
-  replaceBuildTile = (
-    { start, end, empty, center }: Tiles,
-    { startIndex, endIndex, centerIndex }: Record<string, number>,
-    index: number,
-    row: Tile
+  highlightVerticalPlaces = (
+    gameMap: GameTileMap,
+    startY: number,
+    startX: number
   ) => {
-    if (index === startIndex) {
-      row.data = start;
-    } else if (index === endIndex) {
-      row.data = end;
-    } else if (index === centerIndex) {
-      row.data = center;
-    } else {
-      row.data = empty;
-    }
+    gameMap[startY + 1][startX].data = BUILD_PLACE.build_short_top_left;
+    gameMap[startY + 1][startX + 1].data = BUILD_PLACE.build_short_top_right;
+    gameMap[startY + 2][startX].data = BUILD_PLACE.build_short_bottom_left;
+    gameMap[startY + 2][startX + 1].data = BUILD_PLACE.build_short_bottom_right;
   };
 
-  handleBuildClick(x: number, y: number, gameMap: GameTileMap) {
-    let topRow: number = 0;
+  /* этаж = 2 блокам, четный нижний */
+  handleBuildClick(x: number, y: number) {
+    const topRow: number = y % 2 === 0 ? y - 1 : y;
+    const startX = this.findStartX(x, y);
+    this.applyShema(startX, topRow);
+  }
 
-    /* этаж = 2 блокам, четный нижний */
-    if (y % 2 === 0) {
-      topRow = y - 1;
-    } else {
-      topRow = y;
-    }
-
+  findStartX = (x: number, y: number) => {
+    const { mapArray } = this.scene.gameMap;
     let startX = x;
-
     while (startX) {
-      const current = gameMap[y][startX - 1];
+      const current = mapArray[y][startX - 1];
 
       if (!current || current.data.type !== TILE_TYPE.BUILD_PLACE) {
         break;
@@ -141,13 +167,18 @@ export class Constructing {
       }
     }
 
+    return startX;
+  };
+
+  applyShema = (startX: number, topRow: number) => {
+    const { mapArray } = this.scene.gameMap;
     this.room?.scheme.forEach((tileNum: number[], index: number) => {
       for (let i = startX; i < startX + tileNum.length; i += 1) {
-        gameMap[topRow + index][i].data = TILES.get(tileNum[i - startX])!;
-        gameMap[topRow + index][i].baseData = TILES.get(tileNum[i - startX])!;
+        mapArray[topRow + index][i].data = TILES.get(tileNum[i - startX])!;
+        mapArray[topRow + index][i].baseData = TILES.get(tileNum[i - startX])!;
       }
     });
 
     this.room = null;
-  }
+  };
 }

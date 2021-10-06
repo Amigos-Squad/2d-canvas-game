@@ -1,7 +1,8 @@
-import { Animation } from '../Images';
+import { Animation, SpriteSheets, SPRITE_SHEETS } from '../Images';
 import { TILE_TYPE } from '../Tiles';
 import { Character } from './Character';
 import { TileCache } from './Character.types';
+import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
 
 export class Shape {
   protected character: Character;
@@ -10,21 +11,25 @@ export class Shape {
 
   protected cellY: number;
 
-  public x: number;
+  x: number;
 
-  public y: number;
+  y: number;
 
-  public width: number = 0;
+  width: number = 0;
 
-  public height: number = 0;
+  height: number = 0;
 
   protected prevBlockSize: number;
 
   protected blockSize: number;
 
-  public animation: null | Animation = null;
+  animation: Animation | null = null;
+
+  activity: ACTIVITYS_TITLE;
 
   protected tileCache: TileCache = new Map();
+
+  protected sprites: SpriteSheets;
 
   constructor(character: Character, x: number = 0, y: number = 0) {
     const { cellSize } = character.scene.game.screen;
@@ -43,6 +48,13 @@ export class Shape {
     this.blockSize = cellSize;
     this.prevBlockSize = cellSize;
     this.character = character;
+
+    this.sprites = new SpriteSheets(
+      [SPRITE_SHEETS.CHARACTER],
+      character.scene.game.screen
+    );
+
+    this.activity = ACTIVITYS_TITLE.IDLE;
   }
 
   handleResize(blockSize: number) {
@@ -60,31 +72,58 @@ export class Shape {
     const { speed } = characteristics;
 
     if (left) {
-      this.x -= this.handleHorizontal(-speed);
+      this.x += this.handleHorizontal(-speed);
     } else if (right) {
       this.x += this.handleHorizontal(speed);
     }
 
     if (down) {
-      this.y += speed;
+      this.y += this.handleVertical(speed);
     } else if (up) {
-      this.y -= speed;
+      this.y += this.handleVertical(-speed);
     }
   }
 
   handleHorizontal(speed: number) {
-    const { gameMap } = this.character.scene;
+    const { gameMap, game } = this.character.scene;
     let nextX = this.x + speed;
 
     if (speed > 0) {
       nextX += this.width;
     }
 
-    const { x: tileX, y: tileY } = gameMap.findTile(nextX, this.y);
-    const { data } = gameMap.mapArray[tileY][tileX];
+    const { data, y, indexX, indexY } = gameMap.findTile(nextX, this.y);
 
-    if (data.type === TILE_TYPE.ROOM && tileY % 2 !== 0 && tileY === this.y) {
-      return Math.abs(speed);
+    if (data.type === TILE_TYPE.ROOM) {
+      if (this.y !== y + this.height) {
+        if (indexY % 2 === 0) {
+          this.y = y;
+        } else {
+          this.y = y + game.screen.cellSize;
+        }
+      }
+
+      this.cellX = indexX;
+
+      return speed;
+    }
+
+    return 0;
+  }
+
+  handleVertical(speed: number) {
+    const { gameMap } = this.character.scene;
+    let nextY = this.y;
+
+    if (speed > 0) {
+      nextY += this.height;
+    }
+
+    const { data, indexY } = gameMap.findTile(this.x, nextY);
+
+    if (data.type === TILE_TYPE.ROOM && data.isAllowVerticalMove) {
+      this.cellY = indexY;
+      return speed;
     }
 
     return 0;
@@ -96,9 +135,41 @@ export class Shape {
     }
 
     this.handleWalk();
+    this.handleAnimation(frame);
+  }
 
+  getActivityAnimation() {
+    if (!this.animation) {
+      const { cadres, width } = SHAPE_ACTIVITYS[this.activity];
+      this.animation = this.sprites.groups[
+        SPRITE_SHEETS.CHARACTER
+      ].getAnimation(cadres, width);
+    }
+
+    return this.animation;
+  }
+
+  handleAnimation(frame: number) {
     if (this.animation) {
       this.animation.update(frame);
     }
+  }
+
+  draw(context: CanvasRenderingContext2D) {
+    const { image, imageX, imageY, width, height } =
+      this.getActivityAnimation();
+
+    /* TODO fix offset Y (img stack) */
+    context.drawImage(
+      image,
+      imageX,
+      imageY,
+      width,
+      height,
+      this.x,
+      this.y - 10,
+      this.width,
+      this.height
+    );
   }
 }

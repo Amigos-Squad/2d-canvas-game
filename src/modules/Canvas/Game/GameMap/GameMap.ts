@@ -32,7 +32,9 @@ export class GameMap {
   }
 
   loadMap(mapArray: RawGameMap) {
-    this.mapArray = mapArray.map((y) => y.map((x) => new Tile(TILES.get(x))));
+    this.mapArray = mapArray.map((y, indexY) =>
+      y.map((x, indexX) => new Tile(TILES.get(x), indexY, indexX))
+    );
   }
 
   findTile = (pageX: number, pageY: number) => {
@@ -40,7 +42,7 @@ export class GameMap {
     const x = Math.floor(pageX / cellSize);
     const y = Math.floor(pageY / cellSize);
 
-    return { x, y };
+    return this.mapArray[y][x];
   };
 
   render() {
@@ -51,7 +53,7 @@ export class GameMap {
   draw = (screen: Screen) => {
     for (let y = 0; y < this.mapArray.length; y += 1) {
       for (let x = 0; x < this.mapArray[y].length; x += 1) {
-        this.mapArray[y][x].update(x, y, screen.cellSize);
+        this.mapArray[y][x].update(screen.cellSize);
         this.mapArray[y][x].draw(screen.context, this.sprites.groups);
       }
     }

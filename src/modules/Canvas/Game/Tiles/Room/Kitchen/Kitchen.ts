@@ -8,5 +8,5 @@ export class Kitchen extends Room {
     [5.4, 3.5, 5.5],
   ];
 
-  widthCell = 3;
+  horizontalCellCount = 3;
 }

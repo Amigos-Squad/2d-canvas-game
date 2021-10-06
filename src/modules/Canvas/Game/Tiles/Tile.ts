@@ -3,9 +3,13 @@ import { ENVIRONMENT } from './const';
 import { TileData } from './tiles.types';
 
 export class Tile {
-  private x: number = 0;
+  indexY: number;
 
-  private y: number = 0;
+  indexX: number;
+
+  x: number = 0;
+
+  y: number = 0;
 
   private width: number = 0;
 
@@ -15,14 +19,20 @@ export class Tile {
 
   baseData: TileData;
 
-  constructor(type: TileData = ENVIRONMENT.empty) {
+  constructor(
+    type: TileData = ENVIRONMENT.empty,
+    indexY: number,
+    indexX: number
+  ) {
     this.data = type;
     this.baseData = type;
+    this.indexX = indexX;
+    this.indexY = indexY;
   }
 
-  update(x: number, y: number, cellSize: number) {
-    this.x = x * cellSize;
-    this.y = y * cellSize;
+  update(cellSize: number) {
+    this.x = this.indexX * cellSize;
+    this.y = this.indexY * cellSize;
     this.width = cellSize;
     this.height = cellSize;
   }
