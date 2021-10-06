@@ -1,14 +1,13 @@
-import { Citizen } from './Citizen';
-import { RawGameMap } from './Tiles';
+import { CharacterState } from './Character';
+import { RawGameMap } from './GameMap';
+import { Scenes } from './Scenes';
 
-export type GameConfig = {
+export type SavedState = {
   gameMap: RawGameMap;
-  citizens: Citizen[];
+  сharacter: CharacterState;
+  scene: keyof Scenes;
 };
 
-export type GameHandler = {
-  setCitizens: (citizens: number) => void;
-  setCurrentDay: (day: number) => void;
-};
+export type UpdateInfo = <T>(fields: T) => void;
 
 export type Images = Record<string, string>;

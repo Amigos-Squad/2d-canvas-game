@@ -8,5 +8,5 @@ export class Ladder extends Room {
     [3.4, 3.5, 3.5, 3.6],
   ];
 
-  widthCell = 4;
+  horizontalCellCount = 4;
 }

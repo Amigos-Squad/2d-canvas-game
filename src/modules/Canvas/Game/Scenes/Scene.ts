@@ -7,7 +7,5 @@ export abstract class Scene {
     this.game = game;
   }
 
-  abstract init(): void;
-
   abstract render(): void;
 }

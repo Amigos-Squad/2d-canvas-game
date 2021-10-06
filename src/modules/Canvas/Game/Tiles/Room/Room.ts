@@ -3,5 +3,5 @@ export abstract class Room {
 
   abstract scheme: any;
 
-  abstract widthCell: number;
+  abstract horizontalCellCount: number;
 }
