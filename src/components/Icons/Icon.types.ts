@@ -5,6 +5,7 @@ export type IconConfig = Record<string, string | boolean | number>;
 export type Props = {
   name: ICONS;
   href?: string;
+  className?: string;
   onClick?: () => void;
   config?: IconConfig;
 };

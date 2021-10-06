@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { AvatarIcon } from '@/components/Icons/SVG/Avatar';
 import './Overview.scss';
-import { Input } from '@/components';
+import { Input } from '@/components/Form';
 import { useForm } from '@/utils';
 import { IUser } from '@/models';
 

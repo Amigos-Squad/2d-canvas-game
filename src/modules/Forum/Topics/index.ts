@@ -1,2 +1,2 @@
 export { Topics } from './Topics';
-export { TopicsHeader } from './TopicsHeader';
+export { tempTopics } from './const';

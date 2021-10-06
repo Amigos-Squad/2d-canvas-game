@@ -43,14 +43,14 @@ const ServerError = loadable(() => import('./Errors'), {
   fallback: <Loader />,
 });
 
-const PageNotFound = loadable(() => import('./Errors'), {
+export const LazyPageNotFound = loadable(() => import('./Errors'), {
   resolveComponent: (components) => components.PageNotFound,
   fallback: <Loader />,
 });
 
 export type RouteItem = {
   path: ROUTES;
-  exact: boolean;
+  exact?: boolean;
   component: JSX.Element;
 };
 
@@ -62,7 +62,6 @@ export const PRIVATE_ROUTES_MAP: Record<string, RouteItem> = {
   },
   [ROUTES.FORUM]: {
     path: ROUTES.FORUM,
-    exact: true,
     component: <Forum />,
   },
   [ROUTES.LEADERBOARD]: {
@@ -99,7 +98,6 @@ export const USED_ROUTES = [
   },
   {
     path: ROUTES.NOT_FOUND,
-    exact: false,
-    component: <PageNotFound />,
+    component: <LazyPageNotFound />,
   },
 ];
