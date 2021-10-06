@@ -1,7 +1,8 @@
 import React, { FormEvent, memo, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Button, Input } from '@/components';
+import { Button } from '@/components';
+import { Input } from '@/components/Form';
 import { useForm } from '@/utils';
 import type { ILoginForm } from '@/modules';
 import { signIn } from '@/redux';

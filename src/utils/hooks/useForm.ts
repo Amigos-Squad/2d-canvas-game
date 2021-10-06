@@ -2,14 +2,10 @@ import { useState } from 'react';
 
 export function useForm<T>(
   init: T
-): [
-  T,
-  (event: React.FormEvent<HTMLInputElement>) => void,
-  (fields: T) => void
-] {
+): [T, (event: React.FormEvent<unknown>) => void, (fields: T) => void] {
   const [form, changeFormField] = useState(init);
 
-  function onChange(event: React.FormEvent<HTMLInputElement>) {
+  function onChange<E>(event: React.FormEvent<E>) {
     const { name, value } = event.target as HTMLInputElement;
 
     changeFormField({ ...form, [name]: value });

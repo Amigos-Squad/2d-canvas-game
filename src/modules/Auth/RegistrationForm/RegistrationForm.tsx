@@ -1,11 +1,12 @@
 import React, { FormEvent, memo, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Button, Input } from '@/components';
+import { Button } from '@/components';
+import { Input } from '@/components/Form';
 import { IRegistrationForm } from '@/modules';
 import { converter, useForm } from '@/utils';
-import '../Auth.scss';
 import { signUp } from '@/redux';
+import '../Auth.scss';
 
 export const RegistrationForm = memo((): ReactElement => {
   const dispatch = useDispatch();

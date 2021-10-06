@@ -3,14 +3,23 @@ import React, { ReactElement, useMemo } from 'react';
 import { IconProps, Props } from './Icon.types';
 import './Icon.scss';
 
-const AsyncIcon = loadable(({ name }: IconProps) => import(`./SVG/${name}`), {
-  resolveComponent: (components, chunk) =>
-    components[(chunk as { name: string }).name],
-  cacheKey: ({ name }) => name,
-});
+const AsyncIcon = loadable(
+  ({ name }: IconProps) => import(/* webpackPrefetch: true */ `./SVG/${name}`),
+  {
+    resolveComponent: (components, chunk) =>
+      components[(chunk as { name: string }).name],
+    cacheKey: ({ name }) => name,
+  }
+);
 
 export const Icon = React.memo(
-  ({ name, onClick, href, config }: Props): ReactElement => {
+  ({
+    name,
+    onClick,
+    href,
+    config = {},
+    className = '',
+  }: Props): ReactElement => {
     const icon = useMemo(() => {
       if (name) {
         if (href) {
@@ -22,13 +31,13 @@ export const Icon = React.memo(
         }
 
         return (
-          <span onClick={onClick} className="component__svg-icon">
+          <div onClick={onClick} className={`component__svg-icon ${className}`}>
             <AsyncIcon name={name} config={config} />
-          </span>
+          </div>
         );
       }
       return <></>;
-    }, [name, href, config, onClick]);
+    }, [name, href, config, className, onClick]);
 
     return icon;
   }

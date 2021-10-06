@@ -1,1 +1,1 @@
-export { NewTopic } from './NewTopic';
+export { NewTopicForm } from './NewTopicForm';

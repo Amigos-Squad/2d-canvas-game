@@ -1,0 +1,12 @@
+@import 'scss/var';
+
+.input__textarea {
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  color: $font-color;
+  font-size: 20px;
+  padding-left: 8px;
+  background-color: $bg-light-color;
+  resize: none;
+}

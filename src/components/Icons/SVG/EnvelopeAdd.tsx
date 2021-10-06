@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-export const ForumActionsIcon = React.memo(
+export const EnvelopeAdd = React.memo(
   (): ReactElement => (
     <svg
       width="35"

@@ -25,4 +25,17 @@
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.7) inset;
     }
   }
+
+  &_transparent {
+    background: transparent;
+    text-transform: uppercase;
+
+    &:hover {
+      color: $accent-color;
+    }
+
+    &:focus {
+      color: $accent-dark-color;
+    }
+  }
 }

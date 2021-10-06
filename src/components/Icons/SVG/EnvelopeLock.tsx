@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-export const TopicClosedIcon = React.memo(
+export const EnvelopeLock = React.memo(
   (): ReactElement => (
     <svg
       width="22"

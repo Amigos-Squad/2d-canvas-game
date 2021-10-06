@@ -7,4 +7,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  background: $bg-dark-color;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
