@@ -1,28 +1,24 @@
 import React, { memo, ReactElement } from 'react';
-import { Route, NavLink, useHistory } from 'react-router-dom';
+import { Route, useHistory, useLocation } from 'react-router-dom';
 import { ROUTES, useKeypress } from '@/utils';
 import { tempTopics, Topics } from './Topics';
-import { Header, Icon, ICONS, SwitchWithRedirect } from '@/components';
-import { FORUM_NAV } from './const';
+import { SwitchWithRedirect } from '@/components';
 import { NewTopicForm } from './NewTopic';
+import { Topic } from './Topic';
 import './Forum.scss';
+import { ForumHeader } from './ForumHeader';
 
 export const ForumContainer = memo((): ReactElement => {
   const history = useHistory();
+  const { pathname } = useLocation();
 
-  const handleCancelForm = () => history.push(ROUTES.FORUM);
+  const handleCancelForm = () => history.push(pathname.replace('/new', ''));
 
   useKeypress('Escape', handleCancelForm);
 
   return (
     <>
-      <Header navItems={FORUM_NAV}>
-        <div className="forum__header-actions">
-          <NavLink to={ROUTES.FORUM_NEW_TOPIC}>
-            <Icon name={ICONS.EnvelopeAdd} />
-          </NavLink>
-        </div>
-      </Header>
+      <ForumHeader />
 
       <SwitchWithRedirect>
         <Route exact path={ROUTES.FORUM}>
@@ -31,15 +27,20 @@ export const ForumContainer = memo((): ReactElement => {
 
         <Route exact path={ROUTES.FORUM_NEW_TOPIC}>
           <Topics topics={tempTopics} />
-          <NewTopicForm />
+          <NewTopicForm cancel={handleCancelForm} />
         </Route>
 
         <Route exact path={ROUTES.FORUM_FAVORITE}>
           <div>NOPE</div>
         </Route>
 
-        <Route path={ROUTES.FORUM_TOPIC}>
-          <div>123</div>
+        <Route exact path={ROUTES.FORUM_TOPIC}>
+          <Topic />
+        </Route>
+
+        <Route exact path={ROUTES.FORUM_NEW_POST}>
+          <Topic />
+          <NewTopicForm cancel={handleCancelForm} />
         </Route>
       </SwitchWithRedirect>
     </>

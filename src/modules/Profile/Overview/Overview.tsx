@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import { AvatarIcon } from '@/components/Icons/SVG/Avatar';
 import './Overview.scss';
 import { Input } from '@/components/Form';
 import { useForm } from '@/utils';
@@ -18,7 +17,6 @@ export const Overview = (): ReactElement => {
   return (
     <div className="profile-page__overview profile-overview">
       <div className="profile-overview__title">
-        <AvatarIcon />
         <div className="user">USER NAME</div>
         <div className="score">
           <div>max score</div>
