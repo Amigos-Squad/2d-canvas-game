@@ -1,68 +1,67 @@
-import React, { ReactElement } from 'react';
-import { AvatarIcon } from '@/components/Icons/SVG/Avatar';
-import './Overview.scss';
-import { Input } from '@/components/Form';
-import { useForm } from '@/utils';
+import React, { ReactElement, memo, useEffect } from 'react';
+import { useAppSelector, useBoolean, useForm } from '@/utils';
 import { IUser } from '@/models';
+import { Form } from './Form';
+import { OverviewHeader } from './OverviewHeader';
+import { ContentColumn } from './ContentColumn';
+import './Overview.scss';
 
-export const Overview = (): ReactElement => {
-  const [form, onChange] = useForm<IUser>({
+export const Overview = memo((): ReactElement => {
+  const { user } = useAppSelector('user');
+  const [isPassword, toggle] = useBoolean();
+
+  const { form, onChange, fullChange } = useForm<IUser>({
     email: '',
     firstName: '',
     login: '',
     displayName: '',
     secondName: '',
     phone: '',
+    avatar: null,
   });
 
+  const { form: passwordForm, onChange: changePassword } = useForm({
+    password: '',
+    newPassword: '',
+    repeatPassword: '',
+  });
+
+  const onChangeHandler = (event: React.FormEvent<unknown>) => {
+    const { name } = event.target as HTMLInputElement;
+
+    if (name in form) {
+      onChange(event);
+    } else {
+      changePassword(event);
+    }
+  };
+
+  useEffect(() => {
+    fullChange(user);
+  }, [user, fullChange]);
+
   return (
-    <div className="profile-page__overview profile-overview">
-      <div className="profile-overview__title">
-        <AvatarIcon />
-        <div className="user">USER NAME</div>
-        <div className="score">
-          <div>max score</div>
-          <div>4004</div>
-        </div>
+    <div className="profile-overview">
+      <OverviewHeader {...form} />
+      <div className="profile-overview__content">
+        <ContentColumn title="User Data">
+          <Form
+            {...form}
+            {...passwordForm}
+            onChange={onChangeHandler}
+            isPassword={isPassword}
+            togglePassword={toggle}
+          />
+        </ContentColumn>
+
+        <ContentColumn title="Statistics">
+          <div> </div>
+        </ContentColumn>
+
+        <ContentColumn title="Achievements">
+          <div> </div>
+        </ContentColumn>
       </div>
-      <form className="profile-overview__form">
-        <Input
-          value={form.displayName || ''}
-          onChange={onChange}
-          name="displayName"
-          label="Display name"
-        />
-        <Input
-          label="First name"
-          value={form.firstName}
-          onChange={onChange}
-          name="firstName"
-        />
-        <Input
-          label="Second name"
-          value={form.secondName}
-          onChange={onChange}
-          name="secondName"
-        />
-        <Input
-          label="Login"
-          value={form.login}
-          onChange={onChange}
-          name="login"
-        />
-        <Input
-          label="Email"
-          value={form.email}
-          onChange={onChange}
-          name="email"
-        />
-        <Input
-          label="Phone"
-          value={form.phone}
-          onChange={onChange}
-          name="phone"
-        />
-      </form>
     </div>
   );
-};
+});
