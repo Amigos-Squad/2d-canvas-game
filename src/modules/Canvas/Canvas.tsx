@@ -23,7 +23,7 @@ export const Canvas = React.memo((): ReactElement => {
 
   const canvasRef: MutableRefObject<null | HTMLCanvasElement> = useRef(null);
   const [game, setGame] = useState<Game | null>(null);
-  const [info, _, updateInfo] = useForm({
+  const { form: info, onChange: updateInfo } = useForm({
     day: 1,
   });
 

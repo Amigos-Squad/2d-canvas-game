@@ -1,0 +1,53 @@
+@import 'scss/var';
+
+.overview-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 4%;
+
+  &__footer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 300px;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__password-toggle {
+    color: $accent-color;
+    text-transform: uppercase;
+    font-size: 0.9vw;
+    width: 100%;
+    text-align: end;
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: $accent-dark-color;
+    }
+  }
+}
+
+.password-fields {
+  margin-top: 5px;
+
+  &__title {
+    color: $font-color;
+    border-bottom: 3px solid $accent-color;
+    text-transform: uppercase;
+    font-size: 1vw;
+  }
+}

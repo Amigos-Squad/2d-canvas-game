@@ -10,7 +10,7 @@ import '../Auth.scss';
 
 export const LoginForm = memo((): ReactElement => {
   const dispatch = useDispatch();
-  const [form, onChange] = useForm<ILoginForm>({
+  const { form, onChange } = useForm<ILoginForm>({
     password: '',
     login: '',
   });

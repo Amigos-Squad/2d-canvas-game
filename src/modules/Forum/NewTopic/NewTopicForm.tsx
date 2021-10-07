@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const NewTopicForm = memo(({ cancel }: Props): ReactElement => {
-  const [form, onChange] = useForm({
+  const { form, onChange } = useForm({
     title: '',
     message: '',
   });

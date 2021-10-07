@@ -10,7 +10,7 @@ import '../Auth.scss';
 
 export const RegistrationForm = memo((): ReactElement => {
   const dispatch = useDispatch();
-  const [form, onChange] = useForm<IRegistrationForm>({
+  const { form, onChange } = useForm<IRegistrationForm>({
     firstName: 'Kuart',
     secondName: 'Kuart',
     email: 'Kuart@mail.com',

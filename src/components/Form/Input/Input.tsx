@@ -3,8 +3,8 @@ import './Input.scss';
 import { Props } from './Input.types';
 
 export const Input = memo(
-  ({ onChange, value, label, ...rest }: Props): ReactElement => (
-    <label className="input">
+  ({ onChange, value, label, horizontal, ...rest }: Props): ReactElement => (
+    <label className={`input ${horizontal ? 'input_horizontal' : ''}`}>
       <div className="input__label">{label}</div>
       <input
         className="input__field"

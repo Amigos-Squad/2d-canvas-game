@@ -22,5 +22,24 @@
     font-size: 20px;
     padding-left: 8px;
     background-color: $bg-light-color;
+    width: 100%;
+  }
+
+  &_horizontal {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  &_horizontal &__label {
+    display: flex;
+    min-width: 8vw;
+    align-items: flex-end;
+    text-transform: uppercase;
+    font-size: 1.1vw;
+    line-height: 40px;
+  }
+
+  &_horizontal &__field {
+    align-items: flex-end;
   }
 }
