@@ -8,6 +8,12 @@ import {
   signOutSaga,
 } from './auth';
 
+import {
+  updateProfileSaga,
+  updatePasswordSaga,
+  updateAvatarSaga,
+} from './user';
+
 export function* rootSaga() {
   const sagas = [
     signInSaga,
@@ -15,6 +21,9 @@ export function* rootSaga() {
     loadUserSaga,
     preLoadUserSaga,
     signOutSaga,
+    updateProfileSaga,
+    updatePasswordSaga,
+    updateAvatarSaga,
   ];
 
   const retrySagas: Saga[] = yield sagas.map((saga) =>

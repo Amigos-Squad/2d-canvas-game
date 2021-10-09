@@ -26,6 +26,7 @@ module.exports = {
     'react/jsx-one-expression-per-line': 'off',
     'no-param-reassign': 'off',
     'no-nested-ternary': 'off',
+    'react-hooks/exhaustive-deps': 'off',
     'no-shadow': 'off',
     'no-restricted-syntax': 'off',
     'object-curly-newline': 'off',
