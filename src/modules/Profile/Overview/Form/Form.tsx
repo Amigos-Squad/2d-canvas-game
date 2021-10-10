@@ -6,23 +6,19 @@ import './Form.scss';
 
 export const Form = memo(
   ({
-    displayName = '',
-    firstName,
-    secondName,
-    login,
-    email,
-    phone,
+    form,
+    passForm,
     isPassword,
-    password,
-    newPassword,
-    repeatPassword,
+    isChanged,
+    reset,
+    update,
     onChange,
     togglePassword,
   }: Props): ReactElement => (
     <form className="overview-form">
       <div className="overview-form__body">
         <Input
-          value={displayName}
+          value={form.displayName || ''}
           onChange={onChange}
           name="displayName"
           label="Display name"
@@ -31,7 +27,7 @@ export const Form = memo(
 
         <Input
           label="First name"
-          value={firstName}
+          value={form.firstName}
           onChange={onChange}
           name="firstName"
           horizontal
@@ -39,7 +35,7 @@ export const Form = memo(
 
         <Input
           label="Second name"
-          value={secondName}
+          value={form.secondName}
           onChange={onChange}
           name="secondName"
           horizontal
@@ -47,7 +43,7 @@ export const Form = memo(
 
         <Input
           label="Login"
-          value={login}
+          value={form.login}
           onChange={onChange}
           name="login"
           horizontal
@@ -55,7 +51,7 @@ export const Form = memo(
 
         <Input
           label="Email"
-          value={email}
+          value={form.email}
           onChange={onChange}
           name="email"
           horizontal
@@ -64,7 +60,7 @@ export const Form = memo(
 
         <Input
           label="Phone"
-          value={phone}
+          value={form.phone}
           onChange={onChange}
           name="phone"
           horizontal
@@ -77,16 +73,16 @@ export const Form = memo(
               <div className="password-fields__title">Password change</div>
               <Input
                 label="Current"
-                value={password}
+                value={passForm.oldPassword}
                 onChange={onChange}
-                name="password"
+                name="oldPassword"
                 type="password"
                 horizontal
               />
 
               <Input
                 label="New"
-                value={newPassword}
+                value={passForm.newPassword}
                 onChange={onChange}
                 name="newPassword"
                 type="password"
@@ -95,9 +91,9 @@ export const Form = memo(
 
               <Input
                 label="Repeat"
-                value={repeatPassword}
+                value={passForm.newPasswordRepeat}
                 onChange={onChange}
-                name="repeatPassword"
+                name="newPasswordRepeat"
                 type="password"
                 horizontal
               />
@@ -112,12 +108,18 @@ export const Form = memo(
         </>
       </div>
 
-      <footer className="overview-form__footer">
-        <div className="overview-form__buttons">
-          <Button>Save</Button>
-          <Button buttonType={BUTTON_TYPES.TRANSPARENT}>Reset</Button>
-        </div>
-      </footer>
+      {isChanged && (
+        <footer className="overview-form__footer">
+          <div className="overview-form__buttons">
+            <Button type="submit" onClick={update}>
+              Save
+            </Button>
+            <Button buttonType={BUTTON_TYPES.TRANSPARENT} onClick={reset}>
+              Reset
+            </Button>
+          </div>
+        </footer>
+      )}
     </form>
   )
 );
