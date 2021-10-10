@@ -19,3 +19,9 @@ export const baseSetup: SavedState = {
   сharacter: BASE_CHARACTER,
   scene: 'homeBase',
 };
+
+export const enum EVENT_BUS_EVENTS {
+  KEY_DOWN = 'KEY_DOWN',
+  KEY_UP = 'KEY_UP',
+  ESCAPE = 'ESCAPE',
+}

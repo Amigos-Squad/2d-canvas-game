@@ -3,10 +3,33 @@
 .game-interface__actions-menu {
   position: absolute;
   bottom: 2vh;
-  left: 1vw;
+  left: 0.5vw;
   color: #fff;
   font-weight: 600;
+}
+
+.actions-menu__item {
+  width: 2vw;
+  height: 2vw;
+  background: $accent-color;
+  border-radius: 4px;
+  box-shadow: 0 0 2px #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   cursor: pointer;
+  padding: 10px;
+  transition: all 0.2s;
+
+  &-img {
+    width: 2.5vw;
+    height: auto;
+  }
+}
+
+.actions-menu__item:hover {
+  background: $accent-dark-color;
 }
 
 .game-interface__actions-menu:hover {

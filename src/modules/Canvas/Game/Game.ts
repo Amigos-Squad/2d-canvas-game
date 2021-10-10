@@ -1,4 +1,4 @@
-import { baseSetup, GAME_CONST } from './const';
+import { baseSetup, EVENT_BUS_EVENTS, GAME_CONST } from './const';
 import { SavedState, UpdateInfo } from './Game.types';
 import { HomeBase, Scenes } from './Scenes';
 import { Screen } from './Screen';
@@ -10,6 +10,7 @@ import ImageEnvironment from '@/assets/sprites/Environment.png';
 import ImageCharacter from '@/assets/sprites/Char.png';
 import ImageBuildArea from '@/assets/sprites/BuildArea.png';
 import { SPRITE_SHEETS } from './Images';
+import { EventBus } from '@/utils';
 
 export class Game {
   static IMAGES = {
@@ -21,6 +22,8 @@ export class Game {
   };
 
   isLoaded: boolean = false;
+
+  eventBus: EventBus<EVENT_BUS_EVENTS>;
 
   screen: Screen;
 
@@ -42,8 +45,9 @@ export class Game {
     savedState: SavedState = baseSetup,
     updateHandler: UpdateInfo
   ) {
+    this.eventBus = new EventBus();
     this.screen = new Screen(canvas, context);
-    this.control = new Control();
+    this.control = new Control(this);
     this.statuses = new Statuses(this, updateHandler);
 
     this.load();
@@ -86,9 +90,7 @@ export class Game {
   };
 
   run() {
-    if (!this.animationFrameId) {
-      this.animate();
-    }
+    this.animate();
   }
 
   cancelAnimation() {

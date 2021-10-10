@@ -1,3 +1,6 @@
 export type Props = {
-  day: number;
+  drones?: {
+    total: number;
+    free: number;
+  };
 };

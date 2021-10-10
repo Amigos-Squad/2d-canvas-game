@@ -4,6 +4,7 @@ import { MenuItem } from './MenuItem';
 import { Props } from './ActionsMenu.types';
 import { Building } from './Building';
 import { ActiveMenu } from './ActiveMenu';
+import buildIcon from '@/assets/gameInterface/Build.png';
 import './ActionsMenu.scss';
 
 export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
@@ -32,9 +33,10 @@ export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
     <>
       <div className="game-interface__actions-menu">
         <MenuItem
+          alt="build"
           name={MENU_OPTIONS.BUILDING}
           select={selectHandler}
-          title="BUILDING"
+          icon={buildIcon}
         />
       </div>
 

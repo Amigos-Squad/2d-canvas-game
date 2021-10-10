@@ -8,7 +8,8 @@ export type Props = {
 export type MenuItemProps = {
   select: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   name: string;
-  title: string;
+  icon: string;
+  alt: string;
 };
 
 export type ActiveMenuProps = {

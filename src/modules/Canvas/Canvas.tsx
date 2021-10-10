@@ -9,7 +9,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { GameCanvas } from './GameCanvas';
 import { GameInterface } from './GameInterface';
-import { Game, UpdateInfo } from './Game';
+import { EVENT_BUS_EVENTS, Game, UpdateInfo } from './Game';
 import type { Store } from '@/redux/store.type';
 import { setSavedGame } from '@/redux';
 import { useForm } from '@/utils';
@@ -56,6 +56,23 @@ export const Canvas = React.memo((): ReactElement => {
     },
     [game]
   );
+
+  const keyDownHandler = (event: KeyboardEvent) =>
+    game?.eventBus.emit(EVENT_BUS_EVENTS.KEY_DOWN, event);
+  const keyUpHandler = (event: KeyboardEvent) =>
+    game?.eventBus.emit(EVENT_BUS_EVENTS.KEY_UP, event);
+
+  useEffect(() => {
+    if (game && isLoaded) {
+      document.addEventListener('keydown', keyDownHandler);
+      document.addEventListener('keyup', keyUpHandler);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+      document.removeEventListener('keyup', keyUpHandler);
+    };
+  }, [game, isLoaded]);
 
   return (
     <div className="canvas__container">

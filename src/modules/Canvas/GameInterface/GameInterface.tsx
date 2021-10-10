@@ -1,10 +1,10 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Props } from './GameInterface.types';
 import { useBoolean } from '@/utils';
-import { PauseBar } from './PauseBar';
-import { Status } from './Status';
 import { ActionsMenu } from './ActionsMenu';
+import { GameControl } from './GameControl';
 import './GameInterface.scss';
+import { Status } from './Status';
 
 export const GameInterface = React.memo(
   ({ game, info }: Props): ReactElement => {
@@ -20,8 +20,14 @@ export const GameInterface = React.memo(
 
     return (
       <>
-        {!isPaused && <Status day={info.day} />}
-        <PauseBar isPaused={isPaused} togglePause={togglePause} />
+        <GameControl
+          day={info.day}
+          isPaused={isPaused}
+          togglePause={togglePause}
+        />
+
+        <Status />
+
         {!isPaused && game && <ActionsMenu game={game} />}
       </>
     );
