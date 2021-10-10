@@ -1,5 +1,7 @@
 import { UserSliceState } from './userSlice.types';
 
+export const AVATAR_LINK = 'https://ya-praktikum.tech/api/v2/resources/';
+
 export const enum LOAD_STATUS {
   PENDING = '/pending',
   REJECTED = '/rejected',
@@ -9,6 +11,7 @@ export const enum LOAD_STATUS {
 
 export const initialState: UserSliceState = {
   user: undefined,
+  userAvatar: '',
   isLoaded: false,
   status: LOAD_STATUS.IDLE,
   errorMessage: '',
