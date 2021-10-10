@@ -16,7 +16,11 @@ export const store = configureStore({
   reducer: rootReducer,
   devTools: true,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
+    getDefaultMiddleware({
+      thunk: false,
+      immutableCheck: true,
+      serializableCheck: true,
+    }).concat(middleware),
 });
 
 sagaMiddleware.run(rootSaga as Saga<unknown[]>);
