@@ -8,6 +8,7 @@ import {
   updateProfile,
   setUser,
   updateAvatar,
+  setUserAvatar,
 } from '../slices';
 import { authAPI, userAPI } from '@/api';
 import { converter } from '@/utils';
@@ -36,6 +37,8 @@ function* updatePasswordWorker({ payload }: PayloadAction<PasswordForm>) {
 function* updateAvatarWorker({ payload }: PayloadAction<FormData>) {
   try {
     yield call(userAPI.changeAvatar, payload);
+    const user: IUser = yield call(authAPI.loadUser);
+    yield put(setUserAvatar(user.avatar || ''));
   } catch (e) {
     console.error(e);
   }

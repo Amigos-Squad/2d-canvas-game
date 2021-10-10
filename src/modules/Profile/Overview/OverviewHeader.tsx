@@ -8,11 +8,12 @@ export const OverviewHeader = memo(
     displayName = '',
     login = '',
     score = 4004,
+    onAvatarChange,
   }: HeaderProps): ReactElement => (
     <Header className="overview-header">
       <div className="overview-header__container">
         <div className="overview-header__info">
-          <UserAvatar src={avatar} alt="user name" />
+          <UserAvatar src={avatar} alt="user name" onChange={onAvatarChange} />
           <div className="overview-header__title">{displayName || login}</div>
         </div>
 

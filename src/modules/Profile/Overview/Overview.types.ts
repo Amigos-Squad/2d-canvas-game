@@ -5,6 +5,7 @@ export type HeaderProps = {
   displayName?: string;
   login?: string;
   score?: number;
+  onAvatarChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export type ColumnProps = {

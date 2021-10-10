@@ -1,20 +1,20 @@
-import React, { ReactElement, memo, useEffect } from 'react';
+import React, { ReactElement, memo, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector, useBoolean, useForm } from '@/utils';
+import { updatePassword, updateProfile, updateAvatar } from '@/redux';
 import { IUser } from '@/models';
 import { Form } from './Form';
 import { OverviewHeader } from './OverviewHeader';
 import { ContentColumn } from './ContentColumn';
-import './Overview.scss';
 import { PasswordForm } from './Overview.types';
-import { updatePassword, updateProfile } from '@/redux/';
+import './Overview.scss';
 
 export const Overview = memo((): ReactElement => {
-  const { user } = useAppSelector('user');
+  const { user, userAvatar } = useAppSelector('user');
   const dispatch = useDispatch();
 
   const [isPassword, toggle] = useBoolean();
-
+  const [avatar, changeAvatar] = useState('');
   const { form, onChange, fullChange, isChanged, reset } = useForm<IUser>({
     email: '',
     firstName: '',
@@ -54,17 +54,31 @@ export const Overview = memo((): ReactElement => {
   };
 
   useEffect(() => {
+    if (userAvatar) {
+      changeAvatar(userAvatar);
+    }
+  }, [userAvatar]);
+
+  useEffect(() => {
     if (user) {
       fullChange(user);
     }
   }, [user]);
 
+  const avatarChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    const newForm = new FormData();
+    newForm.append('avatar', target.files![0]);
+    dispatch(updateAvatar(newForm));
+  };
+
   return (
     <div className="profile-overview">
       <OverviewHeader
-        avatar={user?.avatar}
+        avatar={avatar}
         login={user?.login}
         displayName={user?.displayName}
+        onAvatarChange={avatarChangeHandler}
       />
       <div className="profile-overview__content">
         <ContentColumn title="User Data">

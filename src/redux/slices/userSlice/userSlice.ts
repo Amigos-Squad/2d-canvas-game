@@ -1,8 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ILoginForm, IRegistrationForm, PasswordForm } from '@/modules';
-import { initialState } from './const';
+import { AVATAR_LINK, initialState } from './const';
 import { converter } from '@/utils';
 import { IUser } from '@/models';
+
+const setAvatarUrl = (avatarUrl: string | null) => {
+  let avatar = '';
+
+  if (avatarUrl) {
+    avatar = `${AVATAR_LINK}${avatarUrl}`;
+  }
+
+  return avatar;
+};
 
 const userSlice = createSlice({
   name: 'user',
@@ -20,6 +30,10 @@ const userSlice = createSlice({
         state.isLoaded = true;
       }
       state.user = converter.convertSnakeToCamelCase(action.payload);
+      state.userAvatar = setAvatarUrl(action.payload.avatar);
+    },
+    setUserAvatar: (state, action) => {
+      state.userAvatar = setAvatarUrl(action.payload);
     },
   },
 });
@@ -33,6 +47,7 @@ export const {
   updateProfile,
   updatePassword,
   updateAvatar,
+  setUserAvatar,
 } = userSlice.actions;
 
 export default userSlice.reducer;
