@@ -25,6 +25,10 @@
     width: 100%;
   }
 
+  &__error {
+    color: red;
+  }
+
   &_horizontal {
     flex-direction: row;
     gap: 10px;
