@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент ввода снапшот поля ввода 1`] = `
+<label
+  className="input "
+>
+  <div
+    className="input__label"
+  >
+    Тест
+  </div>
+  <input
+    className="input__field"
+    onBlur={[Function]}
+    onChange={[Function]}
+    value=""
+  />
+  <div
+    className="input_error"
+  />
+</label>
+`;

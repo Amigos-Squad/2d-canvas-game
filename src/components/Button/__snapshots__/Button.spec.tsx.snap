@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Компонент кнопки снапшот submit кнопки 1`] = `
+<button
+  className="button button_primary"
+  onClick={[Function]}
+  type="submit"
+>
+  LOGIN
+</button>
+`;
+
+exports[`Компонент кнопки снапшот обычной кнопки 1`] = `
+<button
+  className="button button_primary"
+  onClick={[Function]}
+>
+  LOGIN
+</button>
+`;

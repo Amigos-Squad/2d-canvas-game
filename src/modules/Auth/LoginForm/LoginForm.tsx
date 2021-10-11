@@ -2,11 +2,12 @@ import React, { FormEvent, memo, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '@/components';
-import { Input } from '@/components/Form';
+import { Form, Input } from '@/components/Form';
 import { useForm } from '@/utils';
 import type { ILoginForm } from '@/modules';
 import { signIn } from '@/redux';
 import '../Auth.scss';
+import { notEmptyRule } from '@/utils/rules/notEmptyRule';
 
 export const LoginForm = memo((): ReactElement => {
   const dispatch = useDispatch();
@@ -17,17 +18,19 @@ export const LoginForm = memo((): ReactElement => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    console.log('submit')
     dispatch(signIn(form));
   };
 
   return (
-    <form onSubmit={onSubmit} className="authorization__form">
+    <Form onSubmit={onSubmit} className="authorization__form">
       <div className="authorization__form-body">
         <Input
           value={form.login}
           onChange={onChange}
           label="Login"
           name="login"
+          rules={[notEmptyRule]}
           required
         />
 
@@ -44,6 +47,6 @@ export const LoginForm = memo((): ReactElement => {
       <footer className="btn-block">
         <Button type="submit">LOGIN</Button>
       </footer>
-    </form>
+    </Form>
   );
 });
