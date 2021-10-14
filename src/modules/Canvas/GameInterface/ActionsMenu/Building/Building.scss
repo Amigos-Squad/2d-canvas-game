@@ -7,13 +7,50 @@
   padding: 15px;
 }
 
-.game-interface__building-option {
+.building-option {
   width: 180px;
   min-height: 100px;
   background: $bg-dark-color;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 4px;
   text-align: center;
-  padding: 5px;
   color: #fff;
+
+  &__title {
+    padding: 10px;
+  }
+
+  &__img {
+    width: 170px;
+    height: auto;
+    border-radius: 4px;
+
+    img {
+      width: 170px;
+    }
+  }
+
+  &__price {
+    background: $accent-color;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 10px;
+    width: 100%;
+  }
+}
+
+.price-item {
+  display: flex;
+  align-items: center;
+
+  &__img {
+    width: 15px;
+    height: auto;
+  }
+
+  &__title {
+    width: 1vw;
+  }
 }

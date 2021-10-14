@@ -25,6 +25,9 @@ const userSlice = createSlice({
     updateAvatar: (_, action: PayloadAction<FormData>) => {},
     loadUser: () => {},
     signOut: () => {},
+    setLoadStatus: (state, action) => {
+      state.isLoaded = action.payload;
+    },
     setUser: (state, action) => {
       if (!state.isLoaded) {
         state.isLoaded = true;
@@ -48,6 +51,7 @@ export const {
   updatePassword,
   updateAvatar,
   setUserAvatar,
+  setLoadStatus,
 } = userSlice.actions;
 
 export default userSlice.reducer;

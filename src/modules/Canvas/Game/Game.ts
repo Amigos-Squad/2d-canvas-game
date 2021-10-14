@@ -77,12 +77,13 @@ export class Game {
     this.screen.restore();
   }
 
-  private animate = () => {
+  private animate = (timeMM: number = 0) => {
+    const time = timeMM / 1000;
     this.predraw();
-    this.statuses.update();
+    this.statuses.update(time);
 
     if (this.isLoaded) {
-      this.currentScene.render();
+      this.currentScene.render(time);
     }
 
     this.postdraw();

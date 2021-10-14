@@ -2,7 +2,9 @@ import { Tile, TILES } from '.';
 import { GameTileMap } from '../GameMap';
 import { HomeBase } from '../Scenes';
 import { BUILD_PLACE, TILE_TYPE } from './const';
-import { Room } from './Room';
+import { Room } from '../Room';
+import { ROOMS_INSTANCE, ROOMS_NAMES } from '../Room/const';
+import { EVENT_BUS_EVENTS } from '..';
 
 /* TODO Rewrite/refactoring */
 export class Constructing {
@@ -15,6 +17,18 @@ export class Constructing {
   constructor(scene: HomeBase) {
     this.scene = scene;
   }
+
+  setRoom = (roomName?: ROOMS_NAMES) => {
+    if (roomName) {
+      const RoomInst = ROOMS_INSTANCE.get(roomName)!;
+      this.room = new RoomInst();
+      this.scene.ongoingAction = this;
+    }
+  };
+
+  stopAction = () => {
+    this.room = null;
+  };
 
   handleClick(x: number, y: number) {
     const { mapArray } = this.scene.gameMap;
@@ -176,9 +190,19 @@ export class Constructing {
       for (let i = startX; i < startX + tileNum.length; i += 1) {
         mapArray[topRow + index][i].data = TILES.get(tileNum[i - startX])!;
         mapArray[topRow + index][i].baseData = TILES.get(tileNum[i - startX])!;
+        mapArray[topRow + index][i].room = this.room!;
       }
     });
 
+    this.scene.game.eventBus.emit(
+      EVENT_BUS_EVENTS.ENERGIZED_CHANGE,
+      this.room,
+      'ADD'
+    );
+    this.clearRoom();
+  };
+
+  clearRoom = () => {
     this.room = null;
   };
 }

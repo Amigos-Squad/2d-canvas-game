@@ -9,6 +9,10 @@ export class Stack<T> {
     return this.stack.length === 0;
   }
 
+  get size() {
+    return this.stack.length;
+  }
+
   push(item: T) {
     this.stack.push(item);
   }

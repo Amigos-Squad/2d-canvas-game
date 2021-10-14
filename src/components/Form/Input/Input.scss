@@ -3,7 +3,7 @@
 .input {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 2px 0;
 
   &__label {
     display: flex;
@@ -31,7 +31,6 @@
 
   &_horizontal {
     flex-direction: row;
-    gap: 10px;
   }
 
   &_horizontal &__label {

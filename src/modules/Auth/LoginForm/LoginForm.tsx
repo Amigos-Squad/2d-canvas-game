@@ -18,7 +18,6 @@ export const LoginForm = memo((): ReactElement => {
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    console.log('submit')
     dispatch(signIn(form));
   };
 
@@ -45,7 +44,9 @@ export const LoginForm = memo((): ReactElement => {
       </div>
 
       <footer className="btn-block">
-        <Button type="submit">LOGIN</Button>
+        <Button type="submit" onClick={onSubmit}>
+          LOGIN
+        </Button>
       </footer>
     </Form>
   );

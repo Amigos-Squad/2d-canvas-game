@@ -1,4 +1,5 @@
 import { SpriteSheets, SPRITE_SHEETS } from '../Images';
+import { CommandPost } from '../Room';
 import { HomeBase } from '../Scenes';
 import { Screen } from '../Screen';
 import { Tile, TILES } from '../Tiles';
@@ -6,17 +7,20 @@ import { GameTileMap, RawGameMap } from './GameMap.types';
 
 export class GameMap {
   static CONST = {
-    HEADER_HEIGHT: 50,
+    COMAND_POST_PREFIX: '3',
   };
 
   protected sprites: SpriteSheets;
 
   scene: HomeBase;
 
+  commandPost: CommandPost;
+
   mapArray: GameTileMap = [];
 
-  constructor(scene: HomeBase, gameMap: RawGameMap) {
+  constructor(scene: HomeBase, gameMap: RawGameMap, commandPost: CommandPost) {
     this.scene = scene;
+    this.commandPost = commandPost;
 
     this.sprites = new SpriteSheets(
       [
@@ -33,7 +37,13 @@ export class GameMap {
 
   loadMap(mapArray: RawGameMap) {
     this.mapArray = mapArray.map((y, indexY) =>
-      y.map((x, indexX) => new Tile(TILES.get(x), indexY, indexX))
+      y.map((x, indexX) => {
+        if (x.toString().startsWith(GameMap.CONST.COMAND_POST_PREFIX)) {
+          return new Tile(TILES.get(x), indexY, indexX, this.commandPost);
+        }
+
+        return new Tile(TILES.get(x), indexY, indexX);
+      })
     );
   }
 
