@@ -6,8 +6,8 @@ import { Form, Input } from '@/components/Form';
 import { useForm } from '@/utils';
 import type { ILoginForm } from '@/modules';
 import { signIn } from '@/redux';
-import '../Auth.scss';
 import { notEmptyRule } from '@/utils/rules/notEmptyRule';
+import '../Auth.scss';
 
 export const LoginForm = memo((): ReactElement => {
   const dispatch = useDispatch();
