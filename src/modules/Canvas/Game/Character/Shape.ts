@@ -167,7 +167,7 @@ export class Shape {
       width,
       height,
       this.x,
-      this.y - 10,
+      this.y - 5,
       this.width,
       this.height
     );

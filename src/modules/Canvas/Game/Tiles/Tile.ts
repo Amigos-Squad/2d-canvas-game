@@ -1,8 +1,11 @@
+import { Room } from '.';
 import { SpriteSheetGroup } from '../Images';
 import { ENVIRONMENT } from './const';
 import { TileData } from './tiles.types';
 
 export class Tile {
+  room: Room | undefined;
+
   indexY: number;
 
   indexX: number;
@@ -22,12 +25,14 @@ export class Tile {
   constructor(
     type: TileData = ENVIRONMENT.empty,
     indexY: number,
-    indexX: number
+    indexX: number,
+    room?: Room
   ) {
     this.data = type;
     this.baseData = type;
     this.indexX = indexX;
     this.indexY = indexY;
+    this.room = room;
   }
 
   update(cellSize: number) {

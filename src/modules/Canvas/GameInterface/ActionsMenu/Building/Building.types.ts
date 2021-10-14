@@ -1,4 +1,4 @@
-import { Game } from '@/modules/Canvas/Game';
+import { Game, RoomPrice } from '@/modules/Canvas/Game';
 
 export type Props = {
   game: Game;
@@ -7,5 +7,7 @@ export type Props = {
 
 export type BuildingItemProps = {
   title: string;
+  name: string;
+  price: RoomPrice;
   onClick: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };

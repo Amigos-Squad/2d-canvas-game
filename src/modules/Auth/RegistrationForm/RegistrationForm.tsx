@@ -11,12 +11,12 @@ import '../Auth.scss';
 export const RegistrationForm = memo((): ReactElement => {
   const dispatch = useDispatch();
   const { form, onChange } = useForm<IRegistrationForm>({
-    firstName: 'Kuart',
-    secondName: 'Kuart',
-    email: 'Kuart@mail.com',
-    login: 'Kuart',
-    password: '1221',
-    phone: '+79214444444',
+    firstName: '',
+    secondName: '',
+    email: '',
+    login: '',
+    password: '',
+    phone: '',
   });
 
   const onSubmit = async (event: FormEvent) => {
@@ -75,7 +75,9 @@ export const RegistrationForm = memo((): ReactElement => {
       </div>
 
       <footer className="btn-block">
-        <Button type="submit">REGISTER</Button>
+        <Button type="submit" onClick={onSubmit}>
+          REGISTER
+        </Button>
       </footer>
     </form>
   );

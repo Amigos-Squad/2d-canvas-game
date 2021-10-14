@@ -3,10 +3,34 @@
 .game-interface__actions-menu {
   position: absolute;
   bottom: 2vh;
-  left: 1vw;
+  left: 0.5vw;
   color: #fff;
   font-weight: 600;
+}
+
+.actions-menu__item {
+  width: 2vw;
+  height: 2vw;
+  background: url(/src/assets//gameInterface/ShortCard.png);
+  background-size: cover;
+  border-radius: 4px;
+  box-shadow: 0 0 2px #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   cursor: pointer;
+  padding: 10px;
+  transition: all 0.2s;
+
+  &-img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.actions-menu__item:hover {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25) inset;
 }
 
 .game-interface__actions-menu:hover {
@@ -24,15 +48,18 @@
 }
 
 .game-interface__active-menu {
-  background: $bg-color;
-  min-width: 30%;
+  background: url(/src/assets/gameInterface/Card.png);
+  background-size: cover;
+  min-width: 35%;
   max-width: 50%;
+  height: auto;
+  border-radius: 4px;
 }
 
 .game-interface__menu-header {
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  height: 40px;
+  height: 30px;
   padding: 5px 10px;
 }

@@ -3,15 +3,21 @@ import './Input.scss';
 import { Props } from './Input.types';
 
 export const Input = memo(
-  ({ onChange, value, label, horizontal, rules, ...rest }: Props): ReactElement => {
-    
-    const [message, setMessage] = useState<string | undefined>()
+  ({
+    onChange,
+    value,
+    label,
+    horizontal,
+    rules,
+    ...rest
+  }: Props): ReactElement => {
+    const [message, setMessage] = useState<string | undefined>();
     const handleRules = () => {
       if (!rules) {
         return;
       }
-      setMessage(rules.find(x => !x.rule.test(value))?.message)
-    }
+      setMessage(rules.find((x) => !x.rule.test(value))?.message);
+    };
 
     return (
       <label className={`input ${horizontal ? 'input_horizontal' : ''}`}>
@@ -25,5 +31,6 @@ export const Input = memo(
         />
         <div className="input_error">{message}</div>
       </label>
-    )
-  });
+    );
+  }
+);

@@ -1,12 +1,10 @@
-import { Game } from '.';
-import { GAME_CONST } from './const';
+import { EVENT_BUS_EVENTS, Game } from '.';
 import { UpdateInfo } from './Game.types';
-import { Room } from './Tiles';
+import { IStatusPayload } from './Statuses.types';
 
 export class Statuses {
   static CONST = {
     DAY_LENGTH: 100,
-    DAY_INC_SPEED: 1,
   };
 
   game: Game;
@@ -15,27 +13,37 @@ export class Statuses {
 
   day: number = 1;
 
-  dayTimer: number = 0;
-
-  building: Record<string, Room> = GAME_CONST.BASE_BUILDINGS;
+  prevDay: number = 0;
 
   constructor(game: Game, updateInfo: UpdateInfo) {
     this.game = game;
     this.updateInfo = updateInfo;
+    this.registrateEvents();
   }
 
-  update() {
-    this.dayHandler(this.game.frameCount);
+  registrateEvents() {
+    const { eventBus } = this.game;
+    eventBus.on(EVENT_BUS_EVENTS.ENERGY_CHANGE, this.handleInterfaceChange);
   }
 
-  dayHandler(frame: number) {
-    if (frame === 0) {
-      this.dayTimer += Statuses.CONST.DAY_INC_SPEED;
+  handleInterfaceChange = ({ stateKey, payload }: IStatusPayload) => {
+    const data: Record<string, unknown> = {};
+
+    if (stateKey === 'energyState' && payload.energy <= 0) {
+      data.isGameOver = true;
     }
 
-    if (this.dayTimer === Statuses.CONST.DAY_LENGTH) {
+    this.updateInfo({ [stateKey]: payload, ...data });
+  };
+
+  update(time: number) {
+    this.dayHandler(time);
+  }
+
+  dayHandler(time: number) {
+    if (time - this.prevDay > 100) {
       this.day += 1;
-      this.dayTimer = 0;
+      this.prevDay = time;
       this.updateInfo({ day: this.day });
     }
   }

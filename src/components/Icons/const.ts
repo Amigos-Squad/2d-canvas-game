@@ -9,4 +9,6 @@ export enum ICONS {
   EnvelopeAdd = 'EnvelopeAdd',
   EnvelopeLock = 'EnvelopeLock',
   EmptyAvatar = 'EmptyAvatar',
+  Play = 'Play',
+  Pause = 'Pause',
 }
