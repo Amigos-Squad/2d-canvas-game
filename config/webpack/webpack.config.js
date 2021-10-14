@@ -25,7 +25,7 @@ module.exports = () => ({
     port: 3000,
   },
   mode: 'development',
-  devtool: false,
+  devtool: IS_PROD ? false : 'eval-cheap-source-map',
   plugins: PLUGINS,
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],

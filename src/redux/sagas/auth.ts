@@ -9,7 +9,14 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { authAPI } from '@/api';
 import { IUser } from '@/models';
 import { ILoginForm, IRegistrationForm } from '@/modules';
-import { signIn, signUp, loadUser, setUser, signOut } from '../slices';
+import {
+  signIn,
+  signUp,
+  loadUser,
+  setUser,
+  signOut,
+  setLoadStatus,
+} from '../slices';
 
 function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
   try {
@@ -45,7 +52,7 @@ function* loadUserWorker() {
     const user: IUser = yield call(authAPI.loadUser);
     yield put(setUser(user));
   } catch (e) {
-    console.error(e);
+    yield put(setLoadStatus(true));
   }
 }
 

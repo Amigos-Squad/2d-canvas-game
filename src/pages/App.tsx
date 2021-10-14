@@ -1,7 +1,7 @@
 import React, { memo, useRef, ReactElement } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { Switch, useLocation } from 'react-router-dom';
 import { Route } from 'react-router';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { ErrorBoundaryWithRouter } from '@/components';
 import { AuthProvider } from './AuthProvider';
 import { USED_ROUTES } from './routes';
@@ -15,12 +15,12 @@ export const App = memo(
     return (
       <AuthProvider>
         <ErrorBoundaryWithRouter>
-          <TransitionGroup nodeRef={nodeRef}>
+          <TransitionGroup nodeRef={nodeRef} className="transition-group__wrapper">
             <CSSTransition
               nodeRef={nodeRef}
               key={location.key}
               classNames="fade"
-              timeout={300}
+              timeout={500}
             >
               <div className="switch-container" ref={nodeRef}>
                 <Switch location={location} ref={nodeRef}>

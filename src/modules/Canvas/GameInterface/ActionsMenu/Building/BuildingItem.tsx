@@ -1,14 +1,16 @@
 import React, { ReactElement } from 'react';
 import { BuildingItemProps } from './Building.types';
+import noImage from '@/assets/no-image.png';
+import { Price } from './Price';
 
 export const BuildingItem = React.memo(
-  ({ title, onClick }: BuildingItemProps): ReactElement => (
-    <div
-      className="game-interface__building-option"
-      onClick={onClick}
-      data-name={title}
-    >
-      {title}
+  ({ title, name, price, onClick }: BuildingItemProps): ReactElement => (
+    <div className="building-option" onClick={onClick} data-name={name}>
+      <div className="building-option__title">{title}</div>
+      <div className="building-option__img">
+        <img src={noImage} alt="room" />
+      </div>
+      <Price price={price} />
     </div>
   )
 );

@@ -1,0 +1,75 @@
+@import 'scss/var';
+
+.game-statuses {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 0.5vw;
+  top: 1vh;
+  font-size: 1vw;
+  font-weight: 600;
+  background: url(/src/assets//gameInterface/Card.png);
+  border-radius: 4px;
+  gap: 15px;
+  padding: 5px 15px;
+  max-height: 6vh;
+}
+
+.game-statuses__item {
+  display: flex;
+  gap: 10px;
+  color: $font-color;
+
+  &-img {
+    width: 30px;
+    height: auto;
+  }
+
+  &-img_energy {
+    width: 20px;
+  }
+
+  &-info {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 1.5vw;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+
+    &_free {
+      color: rgba(255, 255, 255, 0.75);
+    }
+  }
+}
+
+.energy__status {
+  width: 2vw;
+  justify-content: center;
+
+  &-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.9vw;
+    line-height: 12px;
+  }
+
+  &-change {
+    padding: 2px;
+
+    &_green {
+      color: $success-color;
+    }
+
+    &_red {
+      color: $warning-color;
+    }
+  }
+
+  &-block {
+    text-align: center;
+    padding: 2px;
+    color: $disabled-color;
+  }
+}

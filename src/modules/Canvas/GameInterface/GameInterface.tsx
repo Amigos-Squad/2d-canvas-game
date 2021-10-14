@@ -1,13 +1,14 @@
 import React, { ReactElement, useEffect } from 'react';
 import { Props } from './GameInterface.types';
 import { useBoolean } from '@/utils';
-import { PauseBar } from './PauseBar';
-import { Status } from './Status';
 import { ActionsMenu } from './ActionsMenu';
+import { GameControl } from './GameControl';
+import { Statuses } from './Statuses';
+import { GameOver } from './GameOver';
 import './GameInterface.scss';
 
 export const GameInterface = React.memo(
-  ({ game, info }: Props): ReactElement => {
+  ({ game, info, restart }: Props): ReactElement => {
     const [isPaused, togglePause] = useBoolean(false);
 
     useEffect(() => {
@@ -18,11 +19,24 @@ export const GameInterface = React.memo(
       }
     }, [isPaused, game]);
 
+    useEffect(() => {
+      if (game && info.isGameOver) {
+        game.cancelAnimation();
+      }
+    }, [game, info.isGameOver]);
+
     return (
       <>
-        {!isPaused && <Status day={info.day} />}
-        <PauseBar isPaused={isPaused} togglePause={togglePause} />
+        <GameControl
+          day={info.day}
+          isPaused={isPaused}
+          togglePause={togglePause}
+        />
+
+        <Statuses info={info} />
+
         {!isPaused && game && <ActionsMenu game={game} />}
+        {info.isGameOver && <GameOver restart={restart} />}
       </>
     );
   }

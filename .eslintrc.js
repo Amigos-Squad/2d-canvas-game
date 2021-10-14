@@ -37,6 +37,7 @@ module.exports = {
       'error',
       { extensions: ['.ts', '.tsx', '.js'] },
     ],
+    'arrow-body-style': 'off',
     'react/jsx-wrap-multilines': 'off',
     'react/no-unused-state': 'off',
     'react/destructuring-assignment': 'off',
