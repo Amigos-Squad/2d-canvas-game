@@ -8,7 +8,7 @@ this.addEventListener("install", event => {
     caches.open(CACHE_NAME)
     .then(cache => {
       console.log("Opened cache");
-      return cache.addAll(URLS);
+      // return cache.addAll(URLS);
     })
     .catch(err => { 
       console.log(err);
@@ -22,7 +22,7 @@ this.addEventListener("activate", event => {
     caches.keys().then(cacheNames => { 
       return Promise.all( 
         cacheNames 
-        .filter(name => {/* Нужно вернуть true, если хотите удалить этот файл из кеша совсем */}) 
+        .filter(name => true) 
         .map(name => caches.delete(name))  
       )
     })
@@ -30,25 +30,14 @@ this.addEventListener("activate", event => {
 });
 
 this.addEventListener('fetch', event => { 
-  event.respondWith( 
-    caches.match(event.request) 
-    .then(response => { 
-      if (response) { 
-          return response; 
-      } 
-      const fetchRequest = event.request.clone(); 
-      return fetch(fetchRequest) 
-      .then(response => { 
-        if(!response || response.status !== 200) { 
-          return response;
-        } 
-        const responseToCache = response.clone(); 
-        caches.open(CACHE_NAME) 
-        .then(cache => { 
-          cache.put(event.request, responseToCache);
-        }); 
-        return response; 
-      }); 
-    })
+  event.respondWith(
+    fetch(event.request).then(response => {
+      const responseToCache = response.clone(); 
+      caches.open(CACHE_NAME) 
+      .then(cache => { 
+        cache.put(event.request, responseToCache);
+      });
+      return response
+    }).catch(() => caches.match(event.request))
   );
 }); 
