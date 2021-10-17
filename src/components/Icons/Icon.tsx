@@ -1,5 +1,5 @@
 import loadable from '@loadable/component';
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement, memo } from 'react';
 import { IconProps, Props } from './Icon.types';
 import './Icon.scss';
 
@@ -12,7 +12,7 @@ const AsyncIcon = loadable(
   }
 );
 
-export const Icon = React.memo(
+export const Icon = memo(
   ({
     name,
     onClick,
@@ -20,7 +20,7 @@ export const Icon = React.memo(
     config = {},
     className = '',
   }: Props): ReactElement => {
-    const icon = useMemo(() => {
+    const icon = () => {
       if (name) {
         if (href) {
           return (
@@ -37,8 +37,8 @@ export const Icon = React.memo(
         );
       }
       return <></>;
-    }, [name, href, config, className, onClick]);
+    };
 
-    return icon;
+    return icon();
   }
 );

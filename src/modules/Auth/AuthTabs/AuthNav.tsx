@@ -1,7 +1,10 @@
-import React, { ReactElement, useMemo } from 'react';
+import React, { ReactElement } from 'react';
 import { useHistory, useLocation } from 'react-router';
+import block from 'bem-cn-lite';
 import { ROUTES } from '@/utils';
 import './AuthNav.scss';
+
+const button = block('authorization__navigation-item');
 
 export const AuthNav = React.memo((): ReactElement => {
   const { pathname } = useLocation();
@@ -19,25 +22,18 @@ export const AuthNav = React.memo((): ReactElement => {
     }
   };
 
-  const classNames = useMemo(() => {
-    const data = {
-      login: 'authorization__navigation-item',
-      registration: 'authorization__navigation-item',
-    };
-
-    if (pathname === ROUTES.LOGIN) {
-      data.login = `${data.login} ${data.login}_active`;
-    } else if (pathname === ROUTES.REGISTRATION) {
-      data.registration = `${data.registration} ${data.registration}_active`;
+  const setButtonClassName = (route: ROUTES) => {
+    if (route === pathname) {
+      return button({ active: true });
     }
 
-    return data;
-  }, [pathname]);
+    return button();
+  };
 
   return (
     <nav className="authorization__navigation">
       <button
-        className={classNames.login}
+        className={setButtonClassName(ROUTES.LOGIN)}
         onClick={replaceHandler}
         name={ROUTES.LOGIN}
         type="button"
@@ -48,7 +44,7 @@ export const AuthNav = React.memo((): ReactElement => {
       <div className="authorization__navigation__separator">/</div>
 
       <button
-        className={classNames.registration}
+        className={setButtonClassName(ROUTES.REGISTRATION)}
         onClick={replaceHandler}
         name={ROUTES.REGISTRATION}
         type="button"
