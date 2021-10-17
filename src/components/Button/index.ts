@@ -1,2 +1,1 @@
-export { Button } from './Button';
-export { BUTTON_TYPES } from './const';
+export { Button, BUTTON_TYPES } from './Button';

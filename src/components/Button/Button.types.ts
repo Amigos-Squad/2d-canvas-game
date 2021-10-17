@@ -1,4 +1,4 @@
-import { BUTTON_TYPES } from './const';
+import { BUTTON_TYPES } from './Button';
 
 export type Props = {
   buttonType?: BUTTON_TYPES;

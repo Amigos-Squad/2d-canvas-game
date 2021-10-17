@@ -16,7 +16,7 @@ export const LoginForm = memo((): ReactElement => {
     login: '',
   });
 
-  const onSubmit = async (e: FormEvent) => {
+  const onSubmit = (e: FormEvent) => {
     e.preventDefault();
     dispatch(signIn(form));
   };
