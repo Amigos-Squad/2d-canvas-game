@@ -1,6 +1,6 @@
 import { GAME_CONST } from './const';
 import { Images } from './Game.types';
-import { ImageLoader } from './Images/ImageLoader';
+import { ImageLoader } from './Images';
 
 export class Screen {
   cellSize: number = 0;

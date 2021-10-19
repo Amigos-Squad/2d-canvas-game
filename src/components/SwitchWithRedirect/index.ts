@@ -1,0 +1,1 @@
+export { SwitchWithRedirect } from './SwitchWithRedirect';

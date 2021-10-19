@@ -1,22 +1,25 @@
-import React, { memo, ReactElement } from 'react';
-import { TopicItem } from '../TopicItem';
+import React, { ReactElement, useMemo } from 'react';
+import type { ITopicItem } from './Topics.types';
+import { TopicItem } from './TopicItem';
 import { TopicsHeader } from './TopicsHeader';
-import { NewTopic } from '../NewTopic';
-import { tempTopics } from './const';
-import { Props } from './Topics.types';
-
 import './Topics.scss';
 
-export const Topics = memo(
-  (props: Props): ReactElement => (
-    <div className="topics">
-      <TopicsHeader />
-      <div className="topics-container">
-        {tempTopics.map((item) => (
-          <TopicItem {...item} key={item.id} />
-        ))}
-        {props.showNewTopic && <NewTopic />}
-      </div>
+type Props = {
+  topics: ITopicItem[];
+};
+
+export const Topics = ({ topics }: Props): ReactElement => {
+  const topicsList = useMemo(
+    () => topics.map((item) => <TopicItem {...item} key={item.id} />),
+    [topics]
+  );
+
+  return (
+    <div className="scroll__wrapper">
+      <table className="forum-topics">
+        <TopicsHeader />
+        <tbody className="forum-topics__body">{topicsList}</tbody>
+      </table>
     </div>
-  )
-);
+  );
+};

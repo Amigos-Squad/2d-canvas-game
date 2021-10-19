@@ -1,21 +1,22 @@
 import React, { FormEvent, memo, ReactElement } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Button, Input } from '@/components';
+import { Button } from '@/components';
+import { Input } from '@/components/Form';
 import { IRegistrationForm } from '@/modules';
 import { converter, useForm } from '@/utils';
-import '../Auth.scss';
 import { signUp } from '@/redux';
+import '../Auth.scss';
 
 export const RegistrationForm = memo((): ReactElement => {
   const dispatch = useDispatch();
-  const [form, onChange] = useForm<IRegistrationForm>({
-    firstName: 'Kuart',
-    secondName: 'Kuart',
-    email: 'Kuart@mail.com',
-    login: 'Kuart',
-    password: '1221',
-    phone: '+79214444444',
+  const { form, onChange } = useForm<IRegistrationForm>({
+    firstName: '',
+    secondName: '',
+    email: '',
+    login: '',
+    password: '',
+    phone: '',
   });
 
   const onSubmit = async (event: FormEvent) => {
@@ -74,7 +75,9 @@ export const RegistrationForm = memo((): ReactElement => {
       </div>
 
       <footer className="btn-block">
-        <Button type="submit">REGISTER</Button>
+        <Button type="submit" onClick={onSubmit}>
+          REGISTER
+        </Button>
       </footer>
     </form>
   );

@@ -1,4 +1,4 @@
-import { ITopicItem } from '../TopicItem';
+import { ITopicItem } from './Topics.types';
 
 export const tempTopics: ITopicItem[] = [
   {
@@ -8,7 +8,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 4,
@@ -35,7 +35,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 6,
@@ -53,7 +53,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 7,
@@ -62,7 +62,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 8,
@@ -71,7 +71,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 9,
@@ -80,7 +80,7 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
   },
   {
     id: 10,
@@ -89,6 +89,42 @@ export const tempTopics: ITopicItem[] = [
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
     posts: 2031,
     starter: 'Kuart',
-    last_message: '16:42',
+    lastMessage: '16:42',
+  },
+  {
+    id: 11,
+    isLocked: false,
+    title:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
+    posts: 2031,
+    starter: 'Kuart',
+    lastMessage: '16:42',
+  },
+  {
+    id: 12,
+    isLocked: false,
+    title:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
+    posts: 2031,
+    starter: 'Kuart',
+    lastMessage: '16:42',
+  },
+  {
+    id: 13,
+    isLocked: false,
+    title:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
+    posts: 2031,
+    starter: 'Kuart',
+    lastMessage: '16:42',
+  },
+  {
+    id: 14,
+    isLocked: false,
+    title:
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque',
+    posts: 2031,
+    starter: 'Kuart',
+    lastMessage: '16:42',
   },
 ];

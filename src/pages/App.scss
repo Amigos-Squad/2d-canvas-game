@@ -1,0 +1,18 @@
+.transition-group__wrapper {
+  height: 100%;
+}
+
+.fade-enter {
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 200ms ease-in-out;
+}
+
+.switch-container {
+  width: 100vw;
+  height: 100%;
+}

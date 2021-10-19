@@ -1,7 +1,7 @@
 /* eslint camelcase: "off" */
 export interface IUser {
-  avatar?: null;
-  displayName: null | string;
+  avatar?: string | null;
+  displayName?: string;
   email: string;
   firstName: string;
   id?: number;

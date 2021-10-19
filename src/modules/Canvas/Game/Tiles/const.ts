@@ -1,4 +1,4 @@
-import { LADDER, LOBBY, KITCHEN } from './Room';
+import { LIFT, COMMAND_POST, GENERATOR } from '../Room';
 import { Tiles, TilesMap } from './tiles.types';
 import {
   createBuildPlaceTile,
@@ -41,9 +41,9 @@ export const GROUND: Tiles = {
 };
 
 export const ROOMS: Tiles = {
-  ...LOBBY,
-  ...LADDER,
-  ...KITCHEN,
+  ...COMMAND_POST,
+  ...LIFT,
+  ...GENERATOR,
 };
 
 export const TILES: TilesMap = new Map([
@@ -53,42 +53,19 @@ export const TILES: TilesMap = new Map([
   [1.2, ENVIRONMENT.grass_stone_left],
   [1.3, ENVIRONMENT.grass_stone_right],
   [2, GROUND.soil],
-  [3.1, ROOMS.lobby_top_left],
-  [3.2, ROOMS.lobby_top_center],
-  [3.3, ROOMS.lobby_top_right],
-  [3.4, ROOMS.lobby_bottom_left],
-  [3.5, ROOMS.lobby_bottom_center],
-  [3.6, ROOMS.lobby_bottom_right],
-  [4.1, ROOMS.ladder_top_left],
-  [4.2, ROOMS.ladder_top_right],
-  [4.3, ROOMS.ladder_bottom_left],
-  [4.4, ROOMS.ladder_bottom_right],
-  [5.1, ROOMS.kitchen_top_left],
-  [5.2, ROOMS.kitchen_top_center],
-  [5.3, ROOMS.kitchen_top_right],
-  [5.4, ROOMS.kitchen_bottom_left],
-  [5.5, ROOMS.kitchen_bottom_right],
+  [3.1, ROOMS.commandPost_top_left],
+  [3.2, ROOMS.commandPost_top_center],
+  [3.3, ROOMS.commandPost_top_right],
+  [3.4, ROOMS.commandPost_bottom_left],
+  [3.5, ROOMS.commandPost_bottom_center],
+  [3.6, ROOMS.commandPost_bottom_right],
+  [4.1, ROOMS.lift_top_left],
+  [4.2, ROOMS.lift_top_right],
+  [4.3, ROOMS.lift_bottom_left],
+  [4.4, ROOMS.lift_bottom_right],
+  [5.1, ROOMS.generator_top_left],
+  [5.2, ROOMS.generator_top_center],
+  [5.3, ROOMS.generator_top_right],
+  [5.4, ROOMS.generator_bottom_left],
+  [5.5, ROOMS.generator_bottom_right],
 ]);
-
-/* prettier-ignore */
-export const BASE_GAME_MAP:number[][] = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-  [1, 1, 1.3, 1.1, 1.1, 1.2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1.3, 1.1, 1.1, 1.2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3.1, 3.2, 3.2, 3.3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3.4, 3.5, 3.5, 3.6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-  [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 
-]

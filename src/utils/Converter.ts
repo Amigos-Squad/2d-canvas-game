@@ -7,6 +7,7 @@ class Converter {
       } else {
         acc[this.camelize(key) as keyof T] = value;
       }
+
       return acc;
     }, {} as T);
 
@@ -20,14 +21,15 @@ class Converter {
       return acc;
     }, {} as T);
 
-  camelize = (str: string) =>
+  private camelize = (str: string) =>
     str
+      .replace('_', ' ')
       .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
         index === 0 ? word.toLowerCase() : word.toUpperCase()
       )
       .replace(/\s+/g, '');
 
-  snakefy = (str: string) =>
+  private snakefy = (str: string) =>
     str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
 }
 

@@ -1,4 +1,6 @@
-.game-interface__game-over {
+@import 'scss/var';
+
+.game-over {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -7,7 +9,29 @@
   align-items: center;
   color: #fff;
   font-size: 2vw;
-  flex-direction: column;
-  background: rgba(0, 0, 0, 0.25);
-  font-weight: 600;
+  background: rgba(0, 0, 0, 0.4);
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    gap: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+    line-height: 2vw;
+    border: 3px solid #fff;
+    background: #333;
+  }
+
+  &__content span {
+    text-shadow: 0 0 4px #000;
+  }
+
+  &__content span:last-child {
+    color: $accent-color;
+    font-size: 1.5vw;
+  }
 }

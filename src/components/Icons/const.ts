@@ -5,4 +5,10 @@ export enum ICONS {
   MedalThird = 'MedalThird',
   MedalOther = 'MedalOther',
   Close = 'Close',
+  Envelope = 'Envelope',
+  EnvelopeAdd = 'EnvelopeAdd',
+  EnvelopeLock = 'EnvelopeLock',
+  EmptyAvatar = 'EmptyAvatar',
+  Play = 'Play',
+  Pause = 'Pause',
 }

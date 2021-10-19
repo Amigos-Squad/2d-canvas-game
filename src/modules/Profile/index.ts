@@ -1,2 +1,2 @@
-export { ProfileHeader } from './ProfileHeader';
 export { ProfileContent } from './ProfileContent';
+export type { PasswordForm } from './Overview';

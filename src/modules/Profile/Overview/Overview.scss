@@ -4,17 +4,77 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  height: 100%;
 
-  &__title {
-    display: flex;
-    gap: 15px;
-    color: $font-color;
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: auto 30% 30%;
+    gap: 10px;
   }
 
-  &__form {
+  &__info {
     display: flex;
-    flex-direction: column;
+  }
+}
+
+.overview-header {
+  min-height: 12vh;
+
+  &__container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 15px;
-    width: 200px;
+    color: $font-color;
+    font-size: 2vw;
+  }
+}
+
+.header-score {
+  background: $bg-light-color;
+  padding: 10px 40px;
+  color: $font-color;
+  border-radius: 20px;
+  text-align: center;
+
+  &__title {
+    font-size: 2.5vw;
+    color: $accent-color;
+  }
+
+  &__info {
+    font-size: 0.7vw;
+  }
+}
+
+.content-column {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__content {
+    height: 100%;
+  }
+
+  &__header {
+    width: 100%;
+    color: $font-color;
+    border-bottom: 3px solid $accent-color;
+
+    &-title {
+      font-size: 1.5vw;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
   }
 }

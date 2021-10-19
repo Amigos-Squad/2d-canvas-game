@@ -1,27 +1,33 @@
-import { GAME_CONST } from './const';
-import { GameHandler } from './Game.types';
-import { Den, Scenes } from './Scenes';
+import { baseSetup, EVENT_BUS_EVENTS, GAME_CONST } from './const';
+import { SavedState, UpdateInfo } from './Game.types';
+import { HomeBase, Scenes } from './Scenes';
 import { Screen } from './Screen';
 import { Statuses } from './Statuses';
+import { Control } from './Control';
 import ImageRoom from '@/assets/sprites/Room.png';
 import ImageGround from '@/assets/sprites/Ground.png';
 import ImageEnvironment from '@/assets/sprites/Environment.png';
-import ImageCitizen from '@/assets/sprites/Citizen.png';
+import ImageCharacter from '@/assets/sprites/Char.png';
 import ImageBuildArea from '@/assets/sprites/BuildArea.png';
 import { SPRITE_SHEETS } from './Images';
+import { EventBus } from '@/utils';
 
 export class Game {
   static IMAGES = {
     [SPRITE_SHEETS.ENVIRONMENT]: ImageEnvironment,
     [SPRITE_SHEETS.GROUND]: ImageGround,
     [SPRITE_SHEETS.ROOM]: ImageRoom,
-    [SPRITE_SHEETS.CITIZEN]: ImageCitizen,
+    [SPRITE_SHEETS.CHARACTER]: ImageCharacter,
     [SPRITE_SHEETS.BUILD_PLACE]: ImageBuildArea,
   };
 
   isLoaded: boolean = false;
 
+  eventBus: EventBus<EVENT_BUS_EVENTS>;
+
   screen: Screen;
+
+  control: Control;
 
   frameCount: number = GAME_CONST.START_FRAME;
 
@@ -29,25 +35,31 @@ export class Game {
 
   private scenes: Scenes;
 
-  currentScene: Den;
+  currentScene: HomeBase;
 
   statuses: Statuses;
 
-  constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    context: CanvasRenderingContext2D,
+    savedState: SavedState = baseSetup,
+    updateHandler: UpdateInfo
+  ) {
+    this.eventBus = new EventBus();
     this.screen = new Screen(canvas, context);
-    this.statuses = new Statuses(this);
+    this.control = new Control(this);
+    this.statuses = new Statuses(this, updateHandler);
 
+    this.load();
     this.scenes = {
-      den: new Den(this),
+      homeBase: new HomeBase(this, savedState),
     };
 
-    this.currentScene = this.scenes.den;
+    this.currentScene = this.scenes[savedState.scene];
   }
 
-  load = async (handlers: GameHandler) => {
+  load = async () => {
     await this.screen.loadImages(Game.IMAGES);
-    this.currentScene.init();
-    this.statuses.setHandlers(handlers);
     this.isLoaded = true;
   };
 
@@ -65,18 +77,21 @@ export class Game {
     this.screen.restore();
   }
 
-  private animate = () => {
+  private animate = (timeMM: number = 0) => {
+    const time = timeMM / 1000;
     this.predraw();
-    this.statuses.update();
-    this.currentScene.render();
+    this.statuses.update(time);
+
+    if (this.isLoaded) {
+      this.currentScene.render(time);
+    }
+
     this.postdraw();
     this.animationFrameId = requestAnimationFrame(this.animate);
   };
 
   run() {
-    if (!this.animationFrameId) {
-      this.animate();
-    }
+    this.animate();
   }
 
   cancelAnimation() {

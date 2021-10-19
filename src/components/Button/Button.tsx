@@ -1,21 +1,34 @@
-import React, { ReactElement, memo, useMemo } from 'react';
+import React, { ReactElement, memo } from 'react';
+import block from 'bem-cn-lite';
 import { Props } from './Button.types';
-import { BUTTON_TYPES } from './const';
 import './Button.scss';
+
+export enum BUTTON_TYPES {
+  PRIMARY = 'primary',
+  TRANSPARENT = 'transparent',
+}
+
+const buttonClass = block('button');
 
 export const Button = memo(
   ({
     children,
     type,
+    onClick,
     buttonType = BUTTON_TYPES.PRIMARY,
   }: Props): ReactElement => {
-    const className = useMemo(
-      () => `button button_${buttonType}`,
-      [buttonType]
-    );
+    const className = buttonClass({ [buttonType]: true });
+
+    const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+      event.preventDefault();
+
+      if (onClick) {
+        onClick(event);
+      }
+    };
 
     return (
-      <button type={type} className={className}>
+      <button type={type} className={className} onClick={clickHandler}>
         {children}
       </button>
     );
