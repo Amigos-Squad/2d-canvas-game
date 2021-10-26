@@ -1,9 +1,4 @@
-import { Game, RoomPrice } from '@/modules/Canvas/Game';
-
-export type Props = {
-  game: Game;
-  closeHandler: () => void;
-};
+import { RoomPrice } from '@/modules/Canvas/Game';
 
 export type BuildingItemProps = {
   title: string;

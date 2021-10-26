@@ -16,3 +16,8 @@ export type ActiveMenuProps = {
   children: ReactElement;
   onClose: () => void;
 };
+
+export type ActionModalProps = {
+  game: Game;
+  closeHandler: () => void;
+};

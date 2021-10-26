@@ -17,8 +17,6 @@ export const Button = memo(
     onClick,
     buttonType = BUTTON_TYPES.PRIMARY,
   }: Props): ReactElement => {
-    const className = buttonClass({ [buttonType]: true });
-
     const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
 
@@ -28,7 +26,11 @@ export const Button = memo(
     };
 
     return (
-      <button type={type} className={className} onClick={clickHandler}>
+      <button
+        type={type}
+        className={buttonClass({ [buttonType]: true })}
+        onClick={clickHandler}
+      >
         {children}
       </button>
     );
