@@ -1,4 +1,10 @@
-import React, { ReactElement, memo, useEffect, useState } from 'react';
+import React, {
+  ReactElement,
+  memo,
+  useEffect,
+  useState,
+  FormEvent,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector, useBoolean, useForm } from '@/utils';
 import { updatePassword, updateProfile, updateAvatar } from '@/redux';
@@ -8,6 +14,7 @@ import { OverviewHeader } from './OverviewHeader';
 import { ContentColumn } from './ContentColumn';
 import { PasswordForm } from './Overview.types';
 import './Overview.scss';
+import { DEFAULT_PASSWORD, DEFAULT_PROFILE } from './const';
 
 export const Overview = memo((): ReactElement => {
   const { user, userAvatar } = useAppSelector('user');
@@ -15,25 +22,23 @@ export const Overview = memo((): ReactElement => {
 
   const [isPassword, toggle] = useBoolean();
   const [avatar, changeAvatar] = useState('');
-  const { form, onChange, fullChange, isChanged, reset } = useForm<IUser>({
-    email: '',
-    firstName: '',
-    login: '',
-    displayName: '',
-    secondName: '',
-    phone: '',
-    avatar: null,
-  });
+  const {
+    form,
+    errors,
+    onChange,
+    fullChange,
+    isChanged,
+    reset,
+    onSubmit: submitProfile,
+  } = useForm<IUser>(DEFAULT_PROFILE, submitProfileCallback);
 
   const {
     form: passwordForm,
+    errors: passErrors,
     onChange: changePassword,
     isChanged: isPassDataChanged,
-  } = useForm<PasswordForm>({
-    newPasswordRepeat: '',
-    newPassword: '',
-    oldPassword: '',
-  });
+    onSubmit: submitPassword,
+  } = useForm<PasswordForm>(DEFAULT_PASSWORD, submitPasswordCallback);
 
   const onChangeHandler = (event: React.FormEvent<unknown>) => {
     const { name } = event.target as HTMLInputElement;
@@ -45,13 +50,28 @@ export const Overview = memo((): ReactElement => {
     }
   };
 
-  const updateHandler = () => {
+  const avatarChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const target = event.target as HTMLInputElement;
+    const newForm = new FormData();
+    newForm.append('avatar', target.files![0]);
+    dispatch(updateAvatar(newForm));
+  };
+
+  const updateHandler = (event: FormEvent) => {
     if (isPassDataChanged) {
-      dispatch(updatePassword(passwordForm));
+      submitPassword(event, passwordForm);
     }
 
-    dispatch(updateProfile(form));
+    submitProfile(event, form);
   };
+
+  function submitPasswordCallback(newForm: PasswordForm) {
+    dispatch(updatePassword(newForm));
+  }
+
+  function submitProfileCallback(newForm: IUser) {
+    dispatch(updateProfile(newForm));
+  }
 
   useEffect(() => {
     if (userAvatar) {
@@ -64,13 +84,6 @@ export const Overview = memo((): ReactElement => {
       fullChange(user);
     }
   }, [user]);
-
-  const avatarChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const target = event.target as HTMLInputElement;
-    const newForm = new FormData();
-    newForm.append('avatar', target.files![0]);
-    dispatch(updateAvatar(newForm));
-  };
 
   return (
     <div className="profile-overview">
@@ -91,6 +104,8 @@ export const Overview = memo((): ReactElement => {
             togglePassword={toggle}
             update={updateHandler}
             reset={reset}
+            passErrors={passErrors}
+            errors={errors}
           />
         </ContentColumn>
 
