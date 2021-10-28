@@ -7,7 +7,7 @@
 
   &__label {
     display: flex;
-    font-size: 1rem;
+    font-size: 0.8vw;
     font-weight: bold;
     color: $font-color;
     margin-left: 1px;
@@ -49,7 +49,7 @@
     flex-direction: row;
   }
 
-  &__label {
+  &_horizontal &__label {
     display: flex;
     min-width: 8vw;
     align-items: flex-end;

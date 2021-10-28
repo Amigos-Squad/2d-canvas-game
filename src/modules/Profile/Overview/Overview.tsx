@@ -13,8 +13,13 @@ import { Form } from './Form';
 import { OverviewHeader } from './OverviewHeader';
 import { ContentColumn } from './ContentColumn';
 import { PasswordForm } from './Overview.types';
+import {
+  DEFAULT_PASSWORD,
+  DEFAULT_PASSWORD_VALIDATION,
+  DEFAULT_PROFILE,
+  DEFAULT_PROFILE_VALIDATION,
+} from './const';
 import './Overview.scss';
-import { DEFAULT_PASSWORD, DEFAULT_PROFILE } from './const';
 
 export const Overview = memo((): ReactElement => {
   const { user, userAvatar } = useAppSelector('user');
@@ -25,12 +30,16 @@ export const Overview = memo((): ReactElement => {
   const {
     form,
     errors,
+    isChanged,
     onChange,
     fullChange,
-    isChanged,
     reset,
     onSubmit: submitProfile,
-  } = useForm<IUser>(DEFAULT_PROFILE, submitProfileCallback);
+  } = useForm<IUser>(
+    DEFAULT_PROFILE,
+    submitProfileCallback,
+    DEFAULT_PROFILE_VALIDATION
+  );
 
   const {
     form: passwordForm,
@@ -38,7 +47,11 @@ export const Overview = memo((): ReactElement => {
     onChange: changePassword,
     isChanged: isPassDataChanged,
     onSubmit: submitPassword,
-  } = useForm<PasswordForm>(DEFAULT_PASSWORD, submitPasswordCallback);
+  } = useForm<PasswordForm>(
+    DEFAULT_PASSWORD,
+    submitPasswordCallback,
+    DEFAULT_PASSWORD_VALIDATION
+  );
 
   const onChangeHandler = (event: React.FormEvent<unknown>) => {
     const { name } = event.target as HTMLInputElement;
@@ -98,7 +111,7 @@ export const Overview = memo((): ReactElement => {
           <Form
             form={form}
             passForm={passwordForm}
-            isChanged={isChanged}
+            isChanged={isChanged || isPassDataChanged}
             onChange={onChangeHandler}
             isPassword={isPassword}
             togglePassword={toggle}

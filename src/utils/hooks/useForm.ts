@@ -24,7 +24,7 @@ export function useForm<T, V = {}>(
       return acc;
     }, {} as Record<keyof T, string>)
   );
-  const validator = new Validator<T>(validationConfig);
+  const validator = new Validator<T, V | undefined>(validationConfig);
 
   function onChange<E>(event: React.FormEvent<E>) {
     const { name, value } = event.target as HTMLInputElement;
@@ -55,7 +55,12 @@ export function useForm<T, V = {}>(
   }, [fixedInit, form]);
 
   const onSubmit = (e: FormEvent) => {
-    const isValid = validator.validate(form, changeErrors);
+    let isValid = true;
+
+    if (validator.config) {
+      isValid = validator.validate(form, changeErrors);
+    }
+
     if (isValid && submitHandler) {
       submitHandler(form, e);
     }
