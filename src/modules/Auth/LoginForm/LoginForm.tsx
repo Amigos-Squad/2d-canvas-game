@@ -12,7 +12,7 @@ import '../Auth.scss';
 export const LoginForm = memo((): ReactElement => {
   const dispatch = useDispatch();
 
-  const { form, onChange, onSubmit } = useForm<ILoginForm>(
+  const { form, errors, onChange, onSubmit } = useForm<ILoginForm>(
     DEFAULT_FORM_DATA,
     submitHandler
   );
@@ -30,6 +30,7 @@ export const LoginForm = memo((): ReactElement => {
           onChange={onChange}
           label="Login"
           name="login"
+          error={errors.login}
           required
         />
 
@@ -39,6 +40,7 @@ export const LoginForm = memo((): ReactElement => {
           label="Password"
           name="password"
           type="password"
+          error={errors.password}
           required
         />
       </div>
