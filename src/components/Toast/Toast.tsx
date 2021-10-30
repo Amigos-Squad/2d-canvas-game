@@ -1,4 +1,4 @@
-import React, { memo, ReactElement, useEffect, useMemo, useRef } from 'react';
+import React, { memo, ReactElement, useEffect, useRef } from 'react';
 import block from 'bem-cn-lite';
 import { useDispatch } from 'react-redux';
 import { Portal } from '../Portal/Portal';
@@ -12,9 +12,8 @@ import './Toast.scss';
 const toastBlock = block('toast');
 
 export const Toast = memo((): ReactElement => {
-  const timer: React.MutableRefObject<
-    ReturnType<typeof setTimeout> | undefined
-  > = useRef();
+  const timer: React.MutableRefObject<ReturnType<typeof setTimeout> | null> =
+    useRef(null);
 
   const dispatch = useDispatch();
   const { toast } = useAppSelector('globalState');
@@ -24,25 +23,18 @@ export const Toast = memo((): ReactElement => {
       timer.current = setTimeout(() => {
         dispatch(setToast(null));
         clearTimeout(timer.current!);
-      }, toast.time || 4000);
+      }, toast.time);
     }
-
-    return clearTimeout(timer.current!);
-  }, [toast]);
-
-  const currentToast = useMemo(() => {
-    return {
-      message: toast ? toast.message : '',
-      type: toast && toast.type ? toast.type : TOAST_TYPES.WARNING,
-    };
   }, [toast]);
 
   return (
     <Portal>
-      <div className={toastBlock({ [currentToast.type]: Boolean(toast) })}>
-        <Icon name={ICON[currentToast.type as TOAST_TYPES]} />
-        <div>{currentToast.message}</div>
-      </div>
+      {toast && (
+        <div className={toastBlock({ [toast.type]: Boolean(toast) })}>
+          <Icon name={ICON[toast.type as TOAST_TYPES]} />
+          <div>{toast.message}</div>
+        </div>
+      )}
     </Portal>
   );
 });

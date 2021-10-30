@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { getToastDefault } from '@/components/Toast';
 import { initialState } from './const';
 
 const globalSlice = createSlice({
@@ -6,7 +7,7 @@ const globalSlice = createSlice({
   initialState,
   reducers: {
     setToast: (state, action) => {
-      state.toast = action.payload;
+      state.toast = getToastDefault(action.payload);
     },
   },
 });
