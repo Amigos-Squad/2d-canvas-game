@@ -2,19 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 import { store } from './redux';
 
 import { App } from './pages';
 
 import './styles/index.scss';
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    {hot(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    )}
   </React.StrictMode>,
   document.getElementById('root')
 );
