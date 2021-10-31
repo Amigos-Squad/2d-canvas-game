@@ -1,4 +1,4 @@
-import { CssMinimizerPlugin } from 'css-minimizer-webpack-plugin';
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import TerserWebpackPlugin from 'terser-webpack-plugin';
 import { ENVS } from '../assets/env';
 
