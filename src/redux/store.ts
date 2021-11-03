@@ -4,7 +4,7 @@ import { Saga } from 'redux-saga';
 import { userSlice, gameSlice, globalSlice } from './slices';
 import { rootSaga } from './sagas';
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   user: userSlice,
   savedGame: gameSlice,
   globalState: globalSlice,

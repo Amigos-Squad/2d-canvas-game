@@ -1,2 +1,2 @@
-export { initClientConfig } from './initClientConfig';
-export { initServerConfig } from './initServerConfig';
+export { clientConfig } from './clientConfig';
+export { serverConfig } from './serverConfig';

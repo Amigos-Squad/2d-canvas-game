@@ -1,2 +1,2 @@
 export { ENVS } from './assets';
-export { initServerConfig, initClientConfig } from './settings';
+export { clientConfig, serverConfig } from './settings';

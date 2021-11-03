@@ -1,1 +1,1 @@
-export { ENVS, initClientConfig, initServerConfig } from './webpack';
+export { ENVS, clientConfig, serverConfig } from './webpack';

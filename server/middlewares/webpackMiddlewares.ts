@@ -3,13 +3,16 @@ import webpack, { Configuration } from 'webpack';
 import devMiddleware from 'webpack-dev-middleware';
 import hotMiddleware from 'webpack-hot-middleware';
 
-export const webpackHot = (conf: Configuration): RequestHandler[] => {
+export const getWebpackMiddlewares = (
+  conf: Configuration
+): RequestHandler[] => {
   const compiler = webpack({ ...conf, mode: 'development' });
+  const webpackMiddleware = devMiddleware(compiler, {
+    publicPath: conf.output!.publicPath!.toString(),
+  });
 
   return [
-    devMiddleware(compiler, {
-      publicPath: '/',
-    }),
+    webpackMiddleware,
     hotMiddleware(compiler, { path: '/__webpack_hmr' }),
   ];
 };

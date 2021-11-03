@@ -7,20 +7,39 @@ export const CSS_LOADER = __DEV__
   ? {
       client: {
         test: /\.(css|scss|sass)$/i,
-        use: ['css-hot-loader', 'style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'css-hot-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              webpackImporter: false,
+            },
+          },
+        ],
       },
       server: {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         loader: 'null-loader',
       },
     }
   : {
       client: {
         test: /\.(css|scss|sass)$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              webpackImporter: false,
+            },
+          },
+        ],
       },
       server: {
-        test: /\.css$/,
+        test: /\.(scss|css)$/,
         loader: 'null-loader',
       },
     };

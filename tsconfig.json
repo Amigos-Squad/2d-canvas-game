@@ -3,7 +3,7 @@
     "lib": ["dom", "es2017"],
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "esnext",
     "jsx": "react",
     "importHelpers": true,
     "noUnusedLocals": true,
@@ -24,6 +24,5 @@
     },
     "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
   },
-  "include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
-  "exclude": ["**/*.js", "./dist/**/*"]
+  "include": ["src", "server", "typings/**/*.d.ts", "./node_modules/@types"]
 }

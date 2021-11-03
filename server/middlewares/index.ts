@@ -1,3 +1,2 @@
-export { webpackHot } from './webpackHot';
-export { logger } from './logger';
-export { renderMiddleware } from './render';
+export { getWebpackMiddlewares } from './webpackMiddlewares';
+export { serverRenderMiddleware } from './serverRenderMiddleware';

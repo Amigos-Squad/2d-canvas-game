@@ -1,6 +1,7 @@
 import { Entry } from 'webpack';
 import { join } from 'path';
-import { CLIENT_DIR, DIST_DIR } from '../assets/dir';
+import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
+import { CLIENT_DIR, DIST_DIR, ROOT_DIR_FROM_WEBPACK } from '../assets/dir';
 import { ENVS } from '../assets/env';
 import { GET_PLUGINS } from '../plugins/plugins';
 import { CSS_LOADER, FILE_LOADER, TS_LOADER } from '../loaders';
@@ -8,7 +9,7 @@ import { OPTIMIZATION } from '../optimization/optimization';
 
 const { __DEV__ } = ENVS;
 
-export const initClientConfig = {
+export const clientConfig = {
   name: `client`,
   target: 'web',
   devtool: 'source-map',
@@ -27,14 +28,19 @@ export const initClientConfig = {
     publicPath: '/',
   },
   resolve: {
+    modules: [ROOT_DIR_FROM_WEBPACK, 'node_modules'],
     extensions: ['*', '.js', '.jsx', '.json', '.ts', '.tsx'],
-    alias: {
-      '@': CLIENT_DIR,
-      scss: `${CLIENT_DIR}/styles`,
-    },
+    plugins: [
+      new TsconfigPathsPlugin({
+        configFile: './tsconfig.json',
+      }),
+    ],
   },
   module: {
     rules: [TS_LOADER.client, FILE_LOADER.client, CSS_LOADER.client],
+  },
+  performance: {
+    hints: __DEV__ ? false : 'warning',
   },
   plugins: GET_PLUGINS(),
   optimization: OPTIMIZATION,

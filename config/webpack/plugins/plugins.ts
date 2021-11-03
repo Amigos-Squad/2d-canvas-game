@@ -1,9 +1,4 @@
-import {
-  DefinePlugin,
-  ProgressPlugin,
-  ContextReplacementPlugin,
-  HotModuleReplacementPlugin,
-} from 'webpack';
+import { DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -16,7 +11,6 @@ const { __DEV__, __PROD__ } = ENVS;
 
 export const GET_PLUGINS = () => {
   const plugins = [
-    new ProgressPlugin(),
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html',
@@ -30,7 +24,6 @@ export const GET_PLUGINS = () => {
     }),
 
     new DefinePlugin(GLOBAL_ARGS),
-    new ContextReplacementPlugin(/moment[/\\]locale$/, /ru/),
   ];
 
   if (__DEV__) {
