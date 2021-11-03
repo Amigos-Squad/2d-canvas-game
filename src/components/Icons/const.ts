@@ -11,4 +11,7 @@ export enum ICONS {
   EmptyAvatar = 'EmptyAvatar',
   Play = 'Play',
   Pause = 'Pause',
+  Info = 'Info',
+  Check = 'Check',
+  Warning = 'Warning',
 }

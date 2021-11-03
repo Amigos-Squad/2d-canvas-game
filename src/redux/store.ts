@@ -1,12 +1,13 @@
 import createSagaMiddleware from '@redux-saga/core';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { Saga } from 'redux-saga';
-import { userSlice, gameSlice } from './slices';
+import { userSlice, gameSlice, globalSlice } from './slices';
 import { rootSaga } from './sagas';
 
 const rootReducer = combineReducers({
   user: userSlice,
   savedGame: gameSlice,
+  globalState: globalSlice,
 });
 
 const sagaMiddleware = createSagaMiddleware();

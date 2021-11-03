@@ -7,7 +7,9 @@ import './Form.scss';
 export const Form = memo(
   ({
     form,
+    errors,
     passForm,
+    passErrors,
     isPassword,
     isChanged,
     reset,
@@ -15,13 +17,14 @@ export const Form = memo(
     onChange,
     togglePassword,
   }: Props): ReactElement => (
-    <form className="overview-form">
+    <form onSubmit={update} className="overview-form">
       <div className="overview-form__body">
         <Input
           value={form.displayName || ''}
           onChange={onChange}
           name="displayName"
           label="Display name"
+          error={errors.displayName}
           horizontal
         />
 
@@ -30,6 +33,7 @@ export const Form = memo(
           value={form.firstName}
           onChange={onChange}
           name="firstName"
+          error={errors.firstName}
           horizontal
         />
 
@@ -38,6 +42,7 @@ export const Form = memo(
           value={form.secondName}
           onChange={onChange}
           name="secondName"
+          error={errors.secondName}
           horizontal
         />
 
@@ -46,6 +51,7 @@ export const Form = memo(
           value={form.login}
           onChange={onChange}
           name="login"
+          error={errors.login}
           horizontal
         />
 
@@ -56,6 +62,7 @@ export const Form = memo(
           name="email"
           horizontal
           type="email"
+          error={errors.email}
         />
 
         <Input
@@ -65,6 +72,7 @@ export const Form = memo(
           name="phone"
           horizontal
           type="tel"
+          error={errors.phone}
         />
 
         <>
@@ -77,12 +85,14 @@ export const Form = memo(
                 onChange={onChange}
                 name="oldPassword"
                 type="password"
+                error={passErrors.oldPassword}
                 horizontal
               />
 
               <Input
                 label="New"
                 value={passForm.newPassword}
+                error={passErrors.newPassword}
                 onChange={onChange}
                 name="newPassword"
                 type="password"
@@ -92,6 +102,7 @@ export const Form = memo(
               <Input
                 label="Repeat"
                 value={passForm.newPasswordRepeat}
+                error={passErrors.newPasswordRepeat}
                 onChange={onChange}
                 name="newPasswordRepeat"
                 type="password"

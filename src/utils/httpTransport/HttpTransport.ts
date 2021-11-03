@@ -107,6 +107,12 @@ export class HttpTransport {
       }
     }
 
+    const response = await request.json();
+
+    if (response.reason) {
+      throw Error(response.reason);
+    }
+
     throw Error(request.statusText);
   };
 }

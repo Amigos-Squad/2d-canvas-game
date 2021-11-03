@@ -1,0 +1,7 @@
+import path from 'path';
+
+export const ROOT_DIR_FROM_WEBPACK = path.join(__dirname, '../../../');
+
+export const DIST_DIR = path.join(ROOT_DIR_FROM_WEBPACK, 'dist');
+export const SERVER_DIR = path.join(ROOT_DIR_FROM_WEBPACK, 'server');
+export const CLIENT_DIR = path.join(ROOT_DIR_FROM_WEBPACK, 'src');
