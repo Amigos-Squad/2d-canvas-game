@@ -8,7 +8,6 @@ import './App.scss';
 
 export const App = memo((): ReactElement => {
   const location = useLocation();
-
   return (
     <AuthProvider>
       <ErrorBoundaryWithRouter>

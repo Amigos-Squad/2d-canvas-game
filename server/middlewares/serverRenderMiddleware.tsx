@@ -1,50 +1,66 @@
 import React from 'react';
+import { resolve } from 'path';
 import { renderToString } from 'react-dom/server';
+import { createMemoryHistory } from 'history';
 import { Response, Request } from 'express';
+import { ChunkExtractor } from '@loadable/server';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import { StaticRouter, StaticRouterContext } from 'react-router';
 import { getInitialState } from '@/redux';
+import { App } from '@/pages';
 
 export const serverRenderMiddleware = (req: Request, res: Response) => {
+  const statsFile = resolve('dist/loadable-stats.json');
+  const extractor = new ChunkExtractor({ statsFile });
+  const history = createMemoryHistory({ initialEntries: ['/'] });
+
   const store = configureStore({
-    reducer: getInitialState(),
+    reducer: getInitialState(history),
+    preloadedState: {},
   });
 
   const location = req.url;
   const context: StaticRouterContext = {};
 
-  const jsx = (
+  const jsx = extractor.collectChunks(
     <Provider store={store}>
       <StaticRouter context={context} location={location}>
-        <div>12</div>
+        <App />
       </StaticRouter>
     </Provider>
   );
-  const reactHtml = renderToString(jsx);
 
-  res.status(200).send(getHtml(reactHtml));
+  const reactHtml = renderToString(jsx);
+  console.log(extractor.getScriptTags());
+  res
+    .set('content-type', 'text/html')
+    .status(200)
+    .send(getHtml(reactHtml, extractor, store.getState()));
 };
 
-function getHtml(reactHtml: string, reduxState = {}) {
+function getHtml(
+  reactHtml: string,
+  extractor: ChunkExtractor,
+  reduxState = {}
+) {
   return `
       <!DOCTYPE html>
       <html lang="en">
       <head>
           <meta charset="UTF-8">
-          <meta name="google-site-verification" content="nLL5VlSAgcKL756luG6o6UwKcvR8miU2duRnhU-agmE" />
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <meta http-equiv="X-UA-Compatible" content="ie=edge">
-          <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
-          <title>Sneakers shop</title>
-          <link href="/index.css" rel="stylesheet">
+          <title>2d-canvas-game</title>
+          ${extractor.getLinkTags()}
+          ${extractor.getStyleTags()}
       </head>
       <body>
           <div id="root">${reactHtml}</div>
           <script>
-              window.__INITIAL_STATE__ = ${JSON.stringify(reduxState)}
+              window.__PRELOADED_STATE__ = ${JSON.stringify(reduxState)}
           </script>
-          <script src="/index.js"></script>
+          ${extractor.getScriptTags()}
       </body>
       </html>
   `;

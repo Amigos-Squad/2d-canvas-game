@@ -9,6 +9,11 @@ export const getWebpackMiddlewares = (
   const compiler = webpack({ ...conf, mode: 'development' });
   const webpackMiddleware = devMiddleware(compiler, {
     publicPath: conf.output!.publicPath!.toString(),
+    stats: {
+      errorStack: true,
+      colors: true,
+      errorDetails: true,
+    },
   });
 
   return [

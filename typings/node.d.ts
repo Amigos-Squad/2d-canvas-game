@@ -1,3 +1,4 @@
+export {};
 declare global {
   namespace Express {
     interface Request {
@@ -7,5 +8,9 @@ declare global {
     interface Response {
       renderBundle(bundleName: string, data?: any): void;
     }
+  }
+
+  interface Window {
+    __PRELOADED_STATE__: any;
   }
 }

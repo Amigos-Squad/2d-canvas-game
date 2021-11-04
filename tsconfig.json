@@ -16,7 +16,7 @@
     "declaration": false,
     "sourceMap": false,
     "outDir": "./dist",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"],
       "scss/*": ["src/styles/*"],

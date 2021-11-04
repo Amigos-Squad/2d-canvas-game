@@ -14,7 +14,7 @@ export const serverConfig = {
   target: 'node',
   node: { __dirname: false },
   devtool: 'source-map',
-  entry: join(SERVER_DIR, 'index') as Entry,
+  entry: join(SERVER_DIR, 'server') as Entry,
   mode: __DEV__ ? 'development' : 'production',
   externals: [
     webpackNodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] }),
@@ -33,7 +33,7 @@ export const serverConfig = {
     filename: 'server.js',
     libraryTarget: 'commonjs2',
     publicPath: '/',
-    path: join(DIST_DIR, 'temp'),
+    path: DIST_DIR,
   },
 
   module: {

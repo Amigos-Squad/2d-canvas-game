@@ -1,8 +1,12 @@
-import { rootReducer } from './store';
+import { MemoryHistory } from 'history';
+import { getRootReducer } from './store';
 
-export const getInitialState = (rewriteData?: Record<string, unknown>) => {
+export const getInitialState = (
+  history: MemoryHistory,
+  rewriteData: Record<string, unknown> = {}
+) => {
   return {
-    ...rootReducer,
+    reducer: getRootReducer(history),
     ...rewriteData,
   };
 };
