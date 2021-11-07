@@ -20,11 +20,10 @@ const history = isServer
   : createBrowserHistory();
 
 const preloadedState = isServer ? undefined : window.__PRELOADED_STATE__;
+
 if (!isServer && window.__PRELOADED_STATE__) {
   delete window.__PRELOADED_STATE__;
 }
-
-console.log(preloadedState);
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];

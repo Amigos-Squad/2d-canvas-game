@@ -13,6 +13,9 @@ if (
         getPropertyValue() {},
       };
     },
+    document: {
+      querySelector: function () {},
+    },
     addEventListener() {},
   };
 }

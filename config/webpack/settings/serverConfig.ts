@@ -1,6 +1,6 @@
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { TsconfigPathsPlugin } from 'tsconfig-paths-webpack-plugin';
-import { Entry } from 'webpack';
+import { Entry, ProvidePlugin } from 'webpack';
 import webpackNodeExternals from 'webpack-node-externals';
 
 import { DIST_DIR, ROOT_DIR_FROM_WEBPACK, SERVER_DIR } from '../assets/dir';
@@ -43,6 +43,24 @@ export const serverConfig = {
   performance: {
     hints: __DEV__ ? false : 'warning',
   },
+
+  stats: {
+    all: undefined,
+    builtAt: !__DEV__,
+    chunks: !__DEV__,
+    assets: !__DEV__,
+    errors: true,
+    warnings: true,
+    outputPath: true,
+    timings: true,
+  },
+
+  plugins: [
+    new ProvidePlugin({
+      window: resolve(join(__dirname, '../mock/window.mock')),
+      localStorage: resolve(join(__dirname, '../mock/localStorage.mock')),
+    }),
+  ],
 
   optimization: {
     nodeEnv: false,

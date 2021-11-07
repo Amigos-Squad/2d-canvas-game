@@ -3,7 +3,7 @@ import loadable from '@loadable/component';
 import { ROUTES } from '@/utils';
 import { Loader } from '@/components';
 
-const Login = loadable(() => import('./Auth'), {
+const Login = loadable(/* #__LOADABLE__ */ () => import('./Auth'), {
   resolveComponent: (components) => components.Login,
   fallback: <Loader />,
 });
@@ -23,10 +23,13 @@ const Forum = loadable(() => import('./Forum'), {
   fallback: <Loader />,
 });
 
-const Leaderboard = loadable(() => import('./Leaderboard'), {
-  resolveComponent: (components) => components.Leaderboard,
-  fallback: <Loader />,
-});
+const Leaderboard = loadable(
+  /* #__LOADABLE__ */ () => import('./Leaderboard'),
+  {
+    resolveComponent: (components) => components.Leaderboard,
+    fallback: <Loader />,
+  }
+);
 
 export const Profile = loadable(() => import('./Profile'), {
   resolveComponent: (components) => components.Profile,

@@ -22,7 +22,7 @@
       "scss/*": ["src/styles/*"],
       "assets/*": ["src/assets/*"]
     },
-    "typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
+    "typeRoots": ["./@types", "node_modules/@types"]
   },
-  "include": ["src", "server", "typings/**/*.d.ts", "./node_modules/@types"]
+  "include": ["src", "server", "@types/**/*.d.ts", "./node_modules/@types"]
 }

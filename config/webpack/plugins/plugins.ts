@@ -1,9 +1,9 @@
 import { DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
-import LoadablePlugin from '@loadable/webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import DuplicatePackageCheckerPlugin from 'duplicate-package-checker-webpack-plugin';
 import CompressionWebpackPlugin from 'compression-webpack-plugin';
+import LoadablePlugin from '@loadable/webpack-plugin';
 
 import { ENVS, GLOBAL_ARGS } from '../assets/env';
 
@@ -14,6 +14,7 @@ export const GET_PLUGINS = () => {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       title: '2d-canvas-game',
+      favicon: './public/favicon.png',
       minify: {
         collapseWhitespace: __PROD__,
       },
@@ -22,9 +23,8 @@ export const GET_PLUGINS = () => {
       filename: `css/[name].css`,
     }),
 
-    new LoadablePlugin(),
-
     new DefinePlugin(GLOBAL_ARGS),
+    new LoadablePlugin(),
   ];
 
   if (__DEV__) {

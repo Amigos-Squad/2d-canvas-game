@@ -1,6 +1,11 @@
-import { FC, ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import ReactDOM from 'react-dom';
+import { isServer } from '@/utils';
 
 export const Portal: FC = ({ children }): ReactElement => {
-  return ReactDOM.createPortal(children, document.querySelector('body')!);
+  return !isServer ? (
+    ReactDOM.createPortal(children, document.querySelector('body')!)
+  ) : (
+    <> </>
+  );
 };
