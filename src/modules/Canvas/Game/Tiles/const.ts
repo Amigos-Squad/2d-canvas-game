@@ -6,13 +6,6 @@ import {
   createGroundTile,
 } from './utils';
 
-export const enum TILE_TYPE {
-  ENVIRONMENT = 'ENVIRONMENT',
-  GROUND = 'GROUND',
-  ROOM = 'ROOM',
-  BUILD_PLACE = 'BUILD_PLACE',
-}
-
 export const ENVIRONMENT: Tiles = {
   empty: createEnvironmentTile({ spriteIndex: 0 }),
   grass: createEnvironmentTile({ spriteIndex: 1 }),

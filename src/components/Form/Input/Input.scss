@@ -1,4 +1,4 @@
-@import 'scss/var';
+@import '../../../styles/var';
 
 .input {
   display: flex;
@@ -7,7 +7,7 @@
 
   &__label {
     display: flex;
-    font-size: 1rem;
+    font-size: 0.8vw;
     font-weight: bold;
     color: $font-color;
     margin-left: 1px;
@@ -23,10 +23,26 @@
     padding-left: 8px;
     background-color: $bg-light-color;
     width: 100%;
+
+    &_error {
+      box-shadow: 0 0 1px 1px $warning-color inset;
+    }
+  }
+
+  &__container {
+    width: 100%;
+    position: relative;
+    max-height: 52px;
+    height: 40px;
   }
 
   &__error {
-    color: red;
+    font-size: 0.7vw;
+    position: absolute;
+    color: $warning-color;
+    height: 12px;
+    width: 100%;
+    overflow: hidden;
   }
 
   &_horizontal {

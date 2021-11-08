@@ -4,10 +4,11 @@ import { IconProps, Props } from './Icon.types';
 import './Icon.scss';
 
 const AsyncIcon = loadable(
-  ({ name }: IconProps) => import(/* webpackPrefetch: true */ `./SVG/${name}`),
+  (props: IconProps) => import(`./SVG/${props.name}`),
   {
-    resolveComponent: (components, chunk) =>
-      components[(chunk as { name: string }).name],
+    resolveComponent: (components, chunk) => {
+      return components[(chunk as { name: string }).name];
+    },
     cacheKey: ({ name }) => name,
   }
 );

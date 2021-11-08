@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { initialState } from './const';
 
 const gameSlice = createSlice({
-  name: 'user',
+  name: 'game',
   initialState,
   reducers: {
     setSavedGame: (state, action) => {
