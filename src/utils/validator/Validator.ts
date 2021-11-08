@@ -47,7 +47,7 @@ export class Validator<T, V> {
   };
 
   validate(form: T, changeError: (errors: Record<keyof T, string>) => void) {
-    let isFullValid = false;
+    let isFullValid = true;
     const keys = Object.keys(form);
 
     const errors = keys.reduce((acc, key) => {

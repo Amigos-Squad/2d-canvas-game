@@ -8,7 +8,7 @@ export const getWebpackMiddlewares = (
 ): RequestHandler[] => {
   const compiler = webpack({ ...conf, mode: 'development' });
   const webpackMiddleware = devMiddleware(compiler, {
-    publicPath: '/',
+    publicPath: conf.output!.publicPath as any,
     stats: {
       errorStack: true,
       colors: true,

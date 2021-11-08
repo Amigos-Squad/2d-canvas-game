@@ -56,7 +56,6 @@ export function useForm<T, V = {}>(
 
   const onSubmit = (e: FormEvent) => {
     let isValid = true;
-
     if (validator.config) {
       isValid = validator.validate(form, changeErrors);
     }

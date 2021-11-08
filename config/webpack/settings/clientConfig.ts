@@ -16,8 +16,9 @@ export const clientConfig = {
   entry: {
     index: [
       __DEV__ && 'react-hot-loader/patch',
-      __DEV__ && 'webpack-hot-middleware/client',
       __DEV__ && 'css-hot-loader/hotModuleReplacement',
+      __DEV__ &&
+        'webpack-hot-middleware/client?path=/__webpack_hmr&reload=true',
       join(CLIENT_DIR, 'index'),
     ].filter(Boolean) as string[],
   } as Entry,

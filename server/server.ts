@@ -1,22 +1,25 @@
 import express, { Express } from 'express';
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
+import cookieParser from 'cookie-parser';
 import { getWebpackMiddlewares, serverRenderMiddleware } from './middlewares';
 import { ENVS, clientConfig } from '../config';
 import { enumToArray, ROUTES } from '@/utils';
 
 const server: Express = express();
 
-server.use(express.static(resolve(__dirname, '../dist')));
-
 if (ENVS.__DEV__) {
-  server.get(
-    enumToArray(ROUTES),
-    [...getWebpackMiddlewares(clientConfig as Configuration)],
-    serverRenderMiddleware
-  );
-} else {
-  server.get(enumToArray(ROUTES), serverRenderMiddleware);
+  server.use([...getWebpackMiddlewares(clientConfig as Configuration)]);
 }
+server
+  .use(express.json())
+  .use(
+    express.urlencoded({
+      extended: true,
+    })
+  )
+  .use(cookieParser())
+  .use(express.static(resolve(__dirname, '../dist')))
+  .use(enumToArray(ROUTES), serverRenderMiddleware);
 
 export { server };

@@ -12,11 +12,13 @@ const { __DEV__ } = ENVS;
 export const serverConfig = {
   name: 'server',
   target: 'node',
+  externalsPresets: { node: true },
   node: { __dirname: false },
   devtool: 'source-map',
   entry: join(SERVER_DIR, 'server') as Entry,
   mode: __DEV__ ? 'development' : 'production',
   externals: [
+    '@loadable/component',
     webpackNodeExternals({ allowlist: [/\.(?!(?:tsx?|json)$).{1,5}$/i] }),
   ],
   resolve: {
@@ -62,7 +64,5 @@ export const serverConfig = {
     }),
   ],
 
-  optimization: {
-    nodeEnv: false,
-  },
+  optimization: {},
 };

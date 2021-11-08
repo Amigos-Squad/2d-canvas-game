@@ -7,7 +7,7 @@ import { AuthProvider } from './AuthProvider';
 import { USED_ROUTES } from './routes';
 import './App.scss';
 
-export const App = hot((): ReactElement => {
+const RootApp = (): ReactElement => {
   const location = useLocation();
   return (
     <AuthProvider>
@@ -25,4 +25,6 @@ export const App = hot((): ReactElement => {
       </ErrorBoundaryWithRouter>
     </AuthProvider>
   );
-});
+};
+
+export const App = hot(RootApp);

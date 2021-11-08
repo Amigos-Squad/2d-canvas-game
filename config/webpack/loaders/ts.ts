@@ -1,12 +1,20 @@
 export const TS_LOADER = {
   client: {
-    test: /\.(ts|tsx)$/i,
+    test: /\.([jt])sx?$/,
     exclude: /node_modules/,
-    use: 'ts-loader',
+    use: {
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,
+        plugins: ['react-hot-loader/babel'],
+      },
+    },
   },
   server: {
-    test: /\.(ts|tsx)$/i,
+    test: /\.([jt])sx?$/,
     exclude: /node_modules/,
-    use: 'ts-loader',
+    use: {
+      loader: 'babel-loader',
+    },
   },
 };

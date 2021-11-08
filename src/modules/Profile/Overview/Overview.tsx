@@ -55,7 +55,6 @@ export const Overview = memo((): ReactElement => {
 
   const onChangeHandler = (event: React.FormEvent<unknown>) => {
     const { name } = event.target as HTMLInputElement;
-
     if (name in form) {
       onChange(event);
     } else {

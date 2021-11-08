@@ -21,6 +21,7 @@ export const GET_PLUGINS = () => {
     }),
     new MiniCssExtractPlugin({
       filename: `css/[name].css`,
+      ignoreOrder: true,
     }),
 
     new DefinePlugin(GLOBAL_ARGS),

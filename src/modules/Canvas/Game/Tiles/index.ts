@@ -1,4 +1,4 @@
-export { TILES, TILE_TYPE } from './const';
+export { TILES } from './const';
 
 export { Tile } from './Tile';
 
