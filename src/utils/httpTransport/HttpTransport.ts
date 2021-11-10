@@ -46,7 +46,7 @@ export class HttpTransport {
     this.baseURL = base;
   }
 
-  get = <T>(url: string, options: IRequestOptions = {}): Promise<T> => {
+  get = <T>(url: string = '', options: IRequestOptions = {}): Promise<T> => {
     let currentUrl = url;
 
     if (options.data) {
@@ -60,7 +60,7 @@ export class HttpTransport {
     return this.request(url, { ...options, method: METHODS.PUT });
   }
 
-  post<T>(url: string, options: IRequestOptions = {}): Promise<T> {
+  post<T>(url: string = '', options: IRequestOptions = {}): Promise<T> {
     return this.request(url, { ...options, method: METHODS.POST });
   }
 

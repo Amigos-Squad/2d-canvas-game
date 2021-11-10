@@ -14,6 +14,8 @@ import {
   updateAvatarSaga,
 } from './user';
 
+import { pullLeaderboardSaga } from './leaderboard';
+
 export function* rootSaga() {
   const sagas = [
     signInSaga,
@@ -24,6 +26,7 @@ export function* rootSaga() {
     updateProfileSaga,
     updatePasswordSaga,
     updateAvatarSaga,
+    pullLeaderboardSaga,
   ];
 
   const retrySagas: Saga[] = yield sagas.map((saga) =>
