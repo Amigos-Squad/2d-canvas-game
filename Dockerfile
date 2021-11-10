@@ -1,13 +1,13 @@
-FROM node:14
+FROM node:16
 
 WORKDIR /user/game
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install; npm run build
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 4000
 
-CMD npm run serve
+CMD ["npm", "run", "start"]
