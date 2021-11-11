@@ -1,11 +1,13 @@
 import { CharacterState } from '.';
 import { EVENT_BUS_EVENTS } from '..';
+import { Bullet } from '../Bullet';
 import { Room } from '../Room';
 import { HomeBase } from '../Scenes';
+import { Exploration } from '../Scenes/Exploration';
 import { Shape } from './Shape';
 
 export class Character {
-  public scene: HomeBase;
+  public scene: HomeBase | Exploration;
 
   public room: Room | null = null;
 
@@ -15,7 +17,7 @@ export class Character {
     speed: 4,
   };
 
-  constructor(scene: HomeBase, сharacter: CharacterState) {
+  constructor(scene: HomeBase | Exploration, сharacter: CharacterState) {
     const { tileX, tileY } = сharacter;
     this.scene = scene;
 
@@ -26,7 +28,19 @@ export class Character {
   eventRegistration = () => {
     const { eventBus } = this.scene.game;
     eventBus.on(EVENT_BUS_EVENTS.INTERACT, this.interactHandler);
+    eventBus.on(EVENT_BUS_EVENTS.SHOOT, this.shootHandler);
   };
+
+  shootHandler = () => {
+    if (this.scene instanceof Exploration) {
+      this.scene.addBullet(new Bullet(
+        this.scene, {
+          tileX: Math.round(this.shape.x / this.scene.game.screen.cellSize),
+          tileY: Math.round(this.shape.y / this.scene.game.screen.cellSize) - 1,
+        }, {verticalSpeed: -15, horizontalSpeed: 0})
+      )
+    }
+  }
 
   interactHandler = () => {
     if (this.room) {

@@ -8,7 +8,8 @@ import buildIcon from '@/assets/gameInterface/Build.png';
 import explorationIcon from '@/assets/gameInterface/Exploration.png';
 import { EVENT_BUS_EVENTS } from '../../Game';
 import './ActionsMenu.scss';
-import { Exploration } from './Exploration';
+import { Exploration } from '../../Game/Scenes/Exploration';
+import { explorationSetup } from '../../Game/const';
 
 export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
   const [selectedMenu, selectMenu] = useState<MENU_OPTIONS | null>(null);
@@ -28,12 +29,20 @@ export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
     }
   };
 
+  const explorationSceneHandler = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent> | undefined,
+    option?: MENU_OPTIONS
+  ) => {
+    // TODO fix energy prize
+    game.currentScene = new Exploration(game, explorationSetup, game.currentScene, 30);
+  };
+
   const openMenu = useMemo(() => {
     switch (selectedMenu) {
       case MENU_OPTIONS.BUILDING:
         return <Building game={game} closeHandler={closeHandler} />;
       case MENU_OPTIONS.EXPLORATION:
-        return <Exploration game={game} closeHandler={closeHandler} />;
+        return <></>
       default:
         return null;
     }
@@ -61,7 +70,7 @@ export const ActionsMenu = React.memo(({ game }: Props): ReactElement => {
         <MenuItem
           alt="exploration"
           name={MENU_OPTIONS.EXPLORATION}
-          select={selectHandler}
+          select={explorationSceneHandler}
           icon={explorationIcon}
         />
       </div>

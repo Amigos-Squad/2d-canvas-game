@@ -24,6 +24,8 @@ export class Statuses {
   registrateEvents() {
     const { eventBus } = this.game;
     eventBus.on(EVENT_BUS_EVENTS.ENERGY_CHANGE, this.handleInterfaceChange);
+    eventBus.on(EVENT_BUS_EVENTS.EXPLORATION_TIME_CHANGE, this.handleInterfaceChange);
+    eventBus.on(EVENT_BUS_EVENTS.EXPLORATION_HP_CHANGE, this.handleInterfaceChange);
   }
 
   handleInterfaceChange = ({ stateKey, payload }: IStatusPayload) => {

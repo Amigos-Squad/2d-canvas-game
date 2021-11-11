@@ -4,7 +4,8 @@ import { Scenes } from './Scenes';
 
 export type SavedState = {
   gameMap: RawGameMap;
-  сharacter: CharacterState;
+  сharacter?: CharacterState;
+  spaceship?: CharacterState;
   scene: keyof Scenes;
 };
 

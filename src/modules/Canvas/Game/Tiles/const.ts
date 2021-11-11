@@ -4,6 +4,7 @@ import {
   createBuildPlaceTile,
   createEnvironmentTile,
   createGroundTile,
+  createSpaceshipTile,
 } from './utils';
 
 export const enum TILE_TYPE {
@@ -11,6 +12,7 @@ export const enum TILE_TYPE {
   GROUND = 'GROUND',
   ROOM = 'ROOM',
   BUILD_PLACE = 'BUILD_PLACE',
+  SPACESHIP = 'SPACESHIP',
 }
 
 export const ENVIRONMENT: Tiles = {
@@ -38,6 +40,13 @@ export const BUILD_PLACE: Tiles = {
 
 export const GROUND: Tiles = {
   soil: createGroundTile({ spriteIndex: 1 }),
+};
+
+export const SPACESHIP: Tiles = {
+  weak: createSpaceshipTile({ spriteIndex: 1 }),
+  normal: createSpaceshipTile({ spriteIndex: 2 }),
+  hard: createSpaceshipTile({ spriteIndex: 3 }),
+  bullet: createSpaceshipTile({ spriteIndex: 4 }),
 };
 
 export const ROOMS: Tiles = {
@@ -68,4 +77,8 @@ export const TILES: TilesMap = new Map([
   [5.3, ROOMS.generator_top_right],
   [5.4, ROOMS.generator_bottom_left],
   [5.5, ROOMS.generator_bottom_right],
+  [6.1, SPACESHIP.weak],
+  [6.2, SPACESHIP.normal],
+  [6.3, SPACESHIP.hard],
+  [6.4, SPACESHIP.bullet],
 ]);

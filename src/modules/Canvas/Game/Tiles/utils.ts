@@ -20,6 +20,12 @@ export const createGroundTile = (props: TileDataProps): TileData => ({
   ...props,
 });
 
+export const createSpaceshipTile = (props: TileDataProps): TileData => ({
+  type: TILE_TYPE.SPACESHIP,
+  spriteSheet: SPRITE_SHEETS.SPACESHIP,
+  ...props,
+});
+
 export const createBuildPlaceTile = (props: TileDataProps): TileData => ({
   type: TILE_TYPE.BUILD_PLACE,
   spriteSheet: SPRITE_SHEETS.BUILD_PLACE,
