@@ -9,7 +9,6 @@ export interface IRegistrationForm {
   secondName: string;
   phone: string;
   password: string;
-  passwordRepeat?: string;
 }
 
 export interface ILoginForm {

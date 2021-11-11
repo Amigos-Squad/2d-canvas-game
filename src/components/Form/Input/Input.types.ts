@@ -1,11 +1,6 @@
-export interface InputRule {
-  message: string;
-  rule: RegExp;
-}
-
 export type Props = {
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   value: string;
+  error?: string;
   horizontal?: boolean;
-  rules?: InputRule[];
+  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
 } & React.HTMLProps<HTMLInputElement>;

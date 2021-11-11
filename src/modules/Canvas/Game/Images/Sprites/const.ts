@@ -8,7 +8,7 @@ export enum ANIMATION_CONST {
   DEFAULT_HEIGHT = 128,
 }
 
-export const enum SPRITE_SHEETS {
+export enum SPRITE_SHEETS {
   ENVIRONMENT = 'ENVIRONMENT',
   GROUND = 'GROUND',
   ROOM = 'ROOM',

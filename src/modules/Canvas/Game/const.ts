@@ -37,7 +37,7 @@ export const BASE_INFO_STATE = {
   isGameOver: false,
 };
 
-export const enum EVENT_BUS_EVENTS {
+export enum EVENT_BUS_EVENTS {
   KEY_DOWN = 'KEY_DOWN',
   KEY_UP = 'KEY_UP',
   KEY_PRESS = 'KEY_PRESS',

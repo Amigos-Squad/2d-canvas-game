@@ -1,33 +1,50 @@
 import { SPRITE_SHEETS } from '../Images';
-import { TILE_TYPE } from './const';
-import { TileData, TileDataProps } from './tiles.types';
+import { TileDataProps } from '../Tiles/tiles.types';
 
-export const createRoomTile = (props: TileDataProps): TileData => ({
-  type: TILE_TYPE.ROOM,
-  spriteSheet: SPRITE_SHEETS.ROOM,
-  ...props,
-});
+export enum TILE_TYPE {
+  ENVIRONMENT = 'ENVIRONMENT',
+  GROUND = 'GROUND',
+  ROOM = 'ROOM',
+  BUILD_PLACE = 'BUILD_PLACE',
+  SPACESHIP = 'SPACESHIP',
+}
 
-export const createEnvironmentTile = (props: TileDataProps): TileData => ({
-  type: TILE_TYPE.ENVIRONMENT,
-  spriteSheet: SPRITE_SHEETS.ENVIRONMENT,
-  ...props,
-});
+export function createRoomTile(props: TileDataProps): any {
+  return {
+    type: TILE_TYPE.ROOM,
+    spriteSheet: SPRITE_SHEETS.ROOM,
+    ...props,
+  };
+}
 
-export const createGroundTile = (props: TileDataProps): TileData => ({
-  type: TILE_TYPE.GROUND,
-  spriteSheet: SPRITE_SHEETS.GROUND,
-  ...props,
-});
+export function createEnvironmentTile(props: TileDataProps) {
+  return {
+    type: TILE_TYPE.ENVIRONMENT,
+    spriteSheet: SPRITE_SHEETS.ENVIRONMENT,
+    ...props,
+  };
+}
 
-export const createSpaceshipTile = (props: TileDataProps): TileData => ({
-  type: TILE_TYPE.SPACESHIP,
-  spriteSheet: SPRITE_SHEETS.SPACESHIP,
-  ...props,
-});
+export function createSpaceshipTile(props: TileDataProps) {
+  return {
+    type: TILE_TYPE.SPACESHIP,
+    spriteSheet: SPRITE_SHEETS.SPACESHIP,
+    ...props,
+  };
+}
 
-export const createBuildPlaceTile = (props: TileDataProps): TileData => ({
-  type: TILE_TYPE.BUILD_PLACE,
-  spriteSheet: SPRITE_SHEETS.BUILD_PLACE,
-  ...props,
-});
+export function createBuildPlaceTile(props: TileDataProps) {
+  return {
+    type: TILE_TYPE.BUILD_PLACE,
+    spriteSheet: SPRITE_SHEETS.BUILD_PLACE,
+    ...props,
+  };
+}
+
+export function createGroundTile(props: TileDataProps) {
+  return {
+    type: TILE_TYPE.GROUND,
+    spriteSheet: SPRITE_SHEETS.GROUND,
+    ...props,
+  };
+}

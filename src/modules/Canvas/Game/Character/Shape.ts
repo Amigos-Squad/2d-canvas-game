@@ -1,6 +1,6 @@
 import { Animation, SpriteSheets, SPRITE_SHEETS } from '../Images';
 import { Exploration } from '../Scenes/Exploration';
-import { TILE_TYPE } from '../Tiles';
+import { TILE_TYPE } from '../Tiles/utils';
 import { Character } from './Character';
 import { TileCache } from './Character.types';
 import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
