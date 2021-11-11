@@ -7,4 +7,6 @@ export interface ILeaderboardListItem {
   user: string;
   score: number;
   date: string;
+  drones: number;
+  days: number;
 }

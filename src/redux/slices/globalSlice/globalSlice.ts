@@ -12,7 +12,12 @@ const globalSlice = createSlice({
       action: PayloadAction<keyof ILeaderboardListItem>
     ) => {},
     setLeaderboard: (state, action) => {
-      state.leaderboard = action.payload;
+      state.leaderboard = action.payload.map(
+        (item: { data: Record<string, any> }) => {
+          const date = new Date(item.data.date).toLocaleDateString('ru-RU');
+          return Object.assign(item.data, { date });
+        }
+      );
     },
     setToast: (state, action) => {
       state.toast = getToastDefault(action.payload);

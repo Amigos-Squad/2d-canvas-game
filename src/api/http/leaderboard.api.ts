@@ -2,7 +2,7 @@ import { ILeaderboardListItem } from '@/modules';
 import { BaseAPI } from './base-api';
 import { YANDEX_API } from './const';
 
-const TEAM_NAME = 'acapulco';
+const TEAM_NAME = 'acapulcoTeam';
 
 class LeaderboardAPI extends BaseAPI {
   pullAll = async (
@@ -18,8 +18,14 @@ class LeaderboardAPI extends BaseAPI {
     return data;
   };
 
-  add = async (data: unknown) => {
-    await this.http.post('', { data });
+  add = async (data: ILeaderboardListItem, sortField = 'score') => {
+    await this.http.post('', {
+      data: {
+        data,
+        ratingFieldName: sortField,
+        teamName: TEAM_NAME,
+      },
+    });
   };
 }
 

@@ -16,7 +16,7 @@ export const LeaderboardList = (): ReactElement => {
   const list = useMemo(
     () =>
       leaderboard.map((item, index) => (
-        <LeaderboardItem {...item} index={index} key={item.id} />
+        <LeaderboardItem {...item} index={index + 1} key={item.id} />
       )),
     [leaderboard]
   );
