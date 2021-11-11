@@ -1,6 +1,8 @@
 import { BASE_CHARACTER } from './Character';
+import { BASE_SPACESHIP } from './Character/const';
 import { SavedState } from './Game.types';
 import { BASE_GAME_MAP } from './GameMap';
+import { EXPLORATION_GAME_MAP } from './GameMap/const';
 
 export const GAME_CONST = {
   CELL_IN_PAGE: 32,
@@ -12,6 +14,12 @@ export const GAME_CONST = {
 export const baseSetup: SavedState = {
   gameMap: BASE_GAME_MAP,
   сharacter: BASE_CHARACTER,
+  scene: 'homeBase',
+};
+
+export const explorationSetup: SavedState = {
+  gameMap: EXPLORATION_GAME_MAP,
+  spaceship: BASE_SPACESHIP,
   scene: 'homeBase',
 };
 
@@ -41,4 +49,7 @@ export enum EVENT_BUS_EVENTS {
   ENERGIZED_CHANGE = 'ENERGIZED_CHANGE',
   INTERACT = 'INTERACT',
   STOP_INTERACT = 'STOP_INTERACT',
+  SHOOT = 'SHOOT',
+  EXPLORATION_TIME_CHANGE = 'EXPLORATION_TIME_CHANGE',
+  EXPLORATION_HP_CHANGE = 'EXPLORATION_HP_CHANGE',
 }

@@ -22,7 +22,19 @@ export class Screen {
     this.images = Object.assign(this.images, loader.images);
   };
 
-  private resizeCanvasToDisplaySize() {
+  get screenWidth() {
+    return this.canvas.width
+  }
+
+  get screenHeight() {
+    return this.canvas.height
+  }
+
+  public clear() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  public resizeCanvasToDisplaySize() {
     const { width, height } = this.canvas.getBoundingClientRect();
 
     if (this.canvas.width !== width || this.canvas.height !== height) {

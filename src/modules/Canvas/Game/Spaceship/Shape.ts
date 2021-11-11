@@ -1,12 +1,10 @@
 import { Animation, SpriteSheets, SPRITE_SHEETS } from '../Images';
-import { Exploration } from '../Scenes/Exploration';
-import { TILE_TYPE } from '../Tiles/utils';
-import { Character } from './Character';
-import { TileCache } from './Character.types';
+import { Spaceship } from './Spaceship';
+import { TileCache } from './Spaceship.types';
 import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
 
 export class Shape {
-  protected character: Character;
+  protected spaceship: Spaceship;
 
   protected cellX: number;
 
@@ -32,8 +30,8 @@ export class Shape {
 
   protected sprites: SpriteSheets;
 
-  constructor(character: Character, x: number = 0, y: number = 0) {
-    const { cellSize } = character.scene.game.screen;
+  constructor(spaceship: Spaceship, x: number = 0, y: number = 0) {
+    const { cellSize } = spaceship.scene.game.screen;
 
     if (cellSize) {
       this.x = x * cellSize;
@@ -48,13 +46,13 @@ export class Shape {
 
     this.blockSize = cellSize;
     this.prevBlockSize = cellSize;
-    this.character = character;
+    this.spaceship = spaceship;
 
     this.handleResize(this.blockSize);
     
     this.sprites = new SpriteSheets(
-      [SPRITE_SHEETS.CHARACTER],
-      character.scene.game.screen
+      [SPRITE_SHEETS.SPACESHIP],
+      spaceship.scene.game.screen
     );
 
     this.activity = ACTIVITYS_TITLE.IDLE;
@@ -70,67 +68,16 @@ export class Shape {
   }
 
   handleWalk() {
-    const { scene, characteristics } = this.character;
-    const { down, left, right, up } = scene.game.control.state;
-    const { speed } = characteristics;
-
-    if (left) {
-      this.x += this.handleHorizontal(-speed);
-    } else if (right) {
-      this.x += this.handleHorizontal(speed);
+    if (this.x <= 0 || this.x >= this.spaceship.scene.game.screen.screenWidth - this.spaceship.characteristics.speed - this.spaceship.shape.width) {
+      this.spaceship.characteristics.speed = -this.spaceship.characteristics.speed
     }
-
-    if (down) {
-      this.y += this.handleVertical(speed);
-    } else if (up) {
-      this.y += this.handleVertical(-speed);
-    }
+    this.handleHorizontal(this.spaceship.characteristics.speed);
   }
 
   handleHorizontal(speed: number) {
-    const { gameMap, game } = this.character.scene;
-    let nextX = this.x + speed;
+    const nextX = this.x + speed;
 
-    if (speed > 0) {
-      nextX += this.width;
-    }
-
-    const { data, y, indexX, indexY } = gameMap.findTile(nextX, this.y);
-
-    if (data.type === TILE_TYPE.ROOM) {
-      if (this.y !== y + this.height) {
-        if (indexY % 2 === 0) {
-          this.y = y;
-        } else {
-          this.y = y + game.screen.cellSize;
-        }
-      }
-
-      this.cellX = indexX;
-
-      return speed;
-    }
-    if (data.type === TILE_TYPE.ENVIRONMENT && this.character.scene instanceof Exploration) {
-      return speed;
-    }
-
-    return 0;
-  }
-
-  handleVertical(speed: number) {
-    const { gameMap } = this.character.scene;
-    let nextY = this.y;
-
-    if (speed > 0) {
-      nextY += this.height;
-    }
-
-    const { data, indexY } = gameMap.findTile(this.x, nextY);
-
-    if (data.type === TILE_TYPE.ROOM && data.isAllowVerticalMove) {
-      this.cellY = indexY;
-      return speed;
-    }
+    this.x = nextX
 
     return 0;
   }
@@ -148,7 +95,7 @@ export class Shape {
     if (!this.animation) {
       const { cadres, width } = SHAPE_ACTIVITYS[this.activity];
       this.animation = this.sprites.groups[
-        SPRITE_SHEETS.CHARACTER
+        SPRITE_SHEETS.SPACESHIP
       ].getAnimation(cadres, width);
     }
 

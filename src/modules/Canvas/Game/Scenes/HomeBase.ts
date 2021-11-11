@@ -15,9 +15,9 @@ export class HomeBase extends Scene {
 
   protected constructing: Constructing;
 
-  protected resources: Resources;
-
   protected rooms: Room[];
+
+  public resources: Resources;
 
   availableBuildings: typeof ROOMS_STORE;
 
@@ -32,7 +32,7 @@ export class HomeBase extends Scene {
 
     this.rooms = [commandPost];
     this.constructing = new Constructing(this);
-    this.character = new Character(this, сharacter);
+    this.character = new Character(this, сharacter!);
     this.gameMap = new GameMap(this, gameMap, commandPost);
     this.resources = new Resources(this);
     this.availableBuildings = ROOMS_STORE;
@@ -65,6 +65,10 @@ export class HomeBase extends Scene {
   updateRooms = (room: Room) => {
     this.rooms.push(room);
   };
+
+  get getResources() {
+    return this.resources
+  }
 
   render(time: number) {
     this.constructing.update(this.gameMap.mapArray);

@@ -1,6 +1,6 @@
 import { SpriteSheets, SPRITE_SHEETS } from '../Images';
 import { CommandPost } from '../Room';
-import { HomeBase } from '../Scenes';
+import { Scene } from '../Scenes';
 import { Screen } from '../Screen';
 import { Tile, TILES } from '../Tiles';
 import { GameTileMap, RawGameMap } from './GameMap.types';
@@ -12,13 +12,13 @@ export class GameMap {
 
   protected sprites: SpriteSheets;
 
-  scene: HomeBase;
+  scene: Scene;
 
   commandPost: CommandPost;
 
   mapArray: GameTileMap = [];
 
-  constructor(scene: HomeBase, gameMap: RawGameMap, commandPost: CommandPost) {
+  constructor(scene: Scene, gameMap: RawGameMap, commandPost: CommandPost) {
     this.scene = scene;
     this.commandPost = commandPost;
 
@@ -28,6 +28,7 @@ export class GameMap {
         SPRITE_SHEETS.ENVIRONMENT,
         SPRITE_SHEETS.ROOM,
         SPRITE_SHEETS.BUILD_PLACE,
+        SPRITE_SHEETS.SPACESHIP,
       ],
       scene.game.screen
     );
@@ -54,6 +55,16 @@ export class GameMap {
 
     return this.mapArray[y][x];
   };
+
+  maxYWithOffset = (offset: number = 0) => {
+    const { cellSize } = this.scene.game.screen;
+    return (this.mapArray.length - 1 - offset) * cellSize
+  }
+
+  minYWithOffset = (offset: number = 0) => {
+    const { cellSize } = this.scene.game.screen;
+    return offset * cellSize
+  }
 
   render() {
     const { game } = this.scene;

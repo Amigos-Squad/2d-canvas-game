@@ -28,6 +28,10 @@ export class Energy {
     this.registerateEvents();
   }
 
+  addEnergy = (e: number) => {
+    this.energy += e
+  }
+
   registerateEvents() {
     this.eventBus.on(
       EVENT_BUS_EVENTS.ENERGIZED_CHANGE,

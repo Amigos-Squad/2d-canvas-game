@@ -6,6 +6,7 @@ export enum TILE_TYPE {
   GROUND = 'GROUND',
   ROOM = 'ROOM',
   BUILD_PLACE = 'BUILD_PLACE',
+  SPACESHIP = 'SPACESHIP',
 }
 
 export function createRoomTile(props: TileDataProps): any {
@@ -24,10 +25,10 @@ export function createEnvironmentTile(props: TileDataProps) {
   };
 }
 
-export function createGroundTile(props: TileDataProps) {
+export function createSpaceshipTile(props: TileDataProps) {
   return {
-    type: TILE_TYPE.GROUND,
-    spriteSheet: SPRITE_SHEETS.GROUND,
+    type: TILE_TYPE.SPACESHIP,
+    spriteSheet: SPRITE_SHEETS.SPACESHIP,
     ...props,
   };
 }
@@ -36,6 +37,14 @@ export function createBuildPlaceTile(props: TileDataProps) {
   return {
     type: TILE_TYPE.BUILD_PLACE,
     spriteSheet: SPRITE_SHEETS.BUILD_PLACE,
+    ...props,
+  };
+}
+
+export function createGroundTile(props: TileDataProps) {
+  return {
+    type: TILE_TYPE.GROUND,
+    spriteSheet: SPRITE_SHEETS.GROUND,
     ...props,
   };
 }

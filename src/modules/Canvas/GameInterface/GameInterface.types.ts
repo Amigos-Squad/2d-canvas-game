@@ -1,5 +1,5 @@
 import { Game } from '../Game';
-import { EnergyState } from '../Game/Statuses.types';
+import { EnergyState, ExplorationInfo } from '../Game/Statuses.types';
 
 export type Props = {
   game: Game | null;
@@ -10,6 +10,7 @@ export type Props = {
 export type GameInfo = {
   day: number;
   energyState: EnergyState;
+  explorationInfo?: ExplorationInfo;
   drones: {
     total: number;
     free: number;
