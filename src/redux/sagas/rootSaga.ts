@@ -2,10 +2,12 @@ import { all, spawn, call } from '@redux-saga/core/effects';
 import { Saga } from '@redux-saga/types';
 import {
   signInSaga,
+  oauthSignInSaga,
   signUpSaga,
   loadUserSaga,
   preLoadUserSaga,
   signOutSaga,
+  getServiceIdSaga,
 } from './auth';
 
 import {
@@ -19,6 +21,7 @@ import { pullLeaderboardSaga } from './leaderboard';
 export function* rootSaga() {
   const sagas = [
     signInSaga,
+    oauthSignInSaga,
     signUpSaga,
     loadUserSaga,
     preLoadUserSaga,
@@ -27,6 +30,7 @@ export function* rootSaga() {
     updatePasswordSaga,
     updateAvatarSaga,
     pullLeaderboardSaga,
+    getServiceIdSaga,
   ];
 
   const retrySagas: Saga[] = yield sagas.map((saga) =>

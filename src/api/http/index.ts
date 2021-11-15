@@ -1,3 +1,4 @@
 export { authAPI } from './auth.api';
 export { userAPI } from './user.api';
-export { leaderboardAPI, TEAM_NAME } from './leaderboard.api';
+export { leaderboardAPI } from './leaderboard.api';
+export { HOME_URL } from './const';

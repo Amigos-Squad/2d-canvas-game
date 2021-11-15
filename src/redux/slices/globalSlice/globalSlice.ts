@@ -7,6 +7,9 @@ const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
+    setServiceId: (state, action: PayloadAction<string>) => {
+      state.serviceId = action.payload;
+    },
     pullLeaderboard: (
       _,
       action: PayloadAction<keyof ILeaderboardListItem>
@@ -25,7 +28,7 @@ const globalSlice = createSlice({
   },
 });
 
-export const { setToast, pullLeaderboard, setLeaderboard } =
+export const { setToast, pullLeaderboard, setLeaderboard, setServiceId } =
   globalSlice.actions;
 
 export default globalSlice.reducer;

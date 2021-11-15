@@ -19,6 +19,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     signIn: (_, action: PayloadAction<ILoginForm>) => {},
+    oauthSignIn: (_, action: PayloadAction<string>) => {},
     signUp: (_, action: PayloadAction<IRegistrationForm>) => {},
     updateProfile: (_, action: PayloadAction<IUser>) => {},
     updatePassword: (_, action: PayloadAction<PasswordForm>) => {},
@@ -32,8 +33,14 @@ const userSlice = createSlice({
       if (!state.isLoaded) {
         state.isLoaded = true;
       }
-      state.user = converter.convertSnakeToCamelCase(action.payload);
-      state.userAvatar = setAvatarUrl(action.payload.avatar);
+
+      if (action.payload) {
+        state.user = converter.convertSnakeToCamelCase(action.payload);
+        state.userAvatar = setAvatarUrl(action.payload.avatar);
+      } else {
+        state.user = undefined;
+        state.userAvatar = undefined;
+      }
     },
     setUserAvatar: (state, action) => {
       state.userAvatar = setAvatarUrl(action.payload);
@@ -43,6 +50,7 @@ const userSlice = createSlice({
 
 export const {
   signIn,
+  oauthSignIn,
   signUp,
   signOut,
   setUser,

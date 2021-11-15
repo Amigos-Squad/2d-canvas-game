@@ -11,6 +11,7 @@ import { IUser } from '@/models';
 import { ILoginForm, IRegistrationForm } from '@/modules';
 import {
   signIn,
+  oauthSignIn,
   signUp,
   loadUser,
   setUser,
@@ -18,10 +19,22 @@ import {
   setLoadStatus,
   setToast,
 } from '../slices';
+import { oauthAPI } from '@/api/http/oauth.api';
+import { setServiceId } from '../slices/globalSlice/globalSlice';
 
 function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
   try {
     yield call(authAPI.login, payload);
+    const user: IUser = yield call(authAPI.loadUser);
+    yield put(setUser(user));
+  } catch (error: any) {
+    yield put(setToast({ message: error.message }));
+  }
+}
+
+function* oauthSignInWorker({ payload }: PayloadAction<string>) {
+  try {
+    yield call(oauthAPI.signIn, payload);
     const user: IUser = yield call(authAPI.loadUser);
     yield put(setUser(user));
   } catch (error: any) {
@@ -57,8 +70,23 @@ function* loadUserWorker() {
   }
 }
 
+function* getServiceIdWorker() {
+  try {
+    const response: Record<string, string> = yield call(oauthAPI.getServiceId);
+    if (response && response.service_id) {
+      yield put(setServiceId(response.service_id));
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 export function* signInSaga() {
   yield takeLeading(signIn.type, signInWorker);
+}
+
+export function* oauthSignInSaga() {
+  yield takeLeading(oauthSignIn.type, oauthSignInWorker);
 }
 
 export function* signUpSaga() {
@@ -75,4 +103,8 @@ export function* signOutSaga() {
 
 export function* preLoadUserSaga() {
   yield fork(loadUserWorker);
+}
+
+export function* getServiceIdSaga() {
+  yield fork(getServiceIdWorker);
 }

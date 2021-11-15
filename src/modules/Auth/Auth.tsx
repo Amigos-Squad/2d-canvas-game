@@ -4,8 +4,8 @@ import logo from '@/assets/temp.png';
 import { AuthNav } from './AuthTabs';
 import './Auth.scss';
 
-export const Auth = memo(
-  ({ children }: Props): ReactElement => (
+export const Auth = memo(({ children }: Props): ReactElement => {
+  return (
     <article className="authorization">
       <div className="authorization__container">
         <img className="authorization__img" src={logo} alt="game-logo" />
@@ -15,5 +15,5 @@ export const Auth = memo(
         </section>
       </div>
     </article>
-  )
-);
+  );
+});
