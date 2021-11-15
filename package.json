@@ -16,8 +16,8 @@
   "scripts": {
     "build": "npm run clean & NODE_ENV=production webpack --mode=production",
     "start": "cross-env NODE_ENV=development clean & npm-run-all --print-label --parallel start:*",
-    "start:webpack": "NODE_ENV=development webpack --mode=development -w",
-    "start:server": "nodemon ./server/index.js",
+    "start:webpack": "NODE_ENV=development webpack",
+    "start:server": "nodemon server/index.js --watch dist/server.js",
     "clean": "rm -rf dist",
     "lint": "eslint \"**/*.{ts,tsx}\"",
     "lint:fix": "eslint \"**/*.{ts,tsx}\" --fix",

@@ -36,3 +36,21 @@
     }
   }
 }
+
+.btn-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__oauth {
+    display: flex;
+    justify-content: space-around;
+
+    &-item {
+      width: 25px;
+      border-radius: 15%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+  }
+}
