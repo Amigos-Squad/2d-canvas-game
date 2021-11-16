@@ -5,7 +5,8 @@ services:
     container_name: postgres
     image: postgres:latest
     volumes:
-      - ./postgresdata:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
     restart: always
     env_file:
       ./.env

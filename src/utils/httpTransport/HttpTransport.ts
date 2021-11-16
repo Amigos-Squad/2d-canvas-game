@@ -72,7 +72,7 @@ export class HttpTransport {
     url: string,
     options: IFetchRequestOptions
   ): Promise<T> => {
-    let fullUrl = this.baseURL + url;
+    const fullUrl = this.baseURL + url;
     const { isFormData, headers, data } = options;
 
     const reqHeaders = isFormData
@@ -89,9 +89,7 @@ export class HttpTransport {
       headers: reqHeaders,
     };
 
-    if (options.method === METHODS.GET && data) {
-      fullUrl += data;
-    } else if (isFormData) {
+    if (isFormData) {
       requestConfig.body = data;
     } else if (options.method !== METHODS.GET) {
       requestConfig.body = JSON.stringify(data);

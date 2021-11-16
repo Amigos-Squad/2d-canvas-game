@@ -1,3 +1,8 @@
 import express from 'express';
+import { forumRouter } from './forum.route';
 
-export const indexRouter = express.Router();
+const indexRouter = express.Router();
+
+indexRouter.use('/forum', forumRouter);
+
+export { indexRouter };

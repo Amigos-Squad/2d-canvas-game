@@ -16,6 +16,13 @@ import {
   updateAvatarSaga,
 } from './user';
 
+import {
+  getTopicsSaga,
+  createTopicsSaga,
+  getPostsSaga,
+  createPostsSaga,
+} from './forum';
+
 import { pullLeaderboardSaga } from './leaderboard';
 
 export function* rootSaga() {
@@ -31,6 +38,10 @@ export function* rootSaga() {
     updateAvatarSaga,
     pullLeaderboardSaga,
     getServiceIdSaga,
+    getTopicsSaga,
+    createTopicsSaga,
+    getPostsSaga,
+    createPostsSaga,
   ];
 
   const retrySagas: Saga[] = yield sagas.map((saga) =>
