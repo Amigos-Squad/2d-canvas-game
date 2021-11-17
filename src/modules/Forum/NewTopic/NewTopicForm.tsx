@@ -1,14 +1,15 @@
 import React, { memo, ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useRouteMatch } from 'react-router';
 import { Input, Textarea } from '@/components/Form';
 import { Button, BUTTON_TYPES } from '@/components/Button';
 import { ROUTES, useForm } from '@/utils';
 import { DEFAULT_TOPIC, DEFAULT_TOPIC_VALIDATION } from './const';
-import { createTopic } from '@/redux/slices/forumSlice/forumSlice';
+import { createTopic, createPost } from '@/redux/slices/forumSlice/forumSlice';
 import { ITopicBody } from '../Forum.types';
-import './NewTopic.scss';
 import { Store } from '@/redux/store.type';
+import './NewTopic.scss';
+import { IPostBody } from '..';
 
 type Props = {
   cancel: () => void;
@@ -16,8 +17,15 @@ type Props = {
 
 export const NewTopicForm = memo(({ cancel }: Props): ReactElement => {
   const dispatch = useDispatch();
+  const route = useRouteMatch(ROUTES.FORUM_NEW_POST) as {
+    isExact: boolean;
+    params: {
+      id: string;
+    };
+  };
   const { user } = useSelector((store: Store) => store.user);
   const history = useHistory();
+
   const { form, errors, onChange, onSubmit } = useForm(
     DEFAULT_TOPIC,
     submitTopicCallback,
@@ -25,8 +33,19 @@ export const NewTopicForm = memo(({ cancel }: Props): ReactElement => {
   );
 
   function submitTopicCallback(newForm: Omit<ITopicBody, 'author'>) {
-    dispatch(createTopic({ ...newForm, author: user?.id as number }));
-    history.replace(ROUTES.FORUM);
+    if (!route || !route.isExact) {
+      dispatch(createTopic({ ...newForm, author: user?.id as number }));
+      history.goBack();
+    } else {
+      dispatch(
+        createPost({
+          ...newForm,
+          author: user?.id as number,
+          topicId: Number(route.params.id),
+        } as IPostBody)
+      );
+      history.goBack();
+    }
   }
 
   return (

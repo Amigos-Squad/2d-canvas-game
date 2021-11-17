@@ -72,7 +72,10 @@ export class HttpTransport {
     url: string,
     options: IFetchRequestOptions
   ): Promise<T> => {
-    const fullUrl = this.baseURL + url;
+    const fullUrl = options.baseUrl
+      ? options.baseUrl + url
+      : this.baseURL + url;
+
     const { isFormData, headers, data } = options;
 
     const reqHeaders = isFormData

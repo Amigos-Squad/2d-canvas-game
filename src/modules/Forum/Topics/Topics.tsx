@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TopicsHeader } from './TopicsHeader';
 import { Store } from '@/redux/store.type';
 import { getTopics } from '@/redux';
-import './Topics.scss';
 import { TopicItem } from './TopicItem';
+import './Topics.scss';
 
 export const Topics = (): ReactElement => {
   const dispatch = useDispatch();

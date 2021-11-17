@@ -8,6 +8,7 @@ import {
 
 @Table
 export class User extends Model {
+  @AllowNull(false)
   @Column(DataType.INTEGER)
   userId!: number;
 
@@ -15,7 +16,9 @@ export class User extends Model {
   @Column(DataType.STRING)
   name!: string;
 
-  @AllowNull(false)
+  @Column(DataType.STRING)
+  avatar!: string;
+
   @Column(DataType.STRING)
   theme!: string;
 }

@@ -16,7 +16,10 @@ const forumSlice = createSlice({
     },
     getPosts: (_, action: PayloadAction<string>) => {},
     setPosts: (state, action) => {
-      state.posts = action.payload;
+      state.posts = action.payload.map((item: ITopicItem) => ({
+        ...item,
+        time: dateConverter.convertISOtoLocalTime(item.createdAt),
+      }));
     },
     createTopic: (_, action: PayloadAction<ITopicBody>) => {},
     createPost: (_, action: PayloadAction<IPostBody>) => {},

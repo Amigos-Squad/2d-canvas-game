@@ -7,7 +7,7 @@ import { ITopicItem } from '../Forum.types';
 type Props = {} & ITopicItem;
 
 export const TopicItem = ({
-  title,
+  title = '',
   posts,
   author,
   createdAt,

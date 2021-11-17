@@ -43,7 +43,29 @@ class ForumController {
   };
 
   addPost = async (req: Request, res: Response) => {
-    res.status(200).send('Yeap');
+    if (!req.body) {
+      res.status(400).send(generateError());
+    } else {
+      try {
+        const { author, message, topicId } = req.body;
+
+        await Post.create({
+          message,
+          topicId,
+          author,
+        });
+
+        const topic: any = await Topic.findOne({ where: { id: topicId } });
+        Topic.update(
+          { posts: (topic.dataValues.posts += 1) },
+          { where: { id: topicId } }
+        );
+
+        res.status(200).send();
+      } catch (error: any) {
+        res.status(500).send(generateError(error.message));
+      }
+    }
   };
 }
 

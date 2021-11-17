@@ -4,9 +4,7 @@ import {
   Model,
   Table,
   AllowNull,
-  ForeignKey,
 } from 'sequelize-typescript';
-import { Topic } from '.';
 
 @Table
 export class Post extends Model {
@@ -15,11 +13,10 @@ export class Post extends Model {
   message!: string;
 
   @AllowNull(false)
-  @Column(DataType.STRING)
-  author!: string;
+  @Column(DataType.INTEGER)
+  author!: number;
 
   @AllowNull(false)
-  @ForeignKey(() => Topic)
   @Column(DataType.INTEGER)
   topicId!: number;
 }

@@ -22,6 +22,7 @@ export interface ITopicBody {
 }
 export interface IPostBody {
   topicId: number;
+  author: number;
   title: string;
   message: string;
 }

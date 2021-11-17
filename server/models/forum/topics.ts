@@ -18,8 +18,8 @@ export class Topic extends Model {
   posts!: number;
 
   @AllowNull(false)
-  @Column(DataType.STRING)
-  author!: string;
+  @Column(DataType.INTEGER)
+  author!: number;
 
   @Default(false)
   @Column(DataType.BOOLEAN)

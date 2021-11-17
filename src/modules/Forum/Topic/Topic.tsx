@@ -18,7 +18,7 @@ export const Topic = memo((): ReactElement => {
 
   return (
     <div className="topic__container scroll__wrapper">
-      <header className="topic__header">{location.state.title}</header>
+      <header className="topic__header">{location?.state?.title}</header>
       <div className="topic__posts-container">
         {posts.map((post) => (
           <Post {...post} key={post.id} />
