@@ -14,7 +14,7 @@ export const Info = React.memo((): ReactElement => {
   const { theme } = useAppSelector('user');
 
   const handleSignOut = () => dispatch(signOut());
-  const handleThemeToggle = () => dispatch(toggleTheme());
+  const handleThemeToggle = () => dispatch(toggleTheme(theme === Theme.Light ? Theme.Dark : Theme.Light));
 
   return (
     <div className="page-header__info">

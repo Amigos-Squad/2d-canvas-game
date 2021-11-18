@@ -26,10 +26,10 @@ class UserAPI extends BaseAPI {
     // await this.http.put('/theme');
   };
 
-  loadTheme = async () => {
+  loadTheme = async (theme: string) => {
     // const data: string = await this.http.get('/theme');
     // return data;
-    return 'Dark';
+    return theme;
   };
 }
 

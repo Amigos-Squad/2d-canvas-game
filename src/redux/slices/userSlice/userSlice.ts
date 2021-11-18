@@ -26,7 +26,7 @@ const userSlice = createSlice({
     updateAvatar: (_, action: PayloadAction<FormData>) => {},
     loadUser: () => {},
     signOut: () => {},
-    toggleTheme: () => {},
+    toggleTheme: (_, action: PayloadAction<string>) => {},
     setLoadStatus: (state, action) => {
       state.isLoaded = action.payload;
     },

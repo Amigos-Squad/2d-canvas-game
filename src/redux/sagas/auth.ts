@@ -80,10 +80,10 @@ function* loadUserWorker() {
   }
 }
 
-function* toggleThemeWorker() {
+function* toggleThemeWorker({ payload }: PayloadAction<string>) {
   try {
     yield call(userAPI.toggleTheme);
-    const theme: string = yield call(userAPI.loadTheme);
+    const theme: string = yield call(userAPI.loadTheme, payload);
     yield put(setTheme(theme));
   } catch (e) {
     console.error(e);
