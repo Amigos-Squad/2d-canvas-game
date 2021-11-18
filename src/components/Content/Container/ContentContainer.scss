@@ -15,7 +15,7 @@
     height: 90%;
     border-radius: 4px;
     overflow: auto;
-    background: $bg-dark-color;
+    background: var(--bg-dark-color);
     padding: 0 20px 0 20px;
     display: flex;
     flex-direction: column;
@@ -26,6 +26,6 @@
     width: 80%;
     min-height: 20px;
     border-radius: 4px;
-    background: $bg-dark-color;
+    background: var(--bg-dark-color);
   }
 }

@@ -7,14 +7,14 @@
 
   &__header {
     width: 100%;
-    color: $accent-color;
+    color: var(--accent-color);
     font-weight: 600;
     font-size: 1.1vw;
     text-transform: uppercase;
     padding-bottom: 10px;
     position: sticky;
     top: 0;
-    background: $bg-dark-color;
+    background: var(--bg-dark-color);
     z-index: 100;
   }
 
@@ -32,7 +32,7 @@
 
 .topic-post {
   width: 100%;
-  background: $bg-light-color;
+  background: var(--bg-light-color);
   display: flex;
   gap: 15px;
   padding: 10px;
@@ -42,7 +42,7 @@
     flex-direction: column;
     gap: 10px;
     width: 100%;
-    color: $font-color;
+    color: var(--font-color);
   }
 
   &__title {
@@ -53,7 +53,7 @@
 
   &__time,
   &__author {
-    color: $accent-color;
+    color: var(--accent-color);
     font-size: 1vw;
     font-weight: 600;
   }

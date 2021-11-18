@@ -35,21 +35,21 @@
     align-items: center;
     justify-content: center;
     gap: 15px;
-    color: $font-color;
+    color: var(--font-color);
     font-size: 2vw;
   }
 }
 
 .header-score {
-  background: $bg-light-color;
+  background: var(--bg-light-color);
   padding: 10px 40px;
-  color: $font-color;
+  color: var(--font-color);
   border-radius: 20px;
   text-align: center;
 
   &__title {
     font-size: 2.5vw;
-    color: $accent-color;
+    color: var(--accent-color);
   }
 
   &__info {
@@ -68,8 +68,8 @@
 
   &__header {
     width: 100%;
-    color: $font-color;
-    border-bottom: 3px solid $accent-color;
+    color: var(--font-color);
+    border-bottom: 3px solid var(--accent-color);
 
     &-title {
       font-size: 1.5vw;

@@ -20,6 +20,16 @@ class AuthAPI extends BaseAPI {
   logout = async () => {
     await this.http.post('/logout');
   };
+
+  toggleTheme = async () => {
+    // await this.http.put('/theme');
+  };
+
+  loadTheme = async () => {
+    // const data: string = await this.http.get('/theme');
+    // return data;
+    return 'Dark';
+  };
 }
 
 export const authAPI = new AuthAPI(`${YANDEX_API}/auth`);
