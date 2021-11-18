@@ -13,7 +13,6 @@ import ImageSpaceship from '@/assets/sprites/Spaceship.png';
 import ImageBullet from '@/assets/sprites/Bullet.png';
 import { SPRITE_SHEETS } from './Images';
 import { EventBus } from '@/utils';
-// import { Exploration } from './Scenes/Exploration';
 
 export class Game {
   static IMAGES = {
@@ -58,7 +57,6 @@ export class Game {
     this.load();
     this.scenes = {
       homeBase: new HomeBase(this, savedState),
-      // exploration: new Exploration(this, explorationSetup),
     };
 
     this.currentScene = this.scenes[savedState.scene];

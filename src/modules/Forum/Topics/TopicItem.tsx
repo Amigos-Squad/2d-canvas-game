@@ -1,16 +1,16 @@
 import React, { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ITopicItem } from './Topics.types';
 import { ROUTES } from '@/utils';
 import { Icon, ICONS } from '@/components';
+import { ITopicItem } from '../Forum.types';
 
 type Props = {} & ITopicItem;
 
 export const TopicItem = ({
-  title,
+  title = '',
   posts,
-  starter,
-  lastMessage,
+  author,
+  createdAt,
   isLocked,
   id,
 }: Props): ReactElement => (
@@ -22,10 +22,17 @@ export const TopicItem = ({
       />
     </td>
     <td className="topic__link">
-      <NavLink to={`${ROUTES.FORUM_TOPIC_PATH}${id}`}>{title}</NavLink>
+      <NavLink
+        to={{
+          pathname: `${ROUTES.FORUM_TOPIC_PATH}${id}`,
+          state: { title },
+        }}
+      >
+        {title}
+      </NavLink>
     </td>
     <td>{posts}</td>
-    <td>{starter}</td>
-    <td>{lastMessage}</td>
+    <td>{author}</td>
+    <td>{createdAt}</td>
   </tr>
 );

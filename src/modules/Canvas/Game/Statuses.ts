@@ -4,7 +4,8 @@ import { IStatusPayload } from './Statuses.types';
 
 export class Statuses {
   static CONST = {
-    DAY_LENGTH: 100,
+    DAY_LENGTH: 60,
+    STATE_UPDATE_SEC: 1,
   };
 
   game: Game;
@@ -15,6 +16,10 @@ export class Statuses {
 
   prevDay: number = 0;
 
+  prevUpdate: number = 0;
+
+  updateState = {};
+
   constructor(game: Game, updateInfo: UpdateInfo) {
     this.game = game;
     this.updateInfo = updateInfo;
@@ -24,8 +29,14 @@ export class Statuses {
   registrateEvents() {
     const { eventBus } = this.game;
     eventBus.on(EVENT_BUS_EVENTS.ENERGY_CHANGE, this.handleInterfaceChange);
-    eventBus.on(EVENT_BUS_EVENTS.EXPLORATION_TIME_CHANGE, this.handleInterfaceChange);
-    eventBus.on(EVENT_BUS_EVENTS.EXPLORATION_HP_CHANGE, this.handleInterfaceChange);
+    eventBus.on(
+      EVENT_BUS_EVENTS.EXPLORATION_TIME_CHANGE,
+      this.handleInterfaceChange
+    );
+    eventBus.on(
+      EVENT_BUS_EVENTS.EXPLORATION_HP_CHANGE,
+      this.handleInterfaceChange
+    );
   }
 
   handleInterfaceChange = ({ stateKey, payload }: IStatusPayload) => {
@@ -35,18 +46,24 @@ export class Statuses {
       data.isGameOver = true;
     }
 
-    this.updateInfo({ [stateKey]: payload, ...data });
+    this.updateState = { ...this.updateState, [stateKey]: payload, ...data };
   };
 
   update(time: number) {
+    if (time - this.prevUpdate > Statuses.CONST.STATE_UPDATE_SEC) {
+      this.prevUpdate = time;
+      this.updateInfo(this.updateState);
+      this.updateState = { day: this.day };
+    }
+
     this.dayHandler(time);
   }
 
-  dayHandler(time: number) {
-    if (time - this.prevDay > 100) {
+  dayHandler = (time: number) => {
+    if (time - this.prevDay > Statuses.CONST.DAY_LENGTH) {
       this.day += 1;
       this.prevDay = time;
-      this.updateInfo({ day: this.day });
+      this.updateState = { ...this.updateState, day: this.day };
     }
-  }
+  };
 }

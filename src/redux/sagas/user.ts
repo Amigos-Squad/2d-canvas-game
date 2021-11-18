@@ -20,6 +20,14 @@ function* updateProfileWorker({ payload }: PayloadAction<IUser>) {
       converter.convertCamelToSnakeCase(payload)
     );
     const user: IUser = yield call(authAPI.loadUser);
+
+    const { id, displayName, login, avatar } = user;
+    yield call(userAPI.changeBaseProfile, {
+      userId: id,
+      name: displayName ?? login,
+      avatar,
+    });
+
     yield put(setUser(user));
   } catch (e) {
     console.error(e);
@@ -38,6 +46,11 @@ function* updateAvatarWorker({ payload }: PayloadAction<FormData>) {
   try {
     yield call(userAPI.changeAvatar, payload);
     const user: IUser = yield call(authAPI.loadUser);
+
+    yield call(userAPI.changeBaseProfile, {
+      avatar: user.avatar,
+    });
+
     yield put(setUserAvatar(user.avatar || ''));
   } catch (e) {
     console.error(e);

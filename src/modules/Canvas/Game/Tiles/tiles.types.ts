@@ -1,5 +1,5 @@
-import { TILE_TYPE } from './const';
 import { SPRITE_SHEETS } from '../Images';
+import { TILE_TYPE } from './utils';
 
 export type TileData = {
   type: TILE_TYPE;

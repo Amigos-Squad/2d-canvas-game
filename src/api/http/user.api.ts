@@ -1,10 +1,14 @@
 import { BaseAPI } from './base-api';
-import { YANDEX_API } from './const';
-import { IUser } from '@/models';
+import { BASE_API, YANDEX_API } from './const';
+import { IBaseUser, IUser } from '@/models';
 
 class UserAPI extends BaseAPI {
   changeProfile = async (data: IUser) => {
     await this.http.put('/profile', { data });
+  };
+
+  changeBaseProfile = async (data: IBaseUser) => {
+    await this.http.put('/user', { data, baseUrl: BASE_API });
   };
 
   changeAvatar = async (data: FormData) => {

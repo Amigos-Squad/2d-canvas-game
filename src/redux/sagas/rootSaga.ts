@@ -15,6 +15,13 @@ import {
   updateAvatarSaga,
 } from './user';
 
+import {
+  getTopicsSaga,
+  createTopicsSaga,
+  getPostsSaga,
+  createPostsSaga,
+} from './forum';
+
 export function* rootSaga() {
   const sagas = [
     signInSaga,
@@ -26,6 +33,12 @@ export function* rootSaga() {
     updateProfileSaga,
     updatePasswordSaga,
     updateAvatarSaga,
+    // pullLeaderboardSaga,
+    // getServiceIdSaga,
+    getTopicsSaga,
+    createTopicsSaga,
+    getPostsSaga,
+    createPostsSaga,
   ];
 
   const retrySagas: Saga[] = yield sagas.map((saga) =>

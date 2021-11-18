@@ -24,8 +24,11 @@ import {
 function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
   try {
     yield call(authAPI.login, payload);
+
     const user: IUser = yield call(authAPI.loadUser);
-    yield put(setUser(user));
+    const { theme } = yield call(authAPI.loadBaseUser, user);
+
+    yield put(setUser({ ...user, theme }));
   } catch (error: any) {
     yield put(setToast({ message: error.message }));
   }
@@ -35,9 +38,11 @@ function* signUpWorker({ payload }: PayloadAction<IRegistrationForm>) {
   try {
     yield call(authAPI.register, payload);
     const user: IUser = yield call(authAPI.loadUser);
-    yield put(setUser(user));
-  } catch (e) {
-    console.error(e);
+    const { theme } = yield call(authAPI.loadBaseUser, user);
+
+    yield put(setUser({ ...user, theme }));
+  } catch (error: any) {
+    yield put(setToast({ message: error.message }));
   }
 }
 
@@ -63,7 +68,8 @@ function* signOutWorker() {
 function* loadUserWorker() {
   try {
     const user: IUser = yield call(authAPI.loadUser);
-    yield put(setUser(user));
+    const { theme } = yield call(authAPI.loadBaseUser, user);
+    yield put(setUser({ ...user, theme }));
   } catch (e) {
     yield put(setLoadStatus(true));
   }

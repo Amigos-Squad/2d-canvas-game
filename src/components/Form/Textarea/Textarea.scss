@@ -9,4 +9,14 @@
   padding-left: 8px;
   background-color: $bg-light-color;
   resize: none;
+  width: 100%;
+
+  &_error {
+    box-shadow: 0 0 1px 1px $warning-color inset;
+  }
+}
+
+.input__container {
+  height: 100%;
+  max-height: 100%;
 }

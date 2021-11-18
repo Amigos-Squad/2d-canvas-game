@@ -1,12 +1,12 @@
 import React, { memo, ReactElement } from 'react';
 import { Route, useHistory, useLocation } from 'react-router-dom';
 import { ROUTES, useKeypress } from '@/utils';
-import { tempTopics, Topics } from './Topics';
+import { Topics } from './Topics';
 import { SwitchWithRedirect } from '@/components';
 import { NewTopicForm } from './NewTopic';
 import { Topic } from './Topic';
-import './Forum.scss';
 import { ForumHeader } from './ForumHeader';
+import './Forum.scss';
 
 export const ForumContainer = memo((): ReactElement => {
   const history = useHistory();
@@ -22,11 +22,11 @@ export const ForumContainer = memo((): ReactElement => {
 
       <SwitchWithRedirect>
         <Route exact path={ROUTES.FORUM}>
-          <Topics topics={tempTopics} />
+          <Topics />
         </Route>
 
         <Route exact path={ROUTES.FORUM_NEW_TOPIC}>
-          <Topics topics={tempTopics} />
+          <Topics />
           <NewTopicForm cancel={handleCancelForm} />
         </Route>
 
