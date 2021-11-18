@@ -59,10 +59,10 @@ export class Exploration extends Scene {
         tileX: 16,
         tileY: 1
       }),
-      new Spaceship(this, {
-        tileX: 31,
-        tileY: 1
-      })
+      // new Spaceship(this, {
+      //   tileX: 31,
+      //   tileY: 1
+      // })
     ];
 
     this.character = new Character(this, BASE_CHARACTER);
