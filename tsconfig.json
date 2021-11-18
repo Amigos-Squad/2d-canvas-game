@@ -20,9 +20,7 @@
     "paths": {
       "@/*": ["src/*"],
       "scss/*": ["src/styles/*"],
-      "assets/*": ["src/assets/*"],
-      "config/*": ["config/*"],
-      "server/*": ["server/*"]
+      "assets/*": ["src/assets/*"]
     },
     "typeRoots": ["./@types", "node_modules/@types"]
   },

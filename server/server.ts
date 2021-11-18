@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import { getWebpackMiddlewares, serverRenderMiddleware } from './middlewares';
 import { ENVS, clientConfig } from '../config';
 import { enumToArray, ROUTES } from '@/utils';
-import { indexRouter } from './routes';
 
 const server: Express = express();
 
@@ -21,7 +20,6 @@ server
   )
   .use(cookieParser())
   .use(express.static(resolve(__dirname, '../dist')))
-  .use('/api', indexRouter)
   .use(enumToArray(ROUTES), serverRenderMiddleware);
 
 export { server };

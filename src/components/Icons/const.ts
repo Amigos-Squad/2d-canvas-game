@@ -14,5 +14,4 @@ export enum ICONS {
   Info = 'Info',
   Check = 'Check',
   Warning = 'Warning',
-  Yandex = 'Yandex',
 }

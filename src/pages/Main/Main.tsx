@@ -16,7 +16,9 @@ export const Main = memo((): ReactElement => {
 
   useEffect(() => {
     document.addEventListener('keypress', toggleFullscreenMode);
-    return () => document.removeEventListener('keypress', toggleFullscreenMode);
+    return () => {
+      document.removeEventListener('keypress', toggleFullscreenMode);
+    };
   }, []);
 
   return (

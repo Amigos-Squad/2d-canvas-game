@@ -8,4 +8,3 @@ export { ProfileContent } from './Profile';
 export { Page } from './Layout';
 export { Canvas } from './Canvas';
 export { LeaderboardList, LeaderboardHeader } from './Leaderboard';
-export type { ILeaderboardListItem } from './Leaderboard';

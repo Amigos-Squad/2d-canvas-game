@@ -1,6 +1,8 @@
 @import './normalize';
 @import './var';
 @import './globals';
+@import './mixins';
+@import './themes';
 
 @font-face {
   font-family: alegreya sans;
@@ -19,6 +21,14 @@
 
 * {
   box-sizing: border-box;
+}
+
+#root.light {
+  @include spread-map($theme-map-light);
+}
+
+#root.dark {
+  @include spread-map($theme-map-dark);
 }
 
 html,

@@ -1,6 +1,6 @@
 const { server } = require('../dist/server');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 server.listen(PORT, () => {
   // eslint-disable-next-line
