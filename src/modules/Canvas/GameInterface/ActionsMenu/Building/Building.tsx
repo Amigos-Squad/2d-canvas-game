@@ -16,6 +16,10 @@ export const Building = React.memo(
       [game, closeHandler]
     );
 
+    const handleWheel = (event: any) => {
+      event.currentTarget.scrollLeft += event.deltaY;
+    };
+
     const rooms = useMemo(() => {
       const keys = [...game.currentScene.availableBuildings.keys()];
       return keys.map((key) => {
@@ -26,12 +30,17 @@ export const Building = React.memo(
             name={room.NAME}
             price={room.PRICE}
             key={room.NAME}
+            image={room.image}
             onClick={clickHandler}
           />
         );
       });
     }, [game, clickHandler]);
 
-    return <div className="game-interface__building">{rooms}</div>;
+    return (
+      <div className="game-interface__building" onWheel={handleWheel}>
+        {rooms}
+      </div>
+    );
   }
 );

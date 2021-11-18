@@ -31,9 +31,9 @@ export function useForm<T, V = {}>(
     changeFormField({ ...form, [name]: value });
   }
 
-  function changeSeveral(fields: T) {
+  const changeSeveral = (fields: T) => {
     changeFormField({ ...form, ...fields });
-  }
+  };
 
   function fullChange(fields: T) {
     changeFormField(fields);

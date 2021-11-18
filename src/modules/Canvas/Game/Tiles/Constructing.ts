@@ -104,10 +104,7 @@ export class Constructing {
   ) =>
     gameMap[row]
       .slice(start, end)
-      .every(
-        (cell) =>
-          cell.data.isAllowVerticalMove && cell.data.type !== TILE_TYPE.GROUND
-      );
+      .every((cell) => cell.data.isAllowVerticalMove);
 
   replaceBlockType = (
     start: number,
@@ -157,10 +154,12 @@ export class Constructing {
     startY: number,
     startX: number
   ) => {
-    gameMap[startY + 1][startX].data = BUILD_PLACE.build_short_top_left;
-    gameMap[startY + 1][startX + 1].data = BUILD_PLACE.build_short_top_right;
-    gameMap[startY + 2][startX].data = BUILD_PLACE.build_short_bottom_left;
-    gameMap[startY + 2][startX + 1].data = BUILD_PLACE.build_short_bottom_right;
+    gameMap[startY + 1][startX].data = BUILD_PLACE.build_top_left;
+    gameMap[startY + 1][startX + 1].data = BUILD_PLACE.build_top_center;
+    gameMap[startY + 1][startX + 2].data = BUILD_PLACE.build_top_right;
+    gameMap[startY + 2][startX].data = BUILD_PLACE.build_bottom_left;
+    gameMap[startY + 2][startX + 1].data = BUILD_PLACE.build_bottom_center;
+    gameMap[startY + 2][startX + 2].data = BUILD_PLACE.build_bottom_right;
   };
 
   /* этаж = 2 блокам, четный нижний */

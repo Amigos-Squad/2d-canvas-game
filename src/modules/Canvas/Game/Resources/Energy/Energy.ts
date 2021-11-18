@@ -23,14 +23,14 @@ export class Energy {
 
   constructor(eventBus: EventBus<EVENT_BUS_EVENTS>, energized: IEnergyBased[]) {
     this.eventBus = eventBus;
-    this.energy = 50;
+    this.energy = 500;
     this.energized = energized;
     this.registerateEvents();
   }
 
   addEnergy = (e: number) => {
-    this.energy += e
-  }
+    this.energy += e;
+  };
 
   registerateEvents() {
     this.eventBus.on(

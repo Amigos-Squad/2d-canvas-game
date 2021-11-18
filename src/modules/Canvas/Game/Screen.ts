@@ -1,4 +1,3 @@
-import { GAME_CONST } from './const';
 import { Images } from './Game.types';
 import { ImageLoader } from './Images';
 
@@ -23,11 +22,11 @@ export class Screen {
   };
 
   get screenWidth() {
-    return this.canvas.width
+    return this.canvas.width;
   }
 
   get screenHeight() {
-    return this.canvas.height
+    return this.canvas.height;
   }
 
   public clear() {
@@ -40,7 +39,7 @@ export class Screen {
     if (this.canvas.width !== width || this.canvas.height !== height) {
       this.canvas.width = width;
       this.canvas.height = height;
-      this.cellSize = Math.round(width / GAME_CONST.CELL_IN_PAGE);
+      this.cellSize = 64;
       this.context.clearRect(0, 0, width, height);
     }
   }

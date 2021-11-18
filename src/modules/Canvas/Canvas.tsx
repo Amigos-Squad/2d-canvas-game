@@ -29,12 +29,11 @@ export const Canvas = React.memo((): ReactElement => {
   useEffect(() => {
     /* temp request */
     dispatch(setSavedGame(undefined));
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (isLoaded && canvasRef && canvasRef.current && !game) {
       const context = canvasRef.current.getContext('2d');
-
       if (context) {
         const localGame = new Game(
           canvasRef.current,

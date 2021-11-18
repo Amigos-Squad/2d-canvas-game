@@ -9,7 +9,37 @@ export enum TILE_TYPE {
   SPACESHIP = 'SPACESHIP',
 }
 
-export function createRoomTile(props: TileDataProps): any {
+export function createTileLink(
+  callback: Function,
+  config: {
+    num: number;
+    start: number;
+    count?: number;
+  },
+  data: Record<string, unknown> = {}
+): any {
+  const { num, start, count = 6 } = config;
+  const array = [];
+
+  for (let i = 0; i < count; i += 1) {
+    array.push([
+      Number(`${num}.${i + 1}`),
+      callback({ spriteIndex: start + i, ...data }),
+    ]);
+  }
+
+  return array;
+}
+
+export function createRoomTile(props: TileDataProps | number): any {
+  if (typeof props === 'number') {
+    return {
+      type: TILE_TYPE.ROOM,
+      spriteSheet: SPRITE_SHEETS.ROOM,
+      spriteIndex: props,
+    };
+  }
+
   return {
     type: TILE_TYPE.ROOM,
     spriteSheet: SPRITE_SHEETS.ROOM,
