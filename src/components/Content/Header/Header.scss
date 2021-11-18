@@ -3,11 +3,11 @@
 .page-content__header {
   height: 60px;
   min-height: 60px;
-  border-bottom: 4px solid $accent-color;
+  border-bottom: 4px solid var(--accent-color);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  background: $bg-dark-color;
+  background: var(--bg-dark-color);
   position: sticky;
   top: 0;
   z-index: 100;

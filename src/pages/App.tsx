@@ -6,23 +6,26 @@ import { ErrorBoundaryWithRouter, Toast } from '@/components';
 import { AuthProvider } from './AuthProvider';
 import { USED_ROUTES } from './routes';
 import './App.scss';
+import { ThemeProvider } from '@/utils/theme-context';
 
 const RootApp = (): ReactElement => {
   const location = useLocation();
   return (
     <AuthProvider>
-      <ErrorBoundaryWithRouter>
-        <div className="switch-container">
-          <Switch location={location}>
-            {USED_ROUTES.map(({ path, exact, component }) => (
-              <Route path={path} key={path} exact={exact}>
-                {component}
-              </Route>
-            ))}
-          </Switch>
-          <Toast />
-        </div>
-      </ErrorBoundaryWithRouter>
+      <ThemeProvider>
+        <ErrorBoundaryWithRouter>
+          <div className="switch-container">
+            <Switch location={location}>
+              {USED_ROUTES.map(({ path, exact, component }) => (
+                <Route path={path} key={path} exact={exact}>
+                  {component}
+                </Route>
+              ))}
+            </Switch>
+            <Toast />
+          </div>
+        </ErrorBoundaryWithRouter>
+      </ThemeProvider>
     </AuthProvider>
   );
 };

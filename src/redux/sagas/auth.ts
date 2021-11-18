@@ -6,7 +6,7 @@ import {
   fork,
 } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { authAPI } from '@/api';
+import { authAPI, userAPI } from '@/api';
 import { IUser } from '@/models';
 import { ILoginForm, IRegistrationForm } from '@/modules';
 import {
@@ -18,6 +18,8 @@ import {
   signOut,
   setLoadStatus,
   setToast,
+  toggleTheme,
+  setTheme,
 } from '../slices';
 import { oauthAPI } from '@/api/http/oauth.api';
 import { setServiceId } from '../slices/globalSlice/globalSlice';
@@ -78,6 +80,16 @@ function* loadUserWorker() {
   }
 }
 
+function* toggleThemeWorker() {
+  try {
+    yield call(userAPI.toggleTheme);
+    const theme: string = yield call(userAPI.loadTheme);
+    yield put(setTheme(theme));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
 function* getServiceIdWorker() {
   try {
     const response: Record<string, string> = yield call(oauthAPI.getServiceId);
@@ -115,4 +127,8 @@ export function* preLoadUserSaga() {
 
 export function* getServiceIdSaga() {
   yield fork(getServiceIdWorker);
+}
+
+export function* toggleThemeSaga() {
+  yield takeLeading(toggleTheme.type, toggleThemeWorker);
 }

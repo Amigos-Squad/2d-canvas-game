@@ -21,6 +21,16 @@ class UserAPI extends BaseAPI {
   }) => {
     await this.http.put('/password', { data });
   };
+
+  toggleTheme = async () => {
+    // await this.http.put('/theme');
+  };
+
+  loadTheme = async () => {
+    // const data: string = await this.http.get('/theme');
+    // return data;
+    return 'Dark';
+  };
 }
 
 export const userAPI = new UserAPI(`${YANDEX_API}/user`);

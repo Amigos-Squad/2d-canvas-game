@@ -10,6 +10,7 @@ import { sequelize } from './models';
 
 const PORT = process.env.PORT || 3000;
 
+
 const initServer = async () => {
   const server: Express = express();
 

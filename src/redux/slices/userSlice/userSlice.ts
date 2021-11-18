@@ -26,8 +26,15 @@ const userSlice = createSlice({
     updateAvatar: (_, action: PayloadAction<FormData>) => {},
     loadUser: () => {},
     signOut: () => {},
+    toggleTheme: () => {},
     setLoadStatus: (state, action) => {
       state.isLoaded = action.payload;
+    },
+    setTheme: (state, action) => {
+      if (!state.isLoaded) {
+        state.isLoaded = true;
+      }
+      state.theme = action.payload;
     },
     setUser: (state, action) => {
       if (!state.isLoaded) {
@@ -51,6 +58,8 @@ const userSlice = createSlice({
 export const {
   signIn,
   oauthSignIn,
+  toggleTheme,
+  setTheme,
   signUp,
   signOut,
   setUser,
