@@ -1,10 +1,10 @@
 import { Animation, SpriteSheets, SPRITE_SHEETS } from '../Images';
-import { Spaceship } from './Spaceship';
-import { TileCache } from './Spaceship.types';
+import { Enemy } from './Enemy';
+import { TileCache } from './Enemy.types';
 import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
 
 export class Shape {
-  protected spaceship: Spaceship;
+  protected enemy: Enemy;
 
   x: number;
 
@@ -26,21 +26,21 @@ export class Shape {
 
   protected sprites: SpriteSheets;
 
-  constructor(spaceship: Spaceship, x: number = 0, y: number = 0) {
-    const { cellSize } = spaceship.scene.game.screen;
+  constructor(enemy: Enemy, x: number = 0, y: number = 0) {
+    const { cellSize } = enemy.scene.game.screen;
 
     this.x = x;
     this.y = y;
-    
+
     this.blockSize = cellSize;
     this.prevBlockSize = cellSize;
-    this.spaceship = spaceship;
+    this.enemy = enemy;
 
     this.handleResize(this.blockSize);
-
+    
     this.sprites = new SpriteSheets(
-      [SPRITE_SHEETS.SPACESHIP],
-      spaceship.scene.game.screen
+      [SPRITE_SHEETS.ENEMY],
+      enemy.scene.game.screen
     );
 
     this.activity = ACTIVITYS_TITLE.IDLE;
@@ -53,21 +53,19 @@ export class Shape {
     this.prevBlockSize = blockSize;
   }
 
-  handleFlight() {
-    const { scene, characteristics } = this.spaceship;
-    const { left, right } = scene.game.control.state;
-    const { speed } = characteristics;
-
-    if (left) {
-      this.x += this.handleHorizontal(-speed);
-    } else if (right) {
-      this.x += this.handleHorizontal(speed);
+  handleWalk() {
+    if (this.x <= 0 || this.x >= this.enemy.scene.game.screen.screenWidth - this.enemy.characteristics.speed - this.enemy.shape.width) {
+      this.enemy.characteristics.speed = -this.enemy.characteristics.speed
     }
+    this.handleHorizontal(this.enemy.characteristics.speed);
   }
 
   handleHorizontal(speed: number) {
-    this.x += speed;
-    return speed;
+    const nextX = this.x + speed;
+
+    this.x = nextX
+
+    return 0;
   }
 
   update(frame: number, blockSize: number = this.blockSize) {
@@ -75,7 +73,7 @@ export class Shape {
       this.handleResize(blockSize);
     }
 
-    this.handleFlight();
+    this.handleWalk();
     this.handleAnimation(frame);
   }
 
@@ -83,7 +81,7 @@ export class Shape {
     if (!this.animation) {
       const { cadres, width } = SHAPE_ACTIVITYS[this.activity];
       this.animation = this.sprites.groups[
-        SPRITE_SHEETS.SPACESHIP
+        SPRITE_SHEETS.ENEMY
       ].getAnimation(cadres, width);
     }
 
@@ -97,7 +95,10 @@ export class Shape {
   }
 
   draw(context: CanvasRenderingContext2D) {
-    const { image, imageX, imageY, width, height } = this.getActivityAnimation();
+    const { image, imageX, imageY, width, height } =
+      this.getActivityAnimation();
+
+    /* TODO fix offset Y (img stack) */
     context.drawImage(
       image,
       imageX,
@@ -105,7 +106,7 @@ export class Shape {
       width,
       height,
       this.x,
-      this.y - 14,
+      this.y - 5,
       this.width,
       this.height
     );

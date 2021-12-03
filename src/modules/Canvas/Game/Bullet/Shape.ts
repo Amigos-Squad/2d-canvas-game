@@ -6,10 +6,6 @@ import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
 export class Shape {
   protected bullet: Bullet;
 
-  protected cellX: number;
-
-  protected cellY: number;
-
   x: number;
 
   y: number;
@@ -32,19 +28,8 @@ export class Shape {
 
   constructor(bullet: Bullet, x: number = 0, y: number = 0) {
     const { cellSize } = bullet.scene.game.screen;
-
-    if (cellSize) {
-      this.x = x * cellSize;
-      this.y = y * cellSize;
-    } else {
-      this.x = x;
-      this.y = y;
-    }
-
-    // this.x = 500;
-    // this.y = 60;
-    this.cellX = x;
-    this.cellY = y;
+    this.x = x;
+    this.y = y;
 
     this.blockSize = cellSize;
     this.prevBlockSize = cellSize;
@@ -64,24 +49,22 @@ export class Shape {
     this.blockSize = blockSize;
     this.width = blockSize;
     this.height = blockSize;
-    this.x = this.cellX * blockSize;
-    this.y = this.cellY * blockSize;
     this.prevBlockSize = blockSize;
   }
 
   handleFlight() {
     if (this.x < 0 || this.x > this.bullet.scene.game.screen.screenWidth) {
-      const characterShape = this.bullet.scene.character.shape
+      const characterShape = this.bullet.scene.spaceship.shape
       if (Math.abs(characterShape.x - this.x) < 20) {
         this.bullet.scene.hp -= 1;
         this.bullet.scene.emitInfoChanges()
       }
       this.bullet.scene.bullets.splice(this.bullet.scene.bullets.indexOf(this.bullet), 1);
     } else if (this.bullet.characteristics.verticalSpeed > 0) {
-      if (this.y >= this.bullet.scene.gameMap.maxYWithOffset(1)) {
+      if (this.y >= this.bullet.scene.game.screen.screenHeight) {
         this.bullet.scene.bullets.splice(this.bullet.scene.bullets.indexOf(this.bullet), 1);
-      } else if (this.y >= this.bullet.scene.gameMap.maxYWithOffset(2)) {
-        const characterShape = this.bullet.scene.character.shape
+      } else if (this.y >= this.bullet.scene.game.screen.screenHeight - 110 && this.y <= this.bullet.scene.game.screen.screenHeight - 90) {
+        const characterShape = this.bullet.scene.spaceship.shape
         if (Math.abs(characterShape.x - this.x) < 25) {
           this.bullet.scene.hp -= 1;
           this.bullet.scene.emitInfoChanges();
@@ -92,14 +75,14 @@ export class Shape {
       if (this.y <= 0) {
         this.bullet.scene.bullets.splice(this.bullet.scene.bullets.indexOf(this.bullet), 1);
       }
-      if (this.y <= this.bullet.scene.gameMap.minYWithOffset(2)) {
-        const { spaceships } = this.bullet.scene;
-        spaceships.forEach(spaceship => {
-          if (spaceship) {
-            const spaceshipShape = spaceship?.shape;
+      if (this.y <= 90 && this.y >= 60) {
+        const { enemies } = this.bullet.scene;
+        enemies.forEach(enemy => {
+          if (enemy) {
+            const spaceshipShape = enemy?.shape;
             if (Math.abs(spaceshipShape.x - this.x) < 20) {
               this.bullet.scene.removeBullet(this.bullet);
-              this.bullet.scene.removeSpaceship(spaceship);
+              this.bullet.scene.removeSpaceship(enemy);
             }
           }
         })
