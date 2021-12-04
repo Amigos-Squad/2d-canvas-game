@@ -1,8 +1,5 @@
 name: deploy-spacestory
-on: 
-  push:
-    branches: 
-      - master
+on: push
     
 jobs:
   docker:
