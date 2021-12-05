@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker build
-        run: docker build -t videot4pe/spaceshooter .
+        run: docker build -t videot4pe/spaceshooter . --platform linux/amd64
       - name: Docker login
         run: docker login -u $DOCKER_USER -p $DOCKER_PASS
         env:
