@@ -6,7 +6,7 @@ import {
   fork,
 } from '@redux-saga/core/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { authAPI, userAPI } from '@/api';
+import { authAPI } from '@/api';
 import { IUser } from '@/models';
 import { ILoginForm, IRegistrationForm } from '@/modules';
 import {
@@ -23,6 +23,7 @@ import {
 } from '../slices';
 import { oauthAPI } from '@/api/http/oauth.api';
 import { setServiceId } from '../slices/globalSlice/globalSlice';
+import { ownUserAPI } from '@/api/http/user.api';
 
 function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
   try {
@@ -82,8 +83,9 @@ function* loadUserWorker() {
 
 function* toggleThemeWorker({ payload }: PayloadAction<string>) {
   try {
-    yield call(userAPI.toggleTheme);
-    const theme: string = yield call(userAPI.loadTheme, payload);
+    const user: IUser = yield call(authAPI.loadUser);
+    const theme: string = yield call(ownUserAPI.toggleTheme, user);
+    // const theme: string = payload;
     yield put(setTheme(theme));
   } catch (e) {
     console.error(e);
