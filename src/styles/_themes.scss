@@ -1,0 +1,27 @@
+$theme-map-light: (
+  --accent-color: #F70084,
+  --accent-dark-color: pink,
+  --bg-dark-color: #3A4281,
+  --bg-color: #1c1f36,
+  --bg-light-color: #5F0E3D,
+  --bg-header: #5F0E3DD9,
+  --disabled-color: rgba(255, 255, 255, 0.6),
+  --font-color: #fff,
+  --success-color: #00ff6f,
+  --warning-color: #ff3500,
+  --icon-color: #F70084,
+);
+
+$theme-map-dark: (
+  --accent-color: #0af,
+  --accent-dark-color: rgb(0, 135, 202),
+  --bg-dark-color: #181a35,
+  --bg-color: #1c1f36,
+  --bg-light-color: #21264d,
+  --bg-header: rgba(0, 0, 0, 0.65),
+  --disabled-color: rgba(255, 255, 255, 0.6),
+  --font-color: #fff,
+  --success-color: #00ff6f,
+  --warning-color: #ff3500,
+  --icon-color: #222,
+);

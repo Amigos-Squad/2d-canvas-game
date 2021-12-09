@@ -1,10 +1,12 @@
 import { Tile, TILES } from '.';
 import { GameTileMap } from '../GameMap';
 import { HomeBase } from '../Scenes';
-import { BUILD_PLACE, TILE_TYPE } from './const';
+import { BUILD_PLACE } from './const';
 import { Room } from '../Room';
-import { ROOMS_INSTANCE, ROOMS_NAMES } from '../Room/const';
+import { ROOMS_INSTANCE } from '../Room/const';
 import { EVENT_BUS_EVENTS } from '..';
+import { ROOMS_NAMES } from '../Room/Room.types';
+import { TILE_TYPE } from './utils';
 
 /* TODO Rewrite/refactoring */
 export class Constructing {

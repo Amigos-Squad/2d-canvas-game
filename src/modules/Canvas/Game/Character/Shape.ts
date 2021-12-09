@@ -1,5 +1,6 @@
 import { Animation, SpriteSheets, SPRITE_SHEETS } from '../Images';
-import { TILE_TYPE } from '../Tiles';
+import { Exploration } from '../Scenes/Exploration';
+import { TILE_TYPE } from '../Tiles/utils';
 import { Character } from './Character';
 import { TileCache } from './Character.types';
 import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
@@ -49,6 +50,8 @@ export class Shape {
     this.prevBlockSize = cellSize;
     this.character = character;
 
+    this.handleResize(this.blockSize);
+    
     this.sprites = new SpriteSheets(
       [SPRITE_SHEETS.CHARACTER],
       character.scene.game.screen
@@ -105,6 +108,9 @@ export class Shape {
 
       this.cellX = indexX;
 
+      return speed;
+    }
+    if (data.type === TILE_TYPE.ENVIRONMENT && this.character.scene instanceof Exploration) {
       return speed;
     }
 

@@ -1,8 +1,8 @@
-@import 'scss/var';
+@import '../../../../styles/var';
 
 .page-header__info {
   min-width: 100px;
-  max-width: 100px;
+  max-width: 160px;
   height: 100%;
   color: $font-color;
   display: flex;
@@ -13,4 +13,34 @@
 
 .page-header__sign-out {
   cursor: pointer;
+}
+
+.page-header__theme {
+  background-color: var(--accent-color);
+  min-width: 60px;
+  min-height: 35px;
+  position: relative;
+  border: 2px solid;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color ease-out 900ms;
+
+  &::after {
+    content: "";
+    position: absolute;
+    background-color: var(--accent-dark-color);
+    top: 0;
+    left: 0;
+    width: 55%;
+    height: 100%;
+    border-radius: 25px;
+    transition: transform ease-out 900ms;
+  }
+
+  &--active {
+    &::after {
+      transform: translateX(25px);
+      transition: transform ease-out 900ms;
+    }
+  }
 }

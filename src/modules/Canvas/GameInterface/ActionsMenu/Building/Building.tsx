@@ -1,11 +1,11 @@
 import React, { ReactElement, useCallback, useMemo } from 'react';
-import { Props } from './Building.types';
 import { BuildingItem } from './BuildingItem';
 import { EVENT_BUS_EVENTS } from '@/modules/Canvas/Game';
+import { ActionModalProps } from '../ActionsMenu.types';
 import './Building.scss';
 
 export const Building = React.memo(
-  ({ game, closeHandler }: Props): ReactElement => {
+  ({ game, closeHandler }: ActionModalProps): ReactElement => {
     const clickHandler = useCallback(
       (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const target = event.currentTarget as HTMLDivElement;

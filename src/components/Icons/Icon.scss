@@ -1,5 +1,6 @@
 .component__svg-icon-link {
   cursor: pointer;
+  color: var(--icon-color);
 }
 
 .component__svg-icon {
@@ -7,6 +8,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  > * {
+    color: var(--icon-color);
+  }
 }
 
 .component__svg-icon_medal-value {
@@ -15,5 +20,5 @@
   font-size: 13px;
   font-weight: 900;
   transform: translateX(-1px);
-  color: #222;
+  color: var(--icon-color);
 }

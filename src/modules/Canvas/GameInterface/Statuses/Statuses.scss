@@ -1,4 +1,4 @@
-@import 'scss/var';
+@import '../../../../styles/var';
 
 .game-statuses {
   display: flex;
@@ -27,6 +27,14 @@
 
   &-img_energy {
     width: 20px;
+  }
+
+  &-img_time {
+    width: 40px;
+  }
+
+  &-img_hp {
+    width: 40px;
   }
 
   &-info {

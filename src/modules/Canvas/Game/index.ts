@@ -1,4 +1,5 @@
 export { Game } from './Game';
 export { GAME_CONST, EVENT_BUS_EVENTS, BASE_INFO_STATE } from './const';
+export { ROOMS_STORE } from './Room';
 export type { UpdateInfo } from './Game.types';
-export { ROOMS_STORE, RoomPrice } from './Room';
+export type { RoomPrice } from './Room';

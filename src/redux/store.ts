@@ -1,19 +1,36 @@
 import createSagaMiddleware from '@redux-saga/core';
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { History, createBrowserHistory, createMemoryHistory } from 'history';
+import { connectRouter } from 'connected-react-router';
 import { Saga } from 'redux-saga';
-import { userSlice, gameSlice } from './slices';
+import { userSlice, gameSlice, globalSlice } from './slices';
 import { rootSaga } from './sagas';
+import { isServer } from '@/utils';
 
-const rootReducer = combineReducers({
-  user: userSlice,
-  savedGame: gameSlice,
-});
+export const getRootReducer = (history: History) =>
+  combineReducers({
+    user: userSlice,
+    savedGame: gameSlice,
+    globalState: globalSlice,
+    router: connectRouter(history),
+  });
+
+const history = isServer
+  ? createMemoryHistory({ initialEntries: ['/'] })
+  : createBrowserHistory();
+
+const preloadedState = isServer ? undefined : window.__PRELOADED_STATE__;
+
+if (!isServer && window.__PRELOADED_STATE__) {
+  delete window.__PRELOADED_STATE__;
+}
 
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
 
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: getRootReducer(history),
+  preloadedState,
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

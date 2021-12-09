@@ -16,6 +16,9 @@ import {
   setUser,
   signOut,
   setLoadStatus,
+  setToast,
+  toggleTheme,
+  setTheme,
 } from '../slices';
 
 function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
@@ -23,8 +26,8 @@ function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
     yield call(authAPI.login, payload);
     const user: IUser = yield call(authAPI.loadUser);
     yield put(setUser(user));
-  } catch (e) {
-    console.error(e);
+  } catch (error: any) {
+    yield put(setToast({ message: error.message }));
   }
 }
 
@@ -33,6 +36,16 @@ function* signUpWorker({ payload }: PayloadAction<IRegistrationForm>) {
     yield call(authAPI.register, payload);
     const user: IUser = yield call(authAPI.loadUser);
     yield put(setUser(user));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* toggleThemeWorker() {
+  try {
+    yield call(authAPI.toggleTheme);
+    const theme: string = yield call(authAPI.loadTheme);
+    yield put(setTheme(theme));
   } catch (e) {
     console.error(e);
   }
@@ -62,6 +75,10 @@ export function* signInSaga() {
 
 export function* signUpSaga() {
   yield takeLeading(signUp.type, signUpWorker);
+}
+
+export function* toggleThemeSaga() {
+  yield takeLeading(toggleTheme.type, toggleThemeWorker);
 }
 
 export function* loadUserSaga() {

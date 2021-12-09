@@ -40,6 +40,7 @@ export class Control {
   private downKeyMap = new Map([
     ['escape', EVENT_BUS_EVENTS.ESCAPE],
     ['b', EVENT_BUS_EVENTS.OPEN_BUILD_MENU],
+    [' ', EVENT_BUS_EVENTS.SHOOT],
   ]);
 
   private keyPress = new Map([['e', EVENT_BUS_EVENTS.INTERACT]]);
@@ -77,7 +78,7 @@ export class Control {
       if (this.keyPressState[keyCode]) {
         this.keyPressState[keyCode] = false;
       }
-
+      
       this.game.eventBus.emit(key);
     }
   };

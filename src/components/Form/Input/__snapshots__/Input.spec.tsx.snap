@@ -2,21 +2,26 @@
 
 exports[`Компонент ввода снапшот поля ввода 1`] = `
 <label
-  className="input "
+  className="input"
 >
   <div
     className="input__label"
   >
     Тест
   </div>
-  <input
-    className="input__field"
-    onBlur={[Function]}
-    onChange={[Function]}
-    value=""
-  />
   <div
-    className="input_error"
-  />
+    className="input__container"
+  >
+    <input
+      className="input__field"
+      onChange={[Function]}
+      value=""
+    />
+    <div
+      className="input__error"
+    >
+      
+    </div>
+  </div>
 </label>
 `;

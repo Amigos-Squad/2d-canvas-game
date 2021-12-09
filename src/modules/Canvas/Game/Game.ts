@@ -1,6 +1,6 @@
 import { baseSetup, EVENT_BUS_EVENTS, GAME_CONST } from './const';
 import { SavedState, UpdateInfo } from './Game.types';
-import { HomeBase, Scenes } from './Scenes';
+import { HomeBase, Scene, Scenes } from './Scenes';
 import { Screen } from './Screen';
 import { Statuses } from './Statuses';
 import { Control } from './Control';
@@ -9,8 +9,11 @@ import ImageGround from '@/assets/sprites/Ground.png';
 import ImageEnvironment from '@/assets/sprites/Environment.png';
 import ImageCharacter from '@/assets/sprites/Char.png';
 import ImageBuildArea from '@/assets/sprites/BuildArea.png';
+import ImageSpaceship from '@/assets/sprites/Spaceship.png';
+import ImageBullet from '@/assets/sprites/Bullet.png';
 import { SPRITE_SHEETS } from './Images';
 import { EventBus } from '@/utils';
+// import { Exploration } from './Scenes/Exploration';
 
 export class Game {
   static IMAGES = {
@@ -19,6 +22,8 @@ export class Game {
     [SPRITE_SHEETS.ROOM]: ImageRoom,
     [SPRITE_SHEETS.CHARACTER]: ImageCharacter,
     [SPRITE_SHEETS.BUILD_PLACE]: ImageBuildArea,
+    [SPRITE_SHEETS.SPACESHIP]: ImageSpaceship,
+    [SPRITE_SHEETS.BULLET]: ImageBullet,
   };
 
   isLoaded: boolean = false;
@@ -35,7 +40,7 @@ export class Game {
 
   private scenes: Scenes;
 
-  currentScene: HomeBase;
+  currentScene: Scene;
 
   statuses: Statuses;
 
@@ -53,6 +58,7 @@ export class Game {
     this.load();
     this.scenes = {
       homeBase: new HomeBase(this, savedState),
+      // exploration: new Exploration(this, explorationSetup),
     };
 
     this.currentScene = this.scenes[savedState.scene];

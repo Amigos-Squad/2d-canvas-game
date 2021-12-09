@@ -1,4 +1,4 @@
-@import 'scss/var';
+@import '../../../../styles/var';
 
 .overview-form {
   display: flex;
@@ -27,7 +27,7 @@
   }
 
   &__password-toggle {
-    color: $accent-color;
+    color: var(--accent-color);
     text-transform: uppercase;
     font-size: 0.9vw;
     width: 100%;
@@ -36,7 +36,7 @@
     transition: color 0.2s ease;
 
     &:hover {
-      color: $accent-dark-color;
+      color: var(--accent-dark-color);
     }
   }
 }
@@ -45,8 +45,8 @@
   margin-top: 5px;
 
   &__title {
-    color: $font-color;
-    border-bottom: 3px solid $accent-color;
+    color: var(--font-color);
+    border-bottom: 3px solid var(--accent-color);
     text-transform: uppercase;
     font-size: 1vw;
   }

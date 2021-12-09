@@ -1,16 +1,7 @@
 import { Generator, Lift } from '.';
 import { GENERATOR_INFO } from './Generator';
 import { LIFT_INFO } from './Lift';
-
-export const enum ROOMS_NAMES {
-  LIFT = 'LIFT',
-  GENERATOR = 'GENERATOR',
-}
-
-export const enum ROOMS_TITLE {
-  LIFT = 'Lift',
-  GENERATOR = 'Generator',
-}
+import { ROOMS_NAMES } from './Room.types';
 
 export const ROOMS_INSTANCE = new Map([
   [ROOMS_NAMES.LIFT, Lift],

@@ -6,6 +6,7 @@ import {
   loadUserSaga,
   preLoadUserSaga,
   signOutSaga,
+  toggleThemeSaga,
 } from './auth';
 
 import {
@@ -19,6 +20,7 @@ export function* rootSaga() {
     signInSaga,
     signUpSaga,
     loadUserSaga,
+    toggleThemeSaga,
     preLoadUserSaga,
     signOutSaga,
     updateProfileSaga,

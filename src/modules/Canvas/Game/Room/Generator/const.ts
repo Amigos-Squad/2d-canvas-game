@@ -1,5 +1,5 @@
 import { createRoomTile } from '../../Tiles/utils';
-import { ROOMS_NAMES, ROOMS_TITLE } from '../const';
+import { ROOMS_NAMES, ROOMS_TITLE } from '../Room.types';
 
 export const GENERATOR = {
   generator_top_left: createRoomTile({ spriteIndex: 7 }),

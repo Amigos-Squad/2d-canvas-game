@@ -1,20 +1,28 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { hydrate } from 'react-dom';
+import { ConnectedRouter } from 'connected-react-router';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { loadableReady } from '@loadable/component';
 import { store } from './redux';
 
 import { App } from './pages';
 
 import './styles/index.scss';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+if (module.hot) {
+  module.hot.accept();
+}
+
+loadableReady(() => {
+  hydrate(
+    <React.StrictMode>
+      <Provider store={store}>
+        <ConnectedRouter history={createBrowserHistory()}>
+          <App />
+        </ConnectedRouter>
+      </Provider>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+});

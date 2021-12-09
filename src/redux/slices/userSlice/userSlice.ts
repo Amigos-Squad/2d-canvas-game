@@ -25,6 +25,7 @@ const userSlice = createSlice({
     updateAvatar: (_, action: PayloadAction<FormData>) => {},
     loadUser: () => {},
     signOut: () => {},
+    toggleTheme: () => {},
     setLoadStatus: (state, action) => {
       state.isLoaded = action.payload;
     },
@@ -34,6 +35,12 @@ const userSlice = createSlice({
       }
       state.user = converter.convertSnakeToCamelCase(action.payload);
       state.userAvatar = setAvatarUrl(action.payload.avatar);
+    },
+    setTheme: (state, action) => {
+      if (!state.isLoaded) {
+        state.isLoaded = true;
+      }
+      state.theme = action.payload;
     },
     setUserAvatar: (state, action) => {
       state.userAvatar = setAvatarUrl(action.payload);
@@ -46,6 +53,8 @@ export const {
   signUp,
   signOut,
   setUser,
+  toggleTheme,
+  setTheme,
   loadUser,
   updateProfile,
   updatePassword,

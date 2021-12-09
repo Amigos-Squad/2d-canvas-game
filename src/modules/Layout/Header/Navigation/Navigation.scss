@@ -1,4 +1,4 @@
-@import 'scss/var';
+@import '../../../../styles/var';
 
 .page-header__navigation {
   display: flex;
@@ -8,7 +8,7 @@
 }
 
 .navigation__item {
-  color: $disabled-color;
+  color: var(--disabled-color);
   text-transform: uppercase;
   font-size: $main-font-title;
   position: relative;
@@ -35,6 +35,6 @@
 
 .navigation__item_active,
 .navigation__item:hover {
-  color: $font-color;
+  color: var(--font-color);
   text-shadow: $glow-effect;
 }

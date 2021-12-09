@@ -3,6 +3,16 @@ export const BASE_CHARACTER = {
   tileY: 8,
 };
 
+export const EXPLORATION_CHARACTER = {
+  tileX: 16,
+  tileY: 10,
+};
+
+export const BASE_SPACESHIP = {
+  tileX: 16,
+  tileY: 4,
+};
+
 export enum ACTIVITYS_TITLE {
   IDLE = 'IDLE',
 }
