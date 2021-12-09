@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Post, Topic } from './forum';
-import { Theme } from './theme.model';
 import { User } from './user.model';
 
 const { POSTGRES_HOST, POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB } =
@@ -12,6 +11,6 @@ export const sequelize = new Sequelize({
   username: POSTGRES_USER || 'postgres',
   password: POSTGRES_PASSWORD || 'db_password',
   database: POSTGRES_DB || 'DWH',
-  models: [Topic, Post, User, Theme],
+  models: [Topic, Post, User],
   dialect: 'postgres',
 });

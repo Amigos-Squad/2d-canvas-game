@@ -1,5 +1,5 @@
 import { BaseAPI } from './base-api';
-import { BASE_API, YANDEX_API } from './const';
+import { BASE_API, YANDEX_API, HOME_URL } from './const';
 import { IBaseUser, IUser } from '@/models';
 
 class UserAPI extends BaseAPI {
@@ -22,15 +22,11 @@ class UserAPI extends BaseAPI {
     await this.http.put('/password', { data });
   };
 
-  toggleTheme = async () => {
-    // await this.http.put('/theme');
-  };
-
-  loadTheme = async (theme: string) => {
-    // const data: string = await this.http.get('/theme');
-    // return data;
-    return theme;
+  toggleTheme = async (user: IUser) => {
+    const data: string = await this.http.put('/theme', { data: {...user} });
+    return data;
   };
 }
 
 export const userAPI = new UserAPI(`${YANDEX_API}/user`);
+export const ownUserAPI = new UserAPI(`${HOME_URL}/user`);

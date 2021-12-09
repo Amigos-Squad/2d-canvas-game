@@ -2,11 +2,13 @@ import express, { Express } from 'express';
 import { resolve } from 'path';
 import { Configuration } from 'webpack';
 import cookieParser from 'cookie-parser';
+import { authMiddleware } from './middlewares/authMiddleware';
 import { getWebpackMiddlewares, serverRenderMiddleware } from './middlewares';
 import { ENVS, clientConfig } from '../config';
 import { enumToArray, ROUTES } from '@/utils';
 import { indexRouter } from './routes';
 import { sequelize } from './models';
+import session from 'express-session';
 
 const PORT = process.env.PORT || 3000;
 
@@ -26,7 +28,9 @@ const initServer = async () => {
       })
     )
     .use(cookieParser())
+    .use(session({ secret: 'acapulco', cookie: { maxAge: 60000 }}))
     .use(express.static(resolve(__dirname, '../dist')))
+    .use(authMiddleware)
     .use('/api/v1', indexRouter)
     .use(enumToArray(ROUTES), serverRenderMiddleware);
 

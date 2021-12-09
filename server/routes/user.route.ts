@@ -5,5 +5,6 @@ const userRouter = express.Router();
 
 userRouter.post('/', userController.user);
 userRouter.put('/', userController.update);
+userRouter.put('/theme', userController.toggleTheme);
 
 export { userRouter };
