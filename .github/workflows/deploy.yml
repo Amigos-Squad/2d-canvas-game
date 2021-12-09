@@ -7,14 +7,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Docker build
-        run: docker build -t videot4pe/spaceshooter . --platform linux/amd64
+        run: docker build -t videot4pe/spacestory . --platform linux/amd64
       - name: Docker login
         run: docker login -u $DOCKER_USER -p $DOCKER_PASS
         env:
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASS: ${{ secrets.DOCKER_PASS }}
       - name: Docker push
-        run: docker push videot4pe/spaceshooter
+        run: docker push videot4pe/spacestory
   redeploy:
     name: Redeploy webhook call
     runs-on: ubuntu-latest
