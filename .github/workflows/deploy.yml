@@ -2,7 +2,9 @@ name: deploy-spacestory
 on: 
   push:
     branches:
-      - deploy
+      - 'deploy'
+      - main
+      - 'sprint_9'
     
 jobs:
   docker:
