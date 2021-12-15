@@ -10,10 +10,10 @@ import ImageEnvironment from '@/assets/sprites/Environment.png';
 import ImageCharacter from '@/assets/sprites/Char.png';
 import ImageBuildArea from '@/assets/sprites/BuildArea.png';
 import ImageSpaceship from '@/assets/sprites/Spaceship.png';
+import ImageEnemy from '@/assets/sprites/Enemy.png';
 import ImageBullet from '@/assets/sprites/Bullet.png';
 import { SPRITE_SHEETS } from './Images';
 import { EventBus } from '@/utils';
-// import { Exploration } from './Scenes/Exploration';
 
 export class Game {
   static IMAGES = {
@@ -23,6 +23,7 @@ export class Game {
     [SPRITE_SHEETS.CHARACTER]: ImageCharacter,
     [SPRITE_SHEETS.BUILD_PLACE]: ImageBuildArea,
     [SPRITE_SHEETS.SPACESHIP]: ImageSpaceship,
+    [SPRITE_SHEETS.ENEMY]: ImageEnemy,
     [SPRITE_SHEETS.BULLET]: ImageBullet,
   };
 
@@ -58,7 +59,6 @@ export class Game {
     this.load();
     this.scenes = {
       homeBase: new HomeBase(this, savedState),
-      // exploration: new Exploration(this, explorationSetup),
     };
 
     this.currentScene = this.scenes[savedState.scene];

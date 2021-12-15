@@ -1,11 +1,12 @@
-export type Props = {} & ILeaderboardListItem;
+export type Props = {
+  index: number;
+} & ILeaderboardListItem;
 
 export interface ILeaderboardListItem {
   id: number;
-  position: number;
   user: string;
   score: number;
-  days: number;
-  citizens: number;
   date: string;
+  drones: number;
+  days: number;
 }

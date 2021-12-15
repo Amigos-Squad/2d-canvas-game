@@ -8,11 +8,12 @@ export const ThemeProvider = memo(
     const { theme } = useAppSelector('user');
 
     useLayoutEffect(() => {
+      console.log('theme: ', theme)
       const root = document.getElementById('root');
-      if (root?.classList.contains(Theme.Dark)) {
-        root?.classList.remove(Theme.Dark);
-      } else if (root?.classList.contains(Theme.Light)) {
-        root?.classList.remove(Theme.Light);
+      if (root?.classList.contains(Theme.Dark.toLowerCase())) {
+        root?.classList.remove(Theme.Dark.toLowerCase());
+      } else if (root?.classList.contains(Theme.Light.toLowerCase())) {
+        root?.classList.remove(Theme.Light.toLowerCase());
       }
       root?.classList.add(theme.toLowerCase());
     }, [theme])

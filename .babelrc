@@ -5,6 +5,9 @@
     "@babel/preset-typescript"
   ],
   "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-transform-flow-strip-types"],
+    ["@babel/plugin-proposal-class-properties"],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-transform-runtime",
     "@loadable/babel-plugin"

@@ -6,10 +6,6 @@ import { ACTIVITYS_TITLE, SHAPE_ACTIVITYS } from './const';
 export class Shape {
   protected spaceship: Spaceship;
 
-  protected cellX: number;
-
-  protected cellY: number;
-
   x: number;
 
   y: number;
@@ -33,23 +29,15 @@ export class Shape {
   constructor(spaceship: Spaceship, x: number = 0, y: number = 0) {
     const { cellSize } = spaceship.scene.game.screen;
 
-    if (cellSize) {
-      this.x = x * cellSize;
-      this.y = y * cellSize;
-    } else {
-      this.x = x;
-      this.y = y;
-    }
-
-    this.cellX = x;
-    this.cellY = y;
-
+    this.x = x;
+    this.y = y;
+    
     this.blockSize = cellSize;
     this.prevBlockSize = cellSize;
     this.spaceship = spaceship;
 
     this.handleResize(this.blockSize);
-    
+
     this.sprites = new SpriteSheets(
       [SPRITE_SHEETS.SPACESHIP],
       spaceship.scene.game.screen
@@ -62,24 +50,24 @@ export class Shape {
     this.blockSize = blockSize;
     this.width = blockSize;
     this.height = blockSize;
-    this.x = this.cellX * blockSize;
-    this.y = this.cellY * blockSize;
     this.prevBlockSize = blockSize;
   }
 
-  handleWalk() {
-    if (this.x <= 0 || this.x >= this.spaceship.scene.game.screen.screenWidth - this.spaceship.characteristics.speed - this.spaceship.shape.width) {
-      this.spaceship.characteristics.speed = -this.spaceship.characteristics.speed
+  handleFlight() {
+    const { scene, characteristics } = this.spaceship;
+    const { left, right } = scene.game.control.state;
+    const { speed } = characteristics;
+
+    if (left) {
+      this.x += this.handleHorizontal(-speed);
+    } else if (right) {
+      this.x += this.handleHorizontal(speed);
     }
-    this.handleHorizontal(this.spaceship.characteristics.speed);
   }
 
   handleHorizontal(speed: number) {
-    const nextX = this.x + speed;
-
-    this.x = nextX
-
-    return 0;
+    this.x += speed;
+    return speed;
   }
 
   update(frame: number, blockSize: number = this.blockSize) {
@@ -87,7 +75,7 @@ export class Shape {
       this.handleResize(blockSize);
     }
 
-    this.handleWalk();
+    this.handleFlight();
     this.handleAnimation(frame);
   }
 
@@ -109,10 +97,7 @@ export class Shape {
   }
 
   draw(context: CanvasRenderingContext2D) {
-    const { image, imageX, imageY, width, height } =
-      this.getActivityAnimation();
-
-    /* TODO fix offset Y (img stack) */
+    const { image, imageX, imageY, width, height } = this.getActivityAnimation();
     context.drawImage(
       image,
       imageX,
@@ -120,7 +105,7 @@ export class Shape {
       width,
       height,
       this.x,
-      this.y - 5,
+      this.y - 14,
       this.width,
       this.height
     );

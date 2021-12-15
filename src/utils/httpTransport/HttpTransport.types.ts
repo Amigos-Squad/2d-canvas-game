@@ -3,6 +3,7 @@ import { METHODS } from './const';
 export interface IRequestOptions {
   data?: any;
   timeout?: number;
+  baseUrl?: string;
   isFormData?: boolean;
   headers?: Record<string, string>;
 }

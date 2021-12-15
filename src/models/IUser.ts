@@ -9,3 +9,8 @@ export interface IUser {
   phone: string;
   secondName: string;
 }
+export interface IBaseUser {
+  userId?: number;
+  name?: string;
+  avatar?: string | null | undefined;
+}

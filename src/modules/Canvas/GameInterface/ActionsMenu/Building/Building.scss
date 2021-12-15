@@ -3,8 +3,10 @@
 .game-interface__building {
   display: flex;
   height: calc(100% - 50px);
-  gap: 15px;
-  padding: 15px;
+  gap: 20px;
+  margin: 15px;
+  overflow: hidden;
+  max-width: 555px;
 }
 
 .building-option {

@@ -42,3 +42,25 @@
     }
   }
 }
+
+.topics-header__item {
+  height: 35px;
+  min-height: 35px;
+  text-align: center;
+  font-size: 1.1vw;
+  position: sticky;
+  top: 0;
+  background: var(--bg-dark-color);
+  z-index: 100;
+  padding: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  &:first-child {
+    width: 4vw;
+  }
+
+  &_fixed {
+    width: 13vw;
+  }
+}

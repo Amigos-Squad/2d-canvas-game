@@ -11,6 +11,7 @@ import { IUser } from '@/models';
 import { ILoginForm, IRegistrationForm } from '@/modules';
 import {
   signIn,
+  oauthSignIn,
   signUp,
   loadUser,
   setUser,
@@ -20,12 +21,30 @@ import {
   toggleTheme,
   setTheme,
 } from '../slices';
+import { oauthAPI } from '@/api/http/oauth.api';
+import { setServiceId } from '../slices/globalSlice/globalSlice';
+import { ownUserAPI } from '@/api/http/user.api';
 
 function* signInWorker({ payload }: PayloadAction<ILoginForm>) {
   try {
     yield call(authAPI.login, payload);
+
     const user: IUser = yield call(authAPI.loadUser);
-    yield put(setUser(user));
+    const { theme } = yield call(authAPI.loadBaseUser, user);
+
+    yield put(setUser({ ...user, theme }));
+  } catch (error: any) {
+    yield put(setToast({ message: error.message }));
+  }
+}
+
+function* oauthSignInWorker({ payload }: PayloadAction<string>) {
+  try {
+    yield call(oauthAPI.signIn, payload);
+    const user: IUser = yield call(authAPI.loadUser);
+    const { theme } = yield call(authAPI.loadBaseUser, user);
+
+    yield put(setUser({ ...user, theme }));
   } catch (error: any) {
     yield put(setToast({ message: error.message }));
   }
@@ -35,19 +54,11 @@ function* signUpWorker({ payload }: PayloadAction<IRegistrationForm>) {
   try {
     yield call(authAPI.register, payload);
     const user: IUser = yield call(authAPI.loadUser);
-    yield put(setUser(user));
-  } catch (e) {
-    console.error(e);
-  }
-}
+    const { theme } = yield call(authAPI.loadBaseUser, user);
 
-function* toggleThemeWorker() {
-  try {
-    yield call(authAPI.toggleTheme);
-    const theme: string = yield call(authAPI.loadTheme);
-    yield put(setTheme(theme));
-  } catch (e) {
-    console.error(e);
+    yield put(setUser({ ...user, theme }));
+  } catch (error: any) {
+    yield put(setToast({ message: error.message }));
   }
 }
 
@@ -63,9 +74,32 @@ function* signOutWorker() {
 function* loadUserWorker() {
   try {
     const user: IUser = yield call(authAPI.loadUser);
-    yield put(setUser(user));
+    const { theme } = yield call(authAPI.loadBaseUser, user);
+    yield put(setUser({ ...user, theme }));
   } catch (e) {
     yield put(setLoadStatus(true));
+  }
+}
+
+function* toggleThemeWorker({ payload }: PayloadAction<string>) {
+  try {
+    const user: IUser = yield call(authAPI.loadUser);
+    const theme: string = yield call(ownUserAPI.toggleTheme, user);
+    // const theme: string = payload;
+    yield put(setTheme(theme));
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+function* getServiceIdWorker() {
+  try {
+    const response: Record<string, string> = yield call(oauthAPI.getServiceId);
+    if (response && response.service_id) {
+      yield put(setServiceId(response.service_id));
+    }
+  } catch (e) {
+    console.error(e);
   }
 }
 
@@ -73,12 +107,12 @@ export function* signInSaga() {
   yield takeLeading(signIn.type, signInWorker);
 }
 
-export function* signUpSaga() {
-  yield takeLeading(signUp.type, signUpWorker);
+export function* oauthSignInSaga() {
+  yield takeLeading(oauthSignIn.type, oauthSignInWorker);
 }
 
-export function* toggleThemeSaga() {
-  yield takeLeading(toggleTheme.type, toggleThemeWorker);
+export function* signUpSaga() {
+  yield takeLeading(signUp.type, signUpWorker);
 }
 
 export function* loadUserSaga() {
@@ -91,4 +125,12 @@ export function* signOutSaga() {
 
 export function* preLoadUserSaga() {
   yield fork(loadUserWorker);
+}
+
+export function* getServiceIdSaga() {
+  yield fork(getServiceIdWorker);
+}
+
+export function* toggleThemeSaga() {
+  yield takeLeading(toggleTheme.type, toggleThemeWorker);
 }

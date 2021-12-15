@@ -51,6 +51,15 @@ export const RegistrationForm = memo((): ReactElement => {
           required
         />
         <Input
+          value={form.phone}
+          onChange={onChange}
+          label="Phone"
+          name="phone"
+          type="tel"
+          error={errors.phone}
+          required
+        />
+        <Input
           value={form.login}
           onChange={onChange}
           label="Login"
@@ -65,15 +74,6 @@ export const RegistrationForm = memo((): ReactElement => {
           name="password"
           type="password"
           error={errors.password}
-          required
-        />
-        <Input
-          value={form.phone}
-          onChange={onChange}
-          label="Phone"
-          name="phone"
-          type="tel"
-          error={errors.phone}
           required
         />
       </div>

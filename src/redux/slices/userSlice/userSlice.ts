@@ -19,28 +19,35 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     signIn: (_, action: PayloadAction<ILoginForm>) => {},
+    oauthSignIn: (_, action: PayloadAction<string>) => {},
     signUp: (_, action: PayloadAction<IRegistrationForm>) => {},
     updateProfile: (_, action: PayloadAction<IUser>) => {},
     updatePassword: (_, action: PayloadAction<PasswordForm>) => {},
     updateAvatar: (_, action: PayloadAction<FormData>) => {},
     loadUser: () => {},
     signOut: () => {},
-    toggleTheme: () => {},
+    toggleTheme: (_, action: PayloadAction<string>) => {},
     setLoadStatus: (state, action) => {
       state.isLoaded = action.payload;
-    },
-    setUser: (state, action) => {
-      if (!state.isLoaded) {
-        state.isLoaded = true;
-      }
-      state.user = converter.convertSnakeToCamelCase(action.payload);
-      state.userAvatar = setAvatarUrl(action.payload.avatar);
     },
     setTheme: (state, action) => {
       if (!state.isLoaded) {
         state.isLoaded = true;
       }
       state.theme = action.payload;
+    },
+    setUser: (state, action) => {
+      if (!state.isLoaded) {
+        state.isLoaded = true;
+      }
+
+      if (action.payload) {
+        state.user = converter.convertSnakeToCamelCase(action.payload);
+        state.userAvatar = setAvatarUrl(action.payload.avatar);
+      } else {
+        state.user = undefined;
+        state.userAvatar = undefined;
+      }
     },
     setUserAvatar: (state, action) => {
       state.userAvatar = setAvatarUrl(action.payload);
@@ -50,11 +57,12 @@ const userSlice = createSlice({
 
 export const {
   signIn,
+  oauthSignIn,
+  toggleTheme,
+  setTheme,
   signUp,
   signOut,
   setUser,
-  toggleTheme,
-  setTheme,
   loadUser,
   updateProfile,
   updatePassword,

@@ -1,22 +1,15 @@
-import React from 'react';
-
 import { Constructing } from '../Tiles';
 import { Scene } from './Scene';
 import { EVENT_BUS_EVENTS, Game } from '..';
-import { GameMap } from '../GameMap';
 import { SavedState } from '../Game.types';
-import { Room, CommandPost } from '../Room';
-import { Spaceship } from '../Spaceship';
+import { Room } from '../Room';
+import { Enemy } from '../Enemy';
 import { Bullet } from '../Bullet';
-import { Character } from '../Character';
-import { BASE_CHARACTER } from '../Spaceship/const';
 import { IExplorationPayload } from '../Statuses.types';
 import { EventBus } from '@/utils';
-// import { BASE_CHARACTER } from '../Spaceship/const';
+import { Spaceship } from '../Spaceship';
 
 export class Exploration extends Scene {
-  gameMap: GameMap;
-
   eventBus: EventBus<any>;
 
   prevScene: Scene;
@@ -25,11 +18,11 @@ export class Exploration extends Scene {
 
   private explorationPrize: number;
 
-  public character: Character;
+  public spaceship: Spaceship;
 
   public bullets: Bullet[] = [];
 
-  public spaceships: Spaceship[] = [];
+  public enemies: Enemy[] = [];
 
   // availableBuildings: typeof ROOMS_STORE;
 
@@ -41,32 +34,31 @@ export class Exploration extends Scene {
 
   constructor(game: Game, savedGame: SavedState, prevScene: Scene, explorationPrize: number) {
     super(game);
-    const { gameMap } = savedGame;
     const { eventBus } = game;
-
-    const commandPost = new CommandPost();
 
     this.prevScene = prevScene;
     this.eventBus = eventBus;
     this.explorationPrize = explorationPrize
-    this.gameMap = new GameMap(this, gameMap, commandPost);
-    this.spaceships = [
-      new Spaceship(this, {
-        tileX: 1,
-        tileY: 1
+    this.enemies = [
+      new Enemy(this, {
+        x: 150,
+        y: 75
       }),
-      new Spaceship(this, {
-        tileX: 16,
-        tileY: 1
+      new Enemy(this, {
+        x: this.game.screen.screenWidth - 150,
+        y: 75
       }),
-      new Spaceship(this, {
-        tileX: 31,
-        tileY: 1
-      })
+      // new Spaceship(this, {
+      //   tileX: 31,
+      //   tileY: 1
+      // })
     ];
 
-    this.character = new Character(this, BASE_CHARACTER);
-    eventBus.on(EVENT_BUS_EVENTS.MOUSE_CLICK, this.click);
+    this.spaceship = new Spaceship(this, {
+      x: this.game.screen.screenWidth / 2,
+      y: this.game.screen.screenHeight - 100,
+    });
+    // eventBus.on(EVENT_BUS_EVENTS.MOUSE_CLICK, this.click);
 
     this.emitInfoChanges();
     this.interval = setInterval(() => {
@@ -92,7 +84,7 @@ export class Exploration extends Scene {
   }
 
   explorationComplete = (prize: number = 0) => {
-    this.spaceships = [];
+    this.enemies = [];
     this.bullets = [];
     clearInterval(this.interval);
     this.eventBus.emit(EVENT_BUS_EVENTS.ENERGY_CHANGE, {
@@ -112,25 +104,12 @@ export class Exploration extends Scene {
     this.bullets.splice(this.bullets.indexOf(bullet), 1);
   }
 
-  removeSpaceship = (spaceship: Spaceship) => {
-    this.spaceships.splice(this.spaceships.indexOf(spaceship), 1);
-    if (this.spaceships.length === 0) {
+  removeSpaceship = (enemy: Enemy) => {
+    this.enemies.splice(this.enemies.indexOf(enemy), 1);
+    if (this.enemies.length === 0) {
       this.explorationComplete(this.explorationPrize + this.countdown);
     }
   }
-
-  click = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-    const { y: offsetTop } = (
-      event.target as HTMLCanvasElement
-    ).getBoundingClientRect();
-    const canvasY = event.pageY - offsetTop;
-
-    const { indexX, indexY } = this.gameMap.findTile(event.pageX, canvasY);
-
-    if (this.ongoingAction) {
-      this.ongoingAction.handleClick(indexX, indexY);
-    }
-  };
 
   clearOngoingAction = () => {
     if (this.ongoingAction) {
@@ -146,10 +125,9 @@ export class Exploration extends Scene {
   render(time: number) {
     // this.constructing.update(this.gameMap.mapArray);
     this.game.screen.clear();
-    this.gameMap.render();
-    this.character.render();
-    this.spaceships.forEach(spaceship => {
-      spaceship.render();
+    this.spaceship.render();
+    this.enemies.forEach(enemy => {
+      enemy.render();
     });
     this.bullets.forEach(bullet => {
       bullet.render()

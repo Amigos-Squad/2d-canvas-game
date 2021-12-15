@@ -13,11 +13,11 @@ export class Bullet {
   };
 
   constructor(scene: Exploration, bullet: BulletState, characteristics: {verticalSpeed: number, horizontalSpeed: number}) {
-    const { tileX, tileY } = bullet;
+    const { x, y } = bullet;
     this.scene = scene;
     this.characteristics = characteristics
 
-    this.shape = new Shape(this, tileX, tileY);
+    this.shape = new Shape(this, x, y);
   }
 
   render() {

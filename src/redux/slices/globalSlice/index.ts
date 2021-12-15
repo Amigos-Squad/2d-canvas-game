@@ -1,4 +1,5 @@
 import globalSlice from './globalSlice';
 
 export { globalSlice };
-export { setToast } from './globalSlice';
+
+export { setToast, pullLeaderboard, setLeaderboard } from './globalSlice';

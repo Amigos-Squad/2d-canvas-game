@@ -51,7 +51,7 @@ export class Shape {
     this.character = character;
 
     this.handleResize(this.blockSize);
-    
+
     this.sprites = new SpriteSheets(
       [SPRITE_SHEETS.CHARACTER],
       character.scene.game.screen
@@ -81,9 +81,9 @@ export class Shape {
     }
 
     if (down) {
-      this.y += this.handleVertical(speed);
+      this.handleVertical('down');
     } else if (up) {
-      this.y += this.handleVertical(-speed);
+      this.handleVertical('up');
     }
   }
 
@@ -110,29 +110,27 @@ export class Shape {
 
       return speed;
     }
-    if (data.type === TILE_TYPE.ENVIRONMENT && this.character.scene instanceof Exploration) {
+    if (
+      data.type === TILE_TYPE.ENVIRONMENT &&
+      this.character.scene instanceof Exploration
+    ) {
       return speed;
     }
 
     return 0;
   }
 
-  handleVertical(speed: number) {
+  handleVertical(direction: string) {
     const { gameMap } = this.character.scene;
-    let nextY = this.y;
+    const nextY = this.y;
 
-    if (speed > 0) {
-      nextY += this.height;
-    }
-
-    const { data, indexY } = gameMap.findTile(this.x, nextY);
-
+    const { data, y } = gameMap.findTile(
+      this.x,
+      direction === 'down' ? this.height + nextY : nextY - this.height * 2
+    );
     if (data.type === TILE_TYPE.ROOM && data.isAllowVerticalMove) {
-      this.cellY = indexY;
-      return speed;
+      this.y = y;
     }
-
-    return 0;
   }
 
   update(frame: number, blockSize: number = this.blockSize) {
@@ -173,7 +171,7 @@ export class Shape {
       width,
       height,
       this.x,
-      this.y - 5,
+      this.y - 14,
       this.width,
       this.height
     );

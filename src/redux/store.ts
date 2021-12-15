@@ -3,7 +3,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { History, createBrowserHistory, createMemoryHistory } from 'history';
 import { connectRouter } from 'connected-react-router';
 import { Saga } from 'redux-saga';
-import { userSlice, gameSlice, globalSlice } from './slices';
+import { userSlice, gameSlice, globalSlice, forumSlice } from './slices';
 import { rootSaga } from './sagas';
 import { isServer } from '@/utils';
 
@@ -12,6 +12,7 @@ export const getRootReducer = (history: History) =>
     user: userSlice,
     savedGame: gameSlice,
     globalState: globalSlice,
+    forumState: forumSlice,
     router: connectRouter(history),
   });
 

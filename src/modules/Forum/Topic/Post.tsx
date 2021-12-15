@@ -1,6 +1,6 @@
 import React, { ReactElement, memo } from 'react';
-import { ITopicPost } from './Topic.types';
 import { UserAvatar } from '@/components';
+import { ITopicPost } from '..';
 
 export const Post = memo(
   ({ author, message, time, avatar }: ITopicPost): ReactElement => (
